@@ -1,0 +1,18 @@
+{
+  "importOrder": [
+    "^react$",
+    "<THIRD_PARTY_MODULES>",
+    "^~/[.]graphql.*",
+    "^~/routes/api.*",
+    "^~/lib.*",
+    "^~/components.*",
+    "^~.*",
+    "^[./].*"
+  ],
+  "importOrderCaseInsensitive": true,
+  "importOrderSeparation": true,
+  "printWidth": 120,
+  "proseWrap": "always",
+  "singleQuote": true,
+  "trailingComma": "all"
+}
