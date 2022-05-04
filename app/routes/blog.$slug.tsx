@@ -25,18 +25,22 @@ const Post = () => {
 
   return (
     <Page>
-      <article className="flex flex-col gap-2">
-        <header className="text-center md:text-left">
+      <article className="flex flex-col gap-2 md:grid md:grid-cols-[auto_minmax(0,_1fr)] md:gap-x-0">
+        <header className="text-center md:order-2 md:flex md:flex-col md:items-start md:justify-center md:border-b md:border-r md:bg-white md:p-5 md:text-left lg:items-start">
           <Heading className="!block">{title}</Heading>
           <ByLine author="Violeta Reed" className="text-xs" date={publishedAt} />
         </header>
         {image && (
-          <figure className="relative -mx-3">
-            <img className="block rounded-sm" src={image} alt={title} />
+          <figure className="relative -mx-3 md:order-1 md:m-0 md:border-b">
+            <img
+              className="block w-full rounded-sm object-cover md:h-[250px] md:w-[250px] lg:h-[350px] lg:w-[350px]"
+              src={image}
+              alt={title}
+            />
             <Tags className="absolute bottom-2 left-4" items={tags} />
           </figure>
         )}
-        <HTML className="flex flex-col" content={content} />
+        <HTML className="flex flex-col md:order-3 md:col-span-2" content={content} />
       </article>
     </Page>
   );

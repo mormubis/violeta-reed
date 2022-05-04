@@ -16,7 +16,7 @@ const Heading = <E extends React.ElementType = typeof defaultElement>({ as, clas
   return (
     <Component
       {...props}
-      className={cx(className, 'flex items-center gap-2 font-serif text-2xl font-bold md:text-4xl')}
+      className={cx(className, 'flex items-center gap-2 font-serif text-2xl font-bold md:text-4xl lg:text-6xl')}
     />
   );
 };
