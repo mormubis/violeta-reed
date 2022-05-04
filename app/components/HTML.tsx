@@ -2,7 +2,7 @@ import React, { useInsertionEffect } from 'react';
 
 import cx from 'classnames';
 
-export type OwnProps<E extends React.ElementType = React.ElementType> = {
+type OwnProps<E extends React.ElementType = React.ElementType> = {
   as?: E;
   content: string;
 };

@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import cx from 'classnames';
 import normalize from 'normalize.css';
+import { IntlProvider, FormattedMessage } from 'react-intl';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch, useLoaderData } from 'remix';
 import type { LinksFunction, MetaFunction, LoaderFunction } from 'remix';
 
@@ -14,6 +15,9 @@ import useEventListener from '~/use/eventListener';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
+
+import es from '~/translations/es.json';
+
 import tailwind from './tailwind.css';
 
 type DocumentProps = {
@@ -22,6 +26,7 @@ type DocumentProps = {
 };
 
 type LoaderData = {
+  locale: string;
   meta: MetaType | null;
   profile: Profile;
 };
@@ -42,11 +47,12 @@ const links: LinksFunction = () => [
 ];
 
 const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
+  const [locale = 'en'] = request.headers.get('accept-language')?.split(',') ?? [];
   const url = new URL(request.url);
 
   const [meta, profile] = await Promise.all([metaFetcher({ path: url.pathname }), profileFetcher()]);
 
-  return { meta, profile };
+  return { locale, meta, profile };
 };
 
 const meta: MetaFunction = ({ data, location }) => {
@@ -94,7 +100,7 @@ const Document = ({ children, title }: DocumentProps) => {
 };
 
 const App = () => {
-  const { profile } = useLoaderData<LoaderData>();
+  const { locale, profile } = useLoaderData<LoaderData>();
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -104,43 +110,45 @@ const App = () => {
   useEventListener('click', close);
 
   return (
-    <Document>
-      <Header
-        className={cx('transition-transform duration-[350ms] ease-out md:!translate-y-0 md:transition-none', {
-          'translate-y-[192px]': isNavOpen,
-        })}
-      >
-        <button
-          aria-controls="navigation"
-          aria-expanded={isNavOpen}
-          className={
-            'flex w-full items-center justify-center text-sm font-medium uppercase transition-[background-color] focus:outline-none focus-visible:bg-stone-800 md:hidden'
-          }
-          onClick={toggle}
-          type="button"
+    <IntlProvider defaultLocale="es" locale={locale} messages={es}>
+      <Document>
+        <Header
+          className={cx('transition-transform duration-[350ms] ease-out md:!translate-y-0 md:transition-none', {
+            'translate-y-[192px]': isNavOpen,
+          })}
         >
-          Menu
-        </button>
-        <Navigation
-          className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
-          id="navigation"
-        >
-          <Navigation.Link to="/#home">Inicio</Navigation.Link>
-          <Navigation.Link className="focus-visible:bg-teal-50" to="/books">
-            Libros
-          </Navigation.Link>
-          <Navigation.Link to="/blog">Blog</Navigation.Link>
-          <Navigation.Link to="/about">Sobre m&iacute;</Navigation.Link>
-        </Navigation>
-      </Header>
-      <Outlet />
-      <Footer>
-        {profile.social.map((link) => (
-          <Footer.Social key={link.name} name={link.name} url={link.url} />
-        ))}
-        <Footer.Copyright className="">Violeta Reed. All Rights Reserved</Footer.Copyright>
-      </Footer>
-    </Document>
+          <button
+            aria-controls="navigation"
+            aria-expanded={isNavOpen}
+            className={
+              'flex w-full items-center justify-center text-sm font-medium uppercase transition-[background-color] focus:outline-none focus-visible:bg-stone-800 md:hidden'
+            }
+            onClick={toggle}
+            type="button"
+          >
+            <FormattedMessage defaultMessage="Menu" id="MENU" />
+          </button>
+          <Navigation
+            className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
+            id="navigation"
+          >
+            <Navigation.Link to="/#home">Inicio</Navigation.Link>
+            <Navigation.Link className="focus-visible:bg-teal-50" to="/books">
+              Libros
+            </Navigation.Link>
+            <Navigation.Link to="/blog">Blog</Navigation.Link>
+            <Navigation.Link to="/about">Sobre m&iacute;</Navigation.Link>
+          </Navigation>
+        </Header>
+        <Outlet />
+        <Footer>
+          {profile.social.map((link) => (
+            <Footer.Social key={link.name} name={link.name} url={link.url} />
+          ))}
+          <Footer.Copyright className="">Violeta Reed. All Rights Reserved</Footer.Copyright>
+        </Footer>
+      </Document>
+    </IntlProvider>
   );
 };
 

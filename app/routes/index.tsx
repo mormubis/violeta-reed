@@ -26,12 +26,12 @@ const Index = () => {
 
   return (
     <Page className="gap-y-10 xl:grid xl:grid-cols-[minmax(0,_1fr)_350px]">
-      <section className="relative -mx-3 -mt-20 flex h-screen flex-col items-center justify-center border-b border-stone-200 bg-white md:-mx-6 md:-mt-5 md:h-auto md:pt-16 md:pt-0 xl:col-span-2 xl:m-0 xl:justify-start xl:border-0 xl:bg-transparent">
-        <header className="py-4 md:h-64">
+      <section className="relative -mx-3 -mt-20 flex h-screen flex-col items-center justify-center border-b border-stone-200 bg-white md:-mx-6 md:-mt-5 md:h-auto md:py-16 xl:col-span-2 xl:m-0 xl:justify-start xl:border-0 xl:bg-transparent">
+        <header className="md:h-48">
           <Logotype className="m-auto h-full w-5/6 text-purple-400 xl:stroke-stone-900 xl:stroke-2" />
         </header>
 
-        <figure className="xl:hidden">
+        <figure className="flex flex-col gap-10 xl:hidden">
           <img
             alt="Violeta Reed"
             className="m-auto h-56 w-56 rounded-full border-4 border-solid border-purple-200 object-cover"

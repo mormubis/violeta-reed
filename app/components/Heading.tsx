@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-export type OwnProps<E extends React.ElementType = React.ElementType> = {
+type OwnProps<E extends React.ElementType = React.ElementType> = {
   as?: E;
   level?: 1 | 2 | 3 | 4 | 5 | 6;
 };

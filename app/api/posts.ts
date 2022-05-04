@@ -9,12 +9,12 @@ type LoaderParams = {
   slug?: string;
 };
 
-export type Tag = {
+type Tag = {
   slug: string;
   name: string;
 };
 
-export type Post = {
+type Post = {
   abstract?: string;
   content?: string;
   image?: string;
@@ -110,5 +110,7 @@ async function loader({ index = 0, limit = 8, slug }: LoaderParams = {}): Promis
       }) ?? []
   );
 }
+
+export type { Post, Tag };
 
 export default loader;

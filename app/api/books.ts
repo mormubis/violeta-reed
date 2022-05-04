@@ -3,7 +3,7 @@ import type { BookFragment as RawBook, BooksQuery, BooksQueryVariables } from '~
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
-export type Book = {
+type Book = {
   cover: string;
   description: string;
   links: string[];
@@ -78,5 +78,7 @@ async function loader({ index, limit, saga, slug }: LoaderParams = {}): Promise<
       .sort(publishedDateSort) ?? []
   );
 }
+
+export type { Book };
 
 export default loader;

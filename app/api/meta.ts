@@ -6,7 +6,7 @@ type LoaderParams = {
   path: string;
 };
 
-export type Meta = {
+type Meta = {
   title: string;
   description?: string;
   image?: string;
@@ -45,5 +45,7 @@ async function loader({ path }: LoaderParams): Promise<Meta | null> {
     title: meta.title!,
   };
 }
+
+export type { Meta };
 
 export default loader;

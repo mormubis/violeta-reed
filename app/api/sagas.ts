@@ -2,7 +2,7 @@ import type { SagaFragment as RawSaga, SagasQuery, SagasQueryVariables } from '~
 
 import graphql, { gql } from '~/lib/graphql';
 
-export type Saga = {
+type Saga = {
   description: string;
   slug: string;
   title: string;
@@ -45,5 +45,7 @@ async function loader({ index, limit, saga, slug }: LoaderParams = {}): Promise<
 
   return sagaCollection?.items.map((saga: RawSaga | null) => saga!).map(mapper) ?? [];
 }
+
+export type { Saga };
 
 export default loader;

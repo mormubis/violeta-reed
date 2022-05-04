@@ -3,7 +3,7 @@ import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
-export type Profile = {
+type Profile = {
   about: string;
   avatar: string;
   bio: string;
@@ -130,5 +130,7 @@ async function loader(): Promise<Profile> {
     social: social.map((item: any) => item!).map((item: any) => ({ name: item.name!, url: item.url! })),
   };
 }
+
+export type { Profile };
 
 export default loader;

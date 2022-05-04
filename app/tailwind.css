@@ -740,6 +740,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 0.25rem;
 }
 
+.gap-10 {
+  gap: 2.5rem;
+}
+
 .gap-y-10 {
   row-gap: 2.5rem;
 }
@@ -1184,6 +1188,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     height: 16rem;
   }
 
+  .md\:h-48 {
+    height: 12rem;
+  }
+
   .md\:w-full {
     width: 100%;
   }
@@ -1260,6 +1268,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .md\:px-0 {
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .md\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 
   .md\:pl-8 {

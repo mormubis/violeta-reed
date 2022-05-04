@@ -15,7 +15,6 @@ import Tags from '~/components/PostPreview/Tags';
 const loader: LoaderFunction = async ({ params }) => {
   const [post] = await fetcher({ slug: params.slug });
 
-  console.log(post);
   return post;
 };
 
