@@ -14,6 +14,7 @@ import HTML from '~/components/HTML';
 import Icon from '~/components/Icon';
 import Page from '~/components/Page';
 import Posts from '~/components/Posts';
+import { FormattedMessage } from 'react-intl';
 
 const loader: LoaderFunction = async (...argv) => {
   const [posts, profile] = await Promise.all([postFetcher({ limit: 5 }), profileFetcher()]);
@@ -69,7 +70,9 @@ const Index = () => {
       </div>
 
       <section className="-mx-3 flex flex-col gap-3 px-3 md:m-0 md:px-0 md:pt-3" id="home">
-        <h2 className="font-serif text-xl font-bold">Últimas actualizaciones</h2>
+        <h2 className="font-serif text-xl font-bold">
+          <FormattedMessage defaultMessage="Últimas actualizaciones" id="LATEST_NEWS" />
+        </h2>
 
         <Posts className="xl:grid-cols-1" items={posts} />
       </section>

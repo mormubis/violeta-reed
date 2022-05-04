@@ -132,12 +132,18 @@ const App = () => {
             className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
             id="navigation"
           >
-            <Navigation.Link to="/#home">Inicio</Navigation.Link>
-            <Navigation.Link className="focus-visible:bg-teal-50" to="/books">
-              Libros
+            <Navigation.Link to="/#home">
+              <FormattedMessage defaultMessage="Inicio" id="HOME" />
             </Navigation.Link>
-            <Navigation.Link to="/blog">Blog</Navigation.Link>
-            <Navigation.Link to="/about">Sobre m&iacute;</Navigation.Link>
+            <Navigation.Link to="/books">
+              <FormattedMessage defaultMessage="Libros" id="BOOKS" />
+            </Navigation.Link>
+            <Navigation.Link to="/blog">
+              <FormattedMessage defaultMessage="Blog" id="BLOG" />
+            </Navigation.Link>
+            <Navigation.Link to="/about">
+              <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
+            </Navigation.Link>
           </Navigation>
         </Header>
         <Outlet />
@@ -145,7 +151,9 @@ const App = () => {
           {profile.social.map((link) => (
             <Footer.Social key={link.name} name={link.name} url={link.url} />
           ))}
-          <Footer.Copyright className="">Violeta Reed. All Rights Reserved</Footer.Copyright>
+          <Footer.Copyright>
+            <FormattedMessage defaultMessage="Violeta Reed. All Rights Reserved" id="COPYRIGHT" />
+          </Footer.Copyright>
         </Footer>
       </Document>
     </IntlProvider>

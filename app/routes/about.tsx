@@ -1,5 +1,6 @@
 import React, { useInsertionEffect } from 'react';
 
+import { FormattedMessage } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
@@ -59,7 +60,7 @@ const About = () => {
     <Page>
       <Heading>
         <Tag type="profile" />
-        Sobre mi
+        <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
       </Heading>
       <HTML className="about" content={data.about} />
     </Page>

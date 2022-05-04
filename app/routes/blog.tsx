@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { FormattedMessage } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
@@ -20,7 +21,7 @@ const Blog = () => {
     <Page className="bg-slate-50">
       <Heading>
         <Tag type="post" />
-        Últimos posts
+        <FormattedMessage defaultMessage="Últimos posts" id="LASTEST_POSTS" />
       </Heading>
       <Posts items={data} noTag />
     </Page>

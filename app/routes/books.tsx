@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { FormattedMessage } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
@@ -27,7 +28,7 @@ const Books = () => {
     <Page className="bg-slate-50">
       <Heading>
         <Tag type="book" />
-        Libros
+        <FormattedMessage defaultMessage="Libros" id="BOOKS" />
       </Heading>
       <ul className="flex flex-col gap-5">
         {data.map((item) => (
