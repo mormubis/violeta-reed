@@ -53,10 +53,10 @@
     "format": "npm run format:ci -- --write",
     "format:ci": "prettier --ignore-path .gitignore -l \"**/*.+(js|json|md|yml)\"",
     "generate:graphql": "rm -rf ./app/.graphql && graphql-codegen",
-    "generate:translations": "formatjs extract \"app/**/*.ts*\" --format simple --ignore=\"**/*.d.ts\" --out-file=\"translations/es.json\"",
+    "generate:translations": "formatjs extract \"app/**/*.ts*\" --format simple --ignore=\"**/*.d.ts\" --out-file=\"app/translations/es.json\"",
     "lint": "eslint \"app/**/*.{ts,tsx}\" --fix",
     "lint:ci": "npm run lint -- --max-warnings 0",
-    "prepare": "npm run generate:graphql && npm run build:css && husky install",
+    "prepare": "husky install && npm run build:css && npm run generate:graphql && npm run generate:translations",
     "start": "remix-serve build"
   },
   "sideEffects": false
