@@ -9,6 +9,3 @@ node_modules
 
 # Tailwind
 /app/tailwind.css
-
-# Translations
-/app/translations
