@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 
+// @ts-ignore
 import es from '~/translations/es.json';
 
 import tailwind from './tailwind.css';
@@ -180,6 +181,6 @@ function ErrorBoundary({ error }: { error: Error }) {
   );
 }
 
-export { CatchBoundary, links, loader, meta };
+export { CatchBoundary, ErrorBoundary, links, loader, meta };
 
 export default App;
