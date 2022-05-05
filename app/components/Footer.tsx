@@ -8,35 +8,7 @@ type CopyrightProps = React.ComponentPropsWithoutRef<'p'>;
 type SocialProps = { name: string; url: string } & Omit<React.ComponentPropsWithoutRef<'a'>, 'href'>;
 type Props = React.ComponentPropsWithRef<'footer'>;
 
-const URL = {
-  facebook(username: string) {
-    return `https://www.facebook.com/${username}`;
-  },
-  instagram(username: string) {
-    return `https://www.instagram.com/author/show/${username}`;
-  },
-  goodreads(username: string) {
-    return `https://www.goodreads.com/author/show/${username}`;
-  },
-  pinterest(username: string) {
-    return `https://www.pinterest.com/${username}`;
-  },
-  twitter(username: string) {
-    return `https://www.twitter.com/${username}`;
-  },
-};
-
-const Footer = ({ className, ...props }: Props) => (
-  <footer
-    className={cx(
-      className,
-      'flex w-full flex-col justify-center bg-stone-900 py-4 text-white md:flex-row md:flex-wrap',
-    )}
-    {...props}
-  />
-);
-
-Footer.Copyright = ({ className, children, ...props }: CopyrightProps) => (
+const Copyright = ({ className, children, ...props }: CopyrightProps) => (
   <p
     {...props}
     className={cx(className, 'mt-4 flex h-12 items-center justify-center border-t border-stone-800 text-xs md:w-full')}
@@ -45,7 +17,7 @@ Footer.Copyright = ({ className, children, ...props }: CopyrightProps) => (
   </p>
 );
 
-Footer.Social = ({ className, name, url, ...props }: SocialProps) => (
+const Social = ({ className, name, url, ...props }: SocialProps) => (
   <a
     {...props}
     className={cx(
@@ -60,5 +32,18 @@ Footer.Social = ({ className, name, url, ...props }: SocialProps) => (
     {name}
   </a>
 );
+
+const Footer = ({ className, ...props }: Props) => (
+  <footer
+    className={cx(
+      className,
+      'flex w-full flex-col justify-center bg-stone-900 py-4 text-white md:flex-row md:flex-wrap',
+    )}
+    {...props}
+  />
+);
+
+Footer.Copyright = Copyright;
+Footer.Social = Social;
 
 export default Footer;

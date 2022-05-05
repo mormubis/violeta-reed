@@ -2,9 +2,21 @@ import React from 'react';
 
 import cx from 'classnames';
 import type { LinkProps } from 'remix';
-import { Link } from 'remix';
+import { Link as RemixLink } from 'remix';
 
 type Props = React.ComponentPropsWithRef<'nav'>;
+
+const Link = ({ className, children, ...props }: LinkProps) => (
+  <RemixLink
+    {...props}
+    className={cx(
+      className,
+      'block flex h-12 items-center justify-center text-xs transition-[background-color] focus:outline-none focus-visible:bg-stone-800 md:h-full md:px-6 md:hover:bg-stone-800',
+    )}
+  >
+    {children}
+  </RemixLink>
+);
 
 const Navigation = ({ className, ...props }: Props) => (
   <nav
@@ -16,16 +28,6 @@ const Navigation = ({ className, ...props }: Props) => (
   />
 );
 
-Navigation.Link = ({ className, children, ...props }: LinkProps) => (
-  <Link
-    {...props}
-    className={cx(
-      className,
-      'block flex h-12 items-center justify-center text-xs transition-[background-color] focus:outline-none focus-visible:bg-stone-800 md:h-full md:px-6 md:hover:bg-stone-800',
-    )}
-  >
-    {children}
-  </Link>
-);
+Navigation.Link = Link;
 
 export default Navigation;
