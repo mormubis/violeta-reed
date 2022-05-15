@@ -17,7 +17,9 @@ const Tags = ({ className, items, ...props }: Props) => (
   <ul {...props} className={cx(className, 'flex gap-1')}>
     {items.map((item: Tag) => (
       <Chip as="li" key={item.slug}>
-        <Link to={`/blog/category/${item.slug}`}>{item.name}</Link>
+        <Link className="!text-stone-900" to={`/blog/category/${item.slug}`}>
+          {item.name}
+        </Link>
       </Chip>
     ))}
   </ul>

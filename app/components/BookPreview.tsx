@@ -1,22 +1,40 @@
 import React, { useInsertionEffect } from 'react';
 import cx from 'classnames';
+import { useIntl } from 'react-intl';
 
 import type { Book } from '~/api/books';
 
 import Card from './Card';
+import Cover from './Cover';
 import HTML from './HTML';
 import Link from './Link';
 import Tag from './Tag';
 import Icon from '~/components/Icon';
+import Heading from '~/components/Heading';
+import ByLine from '~/components/ByLine';
 
 type OwnProps = {
+  author?: string;
   href: string;
   noTag?: boolean;
+  titleComponent?: React.ElementType;
 };
 
 type Props = OwnProps & Book & Omit<React.ComponentPropsWithoutRef<'article'>, keyof OwnProps | keyof Book>;
 
-const BookPreview = ({ className, cover, description, href, noTag = false, title }: Props) => {
+const BookPreview = ({
+  author,
+  className,
+  cover,
+  description,
+  href,
+  noTag = false,
+  publishedAt,
+  title,
+  titleComponent: TitleComponent = 'h2',
+}: Props) => {
+  const intl = useIntl();
+
   useInsertionEffect(() => {
     if (document.getElementById('__html_book')) {
       return;
@@ -33,31 +51,30 @@ const BookPreview = ({ className, cover, description, href, noTag = false, title
     document.head.appendChild(style);
   }, []);
 
+  const label = intl.formatMessage({ id: 'BOOK', defaultMessage: 'Libro' });
+
   return (
     <Card
       className={cx(
         className,
-        'md:grid md:grid-cols-[minmax(0,_1fr)_auto] md:grid-rows-[auto_minmax(0,_1fr)] md:pl-8 md:pr-14 lg:gap-x-12',
+        'md:grid md:grid-cols-[minmax(0,_1fr)_auto] md:grid-rows-[auto_minmax(0,_1fr)] md:pr-12 lg:gap-x-12',
       )}
     >
-      {!noTag && <Tag type="book" />}
+      {!noTag && <Tag className="absolute top-8 left-5 z-10" title={label} type="book" />}
 
-      <header className="flex flex-col md:col-span-2 lg:col-span-2">
+      <header className={cx('flex flex-col md:col-span-2 lg:col-span-2', !noTag && 'pl-10 md:pl-10')}>
         <Link to={href}>
-          <h2 className="text-base font-semibold text-stone-900">{title}</h2>
+          <Heading as={TitleComponent} className="text-stone-900" level={3} underline>
+            {title}
+          </Heading>
         </Link>
+        <ByLine author={author} className="text-xs" date={publishedAt ? new Date(publishedAt) : undefined} />
       </header>
 
       <HTML className="book-preview text-sm" content={description} />
 
       <Link to={href}>
-        <figure className="relative flex h-64 gap-2">
-          <img
-            alt={title}
-            className="block h-full rounded border border-solid border-gray-300 object-cover"
-            src={cover}
-          />
-        </figure>
+        <Cover title={title} url={cover} />
       </Link>
 
       <Link

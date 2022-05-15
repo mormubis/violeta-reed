@@ -13,4 +13,6 @@ const Card = ({ className, ...props }: Props) => (
   />
 );
 
+export type { Props };
+
 export default Card;

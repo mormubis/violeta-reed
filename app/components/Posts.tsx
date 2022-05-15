@@ -14,7 +14,7 @@ type OwnProps = {
 type Props = OwnProps & Omit<React.ComponentPropsWithoutRef<'ul'>, keyof OwnProps>;
 
 const Posts = ({ className, items, noTag, titleComponent }: Props) => (
-  <ul className={cx(className, 'flex flex-col gap-5 lg:grid lg:grid-cols-2')}>
+  <ul className={cx(className, 'flex flex-col gap-5')}>
     {items.map((post) => (
       <li key={post.slug}>
         <PostPreview

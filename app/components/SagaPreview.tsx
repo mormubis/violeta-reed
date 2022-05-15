@@ -1,14 +1,16 @@
 import React from 'react';
 import cx from 'classnames';
 
-import type { Saga } from '~/routes/books';
+import type { Book, Saga } from '~/api/bibliography';
 
 import Card from './Card';
+import Cover from './Cover';
+import Heading from '~/components/Heading';
 import Link from './Link';
 import Tag from './Tag';
+import HTML from '~/components/HTML';
 
 type OwnProps = {
-  href: string;
   noTag?: boolean;
   titleComponent?: React.ElementType;
 };
@@ -19,7 +21,6 @@ const SagaPreview = ({
   books,
   className,
   description,
-  href,
   noTag = false,
   title,
   titleComponent: TitleComponent = 'h2',
@@ -27,25 +28,24 @@ const SagaPreview = ({
   <Card
     className={cx(
       className,
-      'lg:grid lg:grid-cols-[250px_minmax(0,_1fr)] lg:grid-rows-[auto_minmax(0,_1fr)] lg:gap-x-12',
+      'md:pr-12 lg:grid lg:grid-cols-[250px_minmax(0,_1fr)] lg:grid-rows-[auto_minmax(0,_1fr)] lg:gap-x-12',
     )}
   >
     {!noTag && <Tag type="book" />}
+
     <header className="flex flex-col lg:col-span-2">
-      <Link to={href}>
-        <TitleComponent className="text-base font-semibold text-stone-900">{title}</TitleComponent>
-      </Link>
+      <Heading as={TitleComponent} className="text-stone-900" level={3}>
+        {title}
+      </Heading>
     </header>
-    <p className="text-sm">{description}</p>
-    <ul className="relative flex gap-3 overflow-y-auto md:gap-6">
-      {books.map((book) => (
-        <li key={book.slug}>
+
+    <HTML className={cx('mb-3 overflow-hidden text-ellipsis text-[15px] leading-5')} content={description ?? ''} />
+
+    <ul className="relative -mb-6 flex gap-3 overflow-x-auto pb-6 md:gap-6">
+      {books.map((book: Book) => (
+        <li key={book.slug} className="shrink-0">
           <Link className="flex h-full flex-col items-center gap-1 text-center text-sm" to={`/books/${book.slug}`}>
-            <img
-              alt={book.title}
-              className="block h-64 rounded border border-solid border-gray-300 object-cover"
-              src={book.cover}
-            />
+            <Cover title={book.title} url={book.cover} />
             <span className="font-semibold text-stone-900">{book.title}</span>
           </Link>
         </li>

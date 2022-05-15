@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import cx from 'classnames';
 import normalize from 'normalize.css';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch, useLoaderData } from 'remix';
+import { Outlet, useCatch, useLoaderData } from 'remix';
 import type { LinksFunction, MetaFunction, LoaderFunction } from 'remix';
 
 import type { Profile } from '~/api/profile';
@@ -12,23 +12,19 @@ import type { Meta as MetaType } from '~/api/meta';
 import metaFetcher from '~/api/meta';
 import useEventListener from '~/use/eventListener';
 
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Navigation from './components/Navigation';
+import Page from '~/components/Page';
+import { Provider as PreviewProvider } from '~/components/Preview';
 
-// @ts-ignore
 import es from '~/translations/es.json';
 
-import tailwind from './tailwind.css';
+import Document from './document';
 
-type DocumentProps = {
-  children?: React.ReactNode;
-  title?: string;
-};
+import tailwind from './tailwind.css';
 
 type LoaderData = {
   locale: string;
   meta: MetaType | null;
+  preview?: boolean;
   profile: Profile;
 };
 
@@ -50,14 +46,15 @@ const links: LinksFunction = () => [
 const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
   const [locale = 'en'] = request.headers.get('accept-language')?.split(',') ?? [];
   const url = new URL(request.url);
+  const preview = Boolean(url.searchParams.get('preview'));
 
   const [meta, profile] = await Promise.all([metaFetcher({ path: url.pathname }), profileFetcher()]);
 
-  return { locale, meta, profile };
+  return { locale, meta, preview, profile };
 };
 
 const meta: MetaFunction = ({ data, location }) => {
-  const meta = data.meta;
+  const meta = data?.meta ?? {};
 
   const description = meta?.description ?? 'Violeta Reed';
   const image = meta?.image ?? 'https://violetareed.com/assets/images/violeta-reed-logo.png';
@@ -80,28 +77,8 @@ const meta: MetaFunction = ({ data, location }) => {
   };
 };
 
-const Document = ({ children, title }: DocumentProps) => {
-  return (
-    <html className="scroll-smooth" lang="es">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>{title}</title>
-        <Meta />
-        <Links />
-      </head>
-      <body className="flex min-h-screen flex-col items-center bg-slate-50 font-sans text-stone-900">
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
-  );
-};
-
 const App = () => {
-  const { locale, profile } = useLoaderData<LoaderData>();
+  const { locale, preview, profile } = useLoaderData<LoaderData>();
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -112,75 +89,75 @@ const App = () => {
 
   return (
     <IntlProvider defaultLocale="es" locale={locale} messages={es}>
-      <Document>
-        <Header
-          className={cx('transition-transform duration-[350ms] ease-out md:!translate-y-0 md:transition-none', {
-            'translate-y-[192px]': isNavOpen,
-          })}
-        >
-          <button
-            aria-controls="navigation"
-            aria-expanded={isNavOpen}
-            className={
-              'flex w-full items-center justify-center text-sm font-medium uppercase transition-[background-color] focus:outline-none focus-visible:bg-stone-800 md:hidden'
-            }
-            onClick={toggle}
-            type="button"
+      <PreviewProvider value={preview ?? false}>
+        <Document>
+          <Page.Header
+            className={cx('transition-transform duration-[350ms] ease-out md:!translate-y-0 md:transition-none', {
+              'translate-y-[192px]': isNavOpen,
+            })}
           >
-            <FormattedMessage defaultMessage="Menu" id="MENU" />
-          </button>
-          <Navigation
-            className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
-            id="navigation"
-          >
-            <Navigation.Link to="/#home">
-              <FormattedMessage defaultMessage="Inicio" id="HOME" />
-            </Navigation.Link>
-            <Navigation.Link to="/books">
-              <FormattedMessage defaultMessage="Libros" id="BOOKS" />
-            </Navigation.Link>
-            <Navigation.Link to="/blog">
-              <FormattedMessage defaultMessage="Blog" id="BLOG" />
-            </Navigation.Link>
-            <Navigation.Link to="/about">
-              <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
-            </Navigation.Link>
-          </Navigation>
-        </Header>
-        <Outlet />
-        <Footer>
-          {profile.social.map((link) => (
-            <Footer.Social key={link.name} name={link.name} url={link.url} />
-          ))}
-          <Footer.Copyright>
-            <FormattedMessage defaultMessage="Violeta Reed. All Rights Reserved" id="COPYRIGHT" />
-          </Footer.Copyright>
-        </Footer>
-      </Document>
+            <button
+              aria-controls="navigation"
+              aria-expanded={isNavOpen}
+              className={
+                'flex w-full items-center justify-center text-sm font-medium uppercase transition-[background-color] focus:outline-none focus-visible:bg-stone-800 md:hidden'
+              }
+              onClick={toggle}
+              type="button"
+            >
+              <FormattedMessage defaultMessage="Menu" id="MENU" />
+            </button>
+            <Page.Navigation
+              className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
+              id="navigation"
+            >
+              <Page.Navigation.Link to="/#home">
+                <FormattedMessage defaultMessage="Inicio" id="HOME" />
+              </Page.Navigation.Link>
+              <Page.Navigation.Link to="/books">
+                <FormattedMessage defaultMessage="Libros" id="BOOKS" />
+              </Page.Navigation.Link>
+              <Page.Navigation.Link to="/blog">
+                <FormattedMessage defaultMessage="Blog" id="BLOG" />
+              </Page.Navigation.Link>
+              <Page.Navigation.Link to="/about">
+                <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
+              </Page.Navigation.Link>
+            </Page.Navigation>
+          </Page.Header>
+          <Outlet />
+          <Page.Footer>
+            {profile.social.map((link) => (
+              <Page.Footer.Social key={link.name} name={link.name} url={link.url} />
+            ))}
+            <Page.Footer.Copyright>
+              <FormattedMessage defaultMessage="Violeta Reed. All Rights Reserved" id="COPYRIGHT" />
+            </Page.Footer.Copyright>
+          </Page.Footer>
+        </Document>
+      </PreviewProvider>
     </IntlProvider>
   );
 };
 
-function CatchBoundary() {
+const CatchBoundary = () => {
   const caught = useCatch();
 
   return (
-    <Document title={`${caught.status} ${caught.statusText}`}>
+    <Document>
       <p>
         [CatchBoundary]: {caught.status} {caught.statusText}
       </p>
     </Document>
   );
-}
+};
 
-function ErrorBoundary({ error }: { error: Error }) {
-  return (
-    <Document title="Error!">
-      <p>[ErrorBoundary]: There was an error: {error.message}</p>
-    </Document>
-  );
-}
+// const ErrorBoundary = ({ error }: { error: Error }) => (
+//   <Document>
+//     <p>[ErrorBoundary]: There was an error: {error.message}</p>
+//   </Document>
+// );
 
-export { CatchBoundary, ErrorBoundary, links, loader, meta };
+export { CatchBoundary, links, loader, meta };
 
 export default App;

@@ -1,13 +1,10 @@
-import cx from 'classnames';
 import React from 'react';
+import cx from 'classnames';
 
-type Props = React.ComponentPropsWithRef<'header'>;
+type Props = React.ComponentPropsWithoutRef<'header'>;
 
-const Header = ({ className, ...props }: Props) => (
-  <header
-    className={cx(className, 'sticky top-0 z-50 flex h-16 w-full justify-between bg-stone-900 text-white')}
-    {...props}
-  />
-);
+const Header = ({ className, ...props }: Props) => {
+  return <header {...props} className={cx(className, '-m-2 mb-2 bg-purple-100 p-2')} />;
+};
 
 export default Header;

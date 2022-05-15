@@ -2,7 +2,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import Icon from './Icon';
+import Icon from '../Icon';
 
 type CopyrightProps = React.ComponentPropsWithoutRef<'p'>;
 type SocialProps = { name: string; url: string } & Omit<React.ComponentPropsWithoutRef<'a'>, 'href'>;

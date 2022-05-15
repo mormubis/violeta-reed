@@ -6,6 +6,7 @@ import richTextToHTML from '~/lib/richTextToHTML';
 type LoaderParams = {
   index?: number;
   limit?: number;
+  preview?: boolean;
   slug?: string;
 };
 
@@ -53,8 +54,8 @@ const fragment = gql`
 
 const query = gql`
   ${fragment}
-  query Posts($limit: Int, $index: Int, $slug: String) {
-    postCollection(limit: $limit, order: sys_publishedAt_DESC, skip: $index, where: { slug: $slug }) {
+  query Posts($limit: Int, $index: Int, $preview: Boolean, $slug: String) {
+    postCollection(limit: $limit, preview: $preview, skip: $index, where: { slug: $slug }) {
       items {
         sys {
           firstPublishedAt
@@ -68,7 +69,7 @@ const query = gql`
           }
         }
         image {
-          url
+          url(transform: { format: WEBP })
         }
         slug
         tagsCollection {
@@ -83,8 +84,8 @@ const query = gql`
   }
 `;
 
-async function loader({ index = 0, limit = 8, slug }: LoaderParams = {}): Promise<Post[]> {
-  const { postCollection } = await graphql<PostsQuery, PostsQueryVariables>(query, { limit, index, slug });
+async function loader({ index = 0, limit = 8, preview = false, slug }: LoaderParams = {}): Promise<Post[]> {
+  const { postCollection } = await graphql<PostsQuery, PostsQueryVariables>(query, { limit, index, preview, slug });
 
   return (
     postCollection?.items

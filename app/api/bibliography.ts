@@ -5,20 +5,21 @@ import sagaFetcher from '~/api/sagas';
 
 type Saga = RawSaga & {
   books: Book[];
-  publishedDate?: string;
+  publishedAt?: string;
 };
 
 type LoaderParams = {
   index?: number;
   limit?: number;
+  preview?: boolean;
 };
 
 const publishedDateSort = (a: Book | Saga, b: Book | Saga): number => {
-  return b.publishedDate! < a.publishedDate! ? 1 : -1;
+  return b.publishedAt! < a.publishedAt! ? 1 : -1;
 };
 
-async function loader({ index, limit }: LoaderParams = {}): Promise<(Book | Saga)[]> {
-  const [books, rawSagas] = await Promise.all([bookFetcher(), sagaFetcher()]);
+async function loader({ index, limit, preview }: LoaderParams = {}): Promise<(Book | Saga)[]> {
+  const [books, rawSagas] = await Promise.all([bookFetcher({ preview }), sagaFetcher({ preview })]);
 
   const sagas =
     rawSagas.map((saga: RawSaga) => {
@@ -27,9 +28,9 @@ async function loader({ index, limit }: LoaderParams = {}): Promise<(Book | Saga
       return {
         ...saga,
         books: sagaBooks,
-        publishedDate: sagaBooks.reduce(
-          (acc, book) => (acc! > book.publishedDate! ? acc : book.publishedDate),
-          sagaBooks[0]?.publishedDate,
+        publishedAt: sagaBooks.reduce(
+          (acc, book) => (acc! > book.publishedAt! ? acc : book.publishedAt),
+          sagaBooks[0]?.publishedAt,
         ),
       };
     }) ?? [];

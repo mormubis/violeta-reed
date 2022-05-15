@@ -11,10 +11,12 @@ type Props = OwnProps & Omit<React.ComponentPropsWithRef<'p'>, keyof OwnProps>;
 
 const ByLine = ({ className, author, date, ...props }: Props) => (
   <p {...props} className={cx(className, 'inline-flex items-center gap-2 font-serif text-stone-500')}>
-    <time className="bg-purple-100  p-1 text-stone-900" dateTime={date?.toJSON()}>
-      {date?.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })}
-    </time>
-    <span>{author}</span>
+    {date && (
+      <time className="bg-purple-100  p-1 text-stone-900" dateTime={date?.toJSON()}>
+        {date?.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })}
+      </time>
+    )}
+    {author && <span>{author}</span>}
   </p>
 );
 

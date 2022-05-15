@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import { useIntl } from 'react-intl';
 
 import Icon from './Icon';
 
@@ -21,10 +22,25 @@ const ICON = {
   profile: 'heart' as const,
 };
 
-const Tag = ({ type, className, ...props }: Props) => (
-  <div {...props} className={cx(className, 'inline-block rounded-full p-1', COLOR[type])}>
-    <Icon className="w-5 text-slate-50" name={ICON[type]} />
-  </div>
-);
+const Tag = ({ type, className, ...props }: Props) => {
+  const intl = useIntl();
+
+  let label = intl.formatMessage({ id: 'BOOK', defaultMessage: 'Libro' });
+
+  switch (type) {
+    case 'post':
+      label = intl.formatMessage({ id: 'POST', defaultMessage: 'Publicación' });
+      break;
+    case 'profile':
+      label = intl.formatMessage({ id: 'PROFILE', defaultMessage: 'Perfil' });
+      break;
+  }
+
+  return (
+    <div {...props} className={cx(className, 'inline-block rounded-full p-1', COLOR[type])} title={label}>
+      <Icon className="w-5 text-slate-50" name={ICON[type]} />
+    </div>
+  );
+};
 
 export default Tag;

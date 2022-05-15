@@ -3,6 +3,10 @@ import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
+type LoaderParams = {
+  preview?: boolean;
+};
+
 type Profile = {
   about: string;
   avatar: string;
@@ -31,7 +35,7 @@ const fragment = gql`
           id
         }
         title
-        url
+        url(transform: { format: WEBP })
         width
       }
     }
@@ -54,7 +58,7 @@ const fragment = gql`
           id
         }
         title
-        url
+        url(transform: { format: WEBP })
         width
       }
     }
@@ -71,8 +75,8 @@ const fragment = gql`
 
 const query = gql`
   ${fragment}
-  query Profile {
-    profileCollection(limit: 1) {
+  query Profile($preview: Boolean) {
+    profileCollection(limit: 1, preview: $preview) {
       items {
         about {
           json
@@ -101,8 +105,8 @@ const query = gql`
   }
 `;
 
-async function loader(): Promise<Profile> {
-  const { profileCollection } = await graphql<ProfileQuery, ProfileQueryVariables>(query);
+async function loader({ preview = false }: LoaderParams = {}): Promise<Profile> {
+  const { profileCollection } = await graphql<ProfileQuery, ProfileQueryVariables>(query, { preview });
 
   if (!profileCollection) {
     return DEFAULT;

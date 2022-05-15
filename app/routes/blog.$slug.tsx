@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
@@ -26,7 +27,12 @@ const Post = () => {
   return (
     <Page>
       <article className="flex flex-col gap-2 md:grid md:grid-cols-[auto_minmax(0,_1fr)] md:gap-x-0">
-        <header className="text-center md:order-2 md:flex md:flex-col md:items-start md:justify-center md:border-b md:border-r md:bg-white md:p-5 md:text-left lg:items-start">
+        <header
+          className={cx(
+            'text-center md:order-2 md:flex md:flex-col md:items-start md:justify-center md:border-b md:border-r md:bg-white md:p-5 md:text-left lg:items-start',
+            !image && 'col-span-2',
+          )}
+        >
           <Heading className="!block">{title}</Heading>
           <ByLine author="Violeta Reed" className="text-xs" date={publishedAt} />
         </header>

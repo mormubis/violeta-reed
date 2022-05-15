@@ -1,10 +1,15 @@
 {
   "ABOUT_ME": "Sobre mí",
   "BLOG": "Blog",
+  "BOOK": "Libro",
   "BOOKS": "Libros",
   "COPYRIGHT": "Violeta Reed. All Rights Reserved",
+  "FOLLOW_ME": "Sígueme",
   "HOME": "Inicio",
   "LASTEST_POSTS": "Últimos posts",
   "LATEST_NEWS": "Últimas actualizaciones",
-  "MENU": "Menu"
+  "MENU": "Menu",
+  "POST": "Publicación",
+  "PROFILE": "Perfil",
+  "READ_MORE": "Leer más"
 }
