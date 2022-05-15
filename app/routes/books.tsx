@@ -13,11 +13,10 @@ import profileFetcher from '~/api/profile';
 
 import AboutMe from '~/components/AboutMe';
 import BookPreview from '~/components/BookPreview';
-import Heading from '~/components/Heading';
 import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
-import Tag from '~/components/Tag';
 import SagaPreview from '~/components/SagaPreview';
+import Tag from '~/components/Tag';
 
 const isBook = (item: Saga | Book): item is Book => {
   return (item as Saga).books === undefined;
@@ -45,10 +44,10 @@ const Books = () => {
 
   return (
     <Page className="bg-slate-50">
-      <Heading>
+      <Page.Heading>
         <Tag type="book" />
         <FormattedMessage defaultMessage="Libros" id="BOOKS" />
-      </Heading>
+      </Page.Heading>
       <ul className="flex flex-col gap-5">
         {bibliography.map((item) => (
           <li key={item.title} className="flex flex-col gap-2">

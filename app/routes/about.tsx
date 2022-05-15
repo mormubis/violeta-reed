@@ -4,17 +4,16 @@ import { FormattedMessage } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
-import type { Profile } from '~/api/profile';
-import profileFetcher from '~/api/profile';
 import type { News } from '~/api/latest';
 import latestFetcher from '~/api/latest';
+import type { Profile } from '~/api/profile';
+import profileFetcher from '~/api/profile';
 
-import Heading from '~/components/Heading';
+import AboutMe from '~/components/AboutMe';
 import HTML from '~/components/HTML';
+import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
 import Tag from '~/components/Tag';
-import AboutMe from '~/components/AboutMe';
-import LatestNews from '~/components/LatestNews';
 
 const loader: LoaderFunction = async () => {
   const [latest, profile] = await Promise.all([latestFetcher(), profileFetcher()]);
@@ -64,15 +63,15 @@ const About = () => {
 
   return (
     <Page>
-      <Heading>
+      <Page.Heading>
         <Tag type="profile" />
         <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
-      </Heading>
+      </Page.Heading>
       <HTML className="about" content={profile.about} />
-      <div>
+      <Page.Sidebar>
         <AboutMe {...profile} />
         <LatestNews items={latest} />
-      </div>
+      </Page.Sidebar>
     </Page>
   );
 };

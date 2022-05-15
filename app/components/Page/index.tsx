@@ -2,9 +2,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import Footer from '../layout/Footer';
-import Header from '../layout/Header';
-import Navigation from '../layout/Navigation';
+import Heading from './Heading';
 import Sidebar from './Sidebar';
 
 type Props = React.ComponentPropsWithoutRef<'main'>;
@@ -19,9 +17,7 @@ const Page = ({ className, ...props }: Props) => (
   />
 );
 
-Page.Footer = Footer;
-Page.Header = Header;
-Page.Navigation = Navigation;
+Page.Heading = Heading;
 Page.Sidebar = Sidebar;
 
 export default Page;

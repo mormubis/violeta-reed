@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from 'remix';
 
 type Props = {
@@ -17,7 +18,7 @@ const Document = ({ children }: Props) => (
       {children}
       <ScrollRestoration />
       <Scripts />
-      <LiveReload />
+      <LiveReload port={8002} />
     </body>
   </html>
 );

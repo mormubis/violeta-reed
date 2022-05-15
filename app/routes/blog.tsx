@@ -11,12 +11,11 @@ import postsFetcher from '~/api/posts';
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
 
-import Heading from '~/components/Heading';
+import AboutMe from '~/components/AboutMe';
+import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
 import Posts from '~/components/Posts';
 import Tag from '~/components/Tag';
-import AboutMe from '~/components/AboutMe';
-import LatestNews from '~/components/LatestNews';
 
 const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -35,11 +34,11 @@ const Blog = () => {
   const { latest, posts, profile } = useLoaderData<{ latest: News[]; posts: Post[]; profile: Profile }>();
 
   return (
-    <Page className="bg-slate-50">
-      <Heading className="lg:col-span-2">
+    <Page>
+      <Page.Heading>
         <Tag type="post" />
         <FormattedMessage defaultMessage="Últimos posts" id="LASTEST_POSTS" />
-      </Heading>
+      </Page.Heading>
       <Posts items={posts} noTag />
       <Page.Sidebar>
         <AboutMe {...profile} />
