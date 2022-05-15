@@ -1,25 +1,28 @@
 import React, { useCallback, useState } from 'react';
 
 import cx from 'classnames';
-import normalize from 'normalize.css';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { Outlet, useCatch, useLoaderData } from 'remix';
 import type { LinksFunction, MetaFunction, LoaderFunction } from 'remix';
 
-import type { Profile } from '~/api/profile';
-import profileFetcher from '~/api/profile';
 import type { Meta as MetaType } from '~/api/meta';
 import metaFetcher from '~/api/meta';
-import useEventListener from '~/use/eventListener';
+import type { Profile } from '~/api/profile';
+import profileFetcher from '~/api/profile';
 
-import Page from '~/components/Page';
+import Footer from '~/components/layout/Footer';
+import Header from '~/components/layout/Header';
+import Navigation from '~/components/layout/Navigation';
 import { Provider as PreviewProvider } from '~/components/Preview';
 
-import es from '~/translations/es.json';
+import useEventListener from '~/use/eventListener';
 
 import Document from './document';
 
+import es from '~/translations/es.json';
+
 import tailwind from './tailwind.css';
+import normalize from 'normalize.css';
 
 type LoaderData = {
   locale: string;
@@ -91,7 +94,7 @@ const App = () => {
     <IntlProvider defaultLocale="es" locale={locale} messages={es}>
       <PreviewProvider value={preview ?? false}>
         <Document>
-          <Page.Header
+          <Header
             className={cx('transition-transform duration-[350ms] ease-out md:!translate-y-0 md:transition-none', {
               'translate-y-[192px]': isNavOpen,
             })}
@@ -107,33 +110,33 @@ const App = () => {
             >
               <FormattedMessage defaultMessage="Menu" id="MENU" />
             </button>
-            <Page.Navigation
+            <Navigation
               className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
               id="navigation"
             >
-              <Page.Navigation.Link to="/#home">
+              <Navigation.Link to="/#home">
                 <FormattedMessage defaultMessage="Inicio" id="HOME" />
-              </Page.Navigation.Link>
-              <Page.Navigation.Link to="/books">
+              </Navigation.Link>
+              <Navigation.Link to="/books">
                 <FormattedMessage defaultMessage="Libros" id="BOOKS" />
-              </Page.Navigation.Link>
-              <Page.Navigation.Link to="/blog">
+              </Navigation.Link>
+              <Navigation.Link to="/blog">
                 <FormattedMessage defaultMessage="Blog" id="BLOG" />
-              </Page.Navigation.Link>
-              <Page.Navigation.Link to="/about">
+              </Navigation.Link>
+              <Navigation.Link to="/about">
                 <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
-              </Page.Navigation.Link>
-            </Page.Navigation>
-          </Page.Header>
+              </Navigation.Link>
+            </Navigation>
+          </Header>
           <Outlet />
-          <Page.Footer>
+          <Footer>
             {profile.social.map((link) => (
-              <Page.Footer.Social key={link.name} name={link.name} url={link.url} />
+              <Footer.Social key={link.name} name={link.name} url={link.url} />
             ))}
-            <Page.Footer.Copyright>
+            <Footer.Copyright>
               <FormattedMessage defaultMessage="Violeta Reed. All Rights Reserved" id="COPYRIGHT" />
-            </Page.Footer.Copyright>
-          </Page.Footer>
+            </Footer.Copyright>
+          </Footer>
         </Document>
       </PreviewProvider>
     </IntlProvider>
