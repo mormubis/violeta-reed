@@ -12,8 +12,8 @@ import type { Profile } from '~/api/profile';
 
 import AboutMe from '~/components/AboutMe';
 import BookPreview from '~/components/BookPreview';
-import Heading from '~/components/Heading';
 import FollowMe from '~/components/FollowMe';
+import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Icon from '~/components/Icon';
 import Logotype from '~/components/Logotype';
@@ -22,7 +22,8 @@ import PostPreview from '~/components/PostPreview';
 
 const isBook = (item: any): item is Book => item.cover !== undefined;
 
-const loader: LoaderFunction = async ({ request }) => {
+const loader: LoaderFunction = async ({ request, ...rest }) => {
+  console.log(rest);
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 

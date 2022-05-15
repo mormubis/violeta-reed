@@ -1,11 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useReducer } from 'react';
 
+import al from 'accept-language';
 import cx from 'classnames';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { Outlet, useCatch, useLoaderData } from 'remix';
 import type { LinksFunction, MetaFunction, LoaderFunction } from 'remix';
 
-import type { Meta as MetaType } from '~/api/meta';
+import type { Meta } from '~/api/meta';
 import metaFetcher from '~/api/meta';
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
@@ -15,8 +16,6 @@ import Header from '~/components/layout/Header';
 import Navigation from '~/components/layout/Navigation';
 import { Provider as PreviewProvider } from '~/components/Preview';
 
-import useEventListener from '~/use/eventListener';
-
 import Document from './document';
 
 import es from '~/translations/es.json';
@@ -24,30 +23,38 @@ import es from '~/translations/es.json';
 import tailwind from './tailwind.css';
 import normalize from 'normalize.css';
 
-type LoaderData = {
+type Data = {
   locale: string;
-  meta: MetaType | null;
+  meta: Meta | null;
   preview?: boolean;
   profile: Profile;
 };
 
+// Setting languages we support
+al.languages(['en', 'es']);
+
 const links: LinksFunction = () => [
+  // Pre connect Google Fonts
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
     rel: 'preconnect',
     href: 'https://fonts.gstatic.com',
     crossOrigin: 'anonymous',
   },
+  // Reset styles
   { rel: 'stylesheet', href: normalize },
+  // Tailwind styles
   { rel: 'stylesheet', href: tailwind },
+  // Fonts
   {
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;700&family=Open+Sans:wght@300;400;500;700&display=swap',
   },
 ];
 
-const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
-  const [locale = 'en'] = request.headers.get('accept-language')?.split(',') ?? [];
+const loader: LoaderFunction = async ({ request }): Promise<Data> => {
+  const locale = al.get(request.headers.get('accept-language')) ?? 'es';
+
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
@@ -57,10 +64,10 @@ const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
 };
 
 const meta: MetaFunction = ({ data, location }) => {
-  const meta = data?.meta ?? {};
+  const meta = (data as Data).meta;
 
   const description = meta?.description ?? 'Violeta Reed';
-  const image = meta?.image ?? 'https://violetareed.com/assets/images/violeta-reed-logo.png';
+  const image = meta?.image ?? '/images/logotype.png';
   const title = meta?.title ?? 'Violeta Reed';
   const url = location.pathname;
 
@@ -81,14 +88,9 @@ const meta: MetaFunction = ({ data, location }) => {
 };
 
 const App = () => {
-  const { locale, preview, profile } = useLoaderData<LoaderData>();
+  const { locale, preview, profile } = useLoaderData<Data>();
 
-  const [isNavOpen, setIsNavOpen] = useState(false);
-
-  const close = useCallback(() => isNavOpen && setIsNavOpen(false), [isNavOpen]);
-  const toggle = useCallback(() => setIsNavOpen((prevState) => !prevState), []);
-
-  useEventListener('click', close);
+  const [isNavOpen, toggle] = useReducer((state: boolean) => !state, false);
 
   return (
     <IntlProvider defaultLocale="es" locale={locale} messages={es}>
@@ -114,7 +116,10 @@ const App = () => {
               className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
               id="navigation"
             >
-              <Navigation.Link to="/#home">
+              <Navigation.Link className="md:hidden" to="/#home">
+                <FormattedMessage defaultMessage="Inicio" id="HOME" />
+              </Navigation.Link>
+              <Navigation.Link className="hidden md:flex" to="/">
                 <FormattedMessage defaultMessage="Inicio" id="HOME" />
               </Navigation.Link>
               <Navigation.Link to="/books">
