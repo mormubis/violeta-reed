@@ -1,6 +1,6 @@
 import React from 'react';
-import cx from 'classnames';
 
+import cx from 'classnames';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
@@ -11,7 +11,6 @@ import ByLine from '~/components/ByLine';
 import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Page from '~/components/Page';
-import Tags from '~/components/PostPreview/Tags';
 
 const loader: LoaderFunction = async ({ params }) => {
   const [post] = await fetcher({ slug: params.slug });
@@ -43,7 +42,6 @@ const Post = () => {
               src={image}
               alt={title}
             />
-            <Tags className="absolute bottom-2 left-4" items={tags} />
           </figure>
         )}
         <HTML className="flex flex-col md:order-3 md:col-span-2" content={content} />

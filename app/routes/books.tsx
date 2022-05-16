@@ -52,7 +52,7 @@ const Books = () => {
         {bibliography.map((item) => (
           <li key={item.title} className="flex flex-col gap-2">
             {isBook(item) ? (
-              <BookPreview {...item} href={`/books/${item.slug}`} noTag />
+              <BookPreview {...item} author="Violeta Reed" href={`/books/${item.slug}`} noTag />
             ) : (
               <SagaPreview {...item} noTag />
             )}

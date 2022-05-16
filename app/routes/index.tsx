@@ -40,7 +40,7 @@ const Index = () => {
   const label = intl.formatMessage({ id: 'READ_MORE', defaultMessage: 'Leer más' });
 
   return (
-    <Page className="gap-y-10 xl:grid xl:grid-cols-[minmax(0,_1fr)_350px]">
+    <Page>
       <section className="relative -mx-3 -mt-20 flex h-screen flex-col items-center justify-center border-b border-stone-200 bg-white md:-mx-6 md:-mt-5 md:h-auto md:py-16 xl:col-span-2 xl:m-0 xl:justify-start xl:border-0 xl:bg-transparent">
         <header className="md:h-48">
           <Logotype className="m-auto h-full w-5/6 text-purple-400 xl:stroke-purple-600 xl:stroke-[5]" />
@@ -65,12 +65,12 @@ const Index = () => {
         </figure>
       </section>
 
-      <section className="-mx-3 flex flex-col gap-3 px-3 pt-20 md:m-0 md:px-0" id="home">
+      <section className="flex flex-col gap-3 pt-20 md:m-0 md:px-0" id="home">
         <Heading as="h2" level={2}>
           <FormattedMessage defaultMessage="Últimas actualizaciones" id="LATEST_NEWS" />
         </Heading>
 
-        <ul className="flex flex-col gap-5 lg:grid lg:grid-cols-2 xl:grid-cols-1">
+        <ul className="-mx-3 flex flex-col gap-5 md:mx-0 lg:grid lg:grid-cols-2 xl:grid-cols-1">
           {latest.map((item) => (
             <li key={item.slug}>
               {isBook(item) ? (

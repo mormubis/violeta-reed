@@ -1,14 +1,16 @@
 import React from 'react';
+
 import cx from 'classnames';
 
 import type { Book, Saga } from '~/api/bibliography';
 
+import Heading from '~/components/Heading';
+import HTML from '~/components/HTML';
+
 import Card from './Card';
 import Cover from './Cover';
-import Heading from '~/components/Heading';
 import Link from './Link';
 import Tag from './Tag';
-import HTML from '~/components/HTML';
 
 type OwnProps = {
   noTag?: boolean;
@@ -44,9 +46,9 @@ const SagaPreview = ({
     <ul className="relative -mb-6 flex gap-3 overflow-x-auto pb-6 md:gap-6">
       {books.map((book: Book) => (
         <li key={book.slug} className="shrink-0">
-          <Link className="flex h-full flex-col items-center gap-1 text-center text-sm" to={`/books/${book.slug}`}>
+          <Link className="flex h-full flex-col items-center gap-1 text-center" to={`/books/${book.slug}`}>
             <Cover title={book.title} url={book.cover} />
-            <span className="font-semibold text-stone-900">{book.title}</span>
+            <span className="font-serif font-semibold">{book.title}</span>
           </Link>
         </li>
       ))}

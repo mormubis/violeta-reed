@@ -14,7 +14,7 @@ import profileFetcher from '~/api/profile';
 import AboutMe from '~/components/AboutMe';
 import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
-import Posts from '~/components/Posts';
+import PostPreview from '~/components/PostPreview';
 import Tag from '~/components/Tag';
 
 const loader: LoaderFunction = async ({ request }) => {
@@ -39,7 +39,15 @@ const Blog = () => {
         <Tag type="post" />
         <FormattedMessage defaultMessage="Últimos posts" id="LASTEST_POSTS" />
       </Page.Heading>
-      <Posts items={posts} noTag />
+
+      <ul className="-mx-3 flex flex-col gap-5 md:mx-0">
+        {posts.map((post) => (
+          <li key={post.slug}>
+            <PostPreview {...post} author="Violeta Reed" href={`/blog/${post.slug}`} noTag />
+          </li>
+        ))}
+      </ul>
+
       <Page.Sidebar>
         <AboutMe {...profile} />
         <LatestNews items={latest} />

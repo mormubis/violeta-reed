@@ -1,4 +1,4 @@
-import React, { useInsertionEffect } from 'react';
+import React from 'react';
 
 import cx from 'classnames';
 
@@ -14,107 +14,15 @@ const defaultElement = 'div';
 const HTML = <E extends React.ElementType = typeof defaultElement>({ as, className, content }: Props<E>) => {
   const Component = as ?? defaultElement;
 
-  useInsertionEffect(() => {
-    if (document.getElementById('__html')) {
-      return;
-    }
-
-    const style = document.createElement('style');
-    style.id = '__html';
-    style.innerHTML = `
-      .HTML a {
-        background-color: rgb(221, 214, 254);
-      }
-      
-      .HTML b, .HTML strong {
-        font-weight: 600;
-      }
-      
-      .HTML blockquote {
-        padding-left: 1rem;
-        position: relative;
-      }
-      
-      .HTML blockquote::before {
-        background-color: rgb(221, 214, 254);
-        content: "";
-        left: 0;
-        height: 100%;
-        position: absolute;
-        width: 0.5rem;
-      }
-      
-      .HTML figcaption {
-        font-size: 0.8em;
-        line-height: 3em;
-        text-align: center;
-      }
-      
-      .HTML figure {
-        --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-        --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-        background-color: white;
-        border-radius: 2px;
-        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-        display: inline-block;
-        margin: 0 auto 1rem;
-        padding: 1rem;
-      }
-      
-      .HTML h1 {
-        font-size: 2.5rem;
-      }
-      
-      .HTML h2 {
-        font-size: 2rem;
-      }
-      
-      .HTML h3 {
-        font-size: 1.5rem;
-      }
-      
-      .HTML h4 {
-        font-size: 1.25rem;
-      }
-      
-      .HTML hr {
-        margin: 1.5rem 0;
-      }
-      
-      .HTML img {
-        border-radius: 2px;
-        max-height: 300px;
-      }
-      
-      .HTML ol {
-        list-style: number;
-        padding-left: 1.5rem;
-      }
-      
-      .HTML p {
-        margin: 0 0 1rem 0;
-      }
-      
-      .HTML li {
-        margin: 0.5rem 0;
-      }
-      
-      .HTML ul {
-        list-style: disc;
-        padding-left: 1.5rem;
-      }
-      
-      @media (min-width: 768px) {
-        .HTML p {
-          font-size: 15px;
-        }
-      }
-    `;
-
-    document.head.appendChild(style);
-  }, []);
-
-  return <Component className={cx('HTML', className)} dangerouslySetInnerHTML={{ __html: content }} />;
+  return (
+    <Component
+      className={cx(
+        className,
+        'prose-li:before:color-purple-500 prose prose-purple flex max-w-none flex-col gap-2 prose-headings:m-0 prose-headings:font-serif prose-p:m-0 prose-a:bg-purple-100 prose-a:py-1 prose-a:px-1 prose-blockquote:relative prose-blockquote:pl-6 prose-blockquote:before:absolute prose-blockquote:before:top-0 prose-blockquote:before:left-0 prose-blockquote:before:h-full prose-blockquote:before:w-3 prose-blockquote:before:bg-purple-100 prose-figure:m-0 prose-figure:mx-auto prose-figure:rounded-sm prose-figure:bg-white prose-figure:p-4 prose-figure:drop-shadow-sm prose-figcaption:text-center prose-figcaption:text-sm prose-ol:list-decimal prose-ul:pl-5 prose-li:m-0 prose-li:p-0 prose-img:max-h-96 prose-img:rounded-sm prose-hr:my-3 md:prose-sm md:prose-p:m-0',
+      )}
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
+  );
 };
 
 export default HTML;
