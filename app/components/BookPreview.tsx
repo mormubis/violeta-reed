@@ -26,9 +26,9 @@ const BookPreview = ({
   author,
   className,
   cover,
-  description,
   href,
   publishedAt,
+  synopsis,
   title,
   titleComponent: TitleComponent = 'h2',
 }: Props) => {
@@ -51,9 +51,9 @@ const BookPreview = ({
       }
     >
       <div className="grid gap-3 md:grid-cols-[minmax(0,_1fr)_auto] md:grid-rows-[auto_minmax(0,_1fr)] lg:gap-x-12">
-        <HTML className="text-sm" content={description} />
+        <HTML className="text-sm" content={synopsis} />
         <Link to={href}>
-          <Cover title={title} url={cover} />
+          <Cover title={cover.description ?? title} url={cover.url} />
         </Link>
       </div>
 

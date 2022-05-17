@@ -4,37 +4,29 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
-import type { Book } from '~/api/books';
-import latestFetcher from '~/api/latest';
-import type { News } from '~/api/latest';
 import profileFetcher from '~/api/profile';
 import type { Profile } from '~/api/profile';
 
 import AboutMe from '~/components/AboutMe';
-import BookPreview from '~/components/BookPreview';
 import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Icon from '~/components/Icon';
 import Logotype from '~/components/Logotype';
 import Page from '~/components/Page';
-import PostPreview from '~/components/PostPreview';
 
-const isBook = (item: any): item is Book => item.cover !== undefined;
-
-const loader: LoaderFunction = async ({ request, ...rest }) => {
-  console.log(rest);
+const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
-  const [latest, profile] = await Promise.all([latestFetcher({ preview }), profileFetcher({ preview })]);
+  const [profile] = await Promise.all([profileFetcher({ preview })]);
 
-  return { latest, profile: { avatar: profile.avatar, bio: profile.bio, social: profile.social } };
+  return { profile: { avatar: profile.avatar, bio: profile.bio, social: profile.social } };
 };
 
 const Index = () => {
   const intl = useIntl();
 
-  const { latest, profile } = useLoaderData<{ latest: News[]; profile: Profile }>();
+  const { profile } = useLoaderData<{ profile: Profile }>();
 
   const label = intl.formatMessage({ id: 'READ_MORE', defaultMessage: 'Leer más' });
 
@@ -68,18 +60,6 @@ const Index = () => {
         <Heading as="h2" level={2}>
           <FormattedMessage defaultMessage="Últimas actualizaciones" id="LATEST_NEWS" />
         </Heading>
-
-        <ul className="-mx-3 flex flex-col gap-5 md:mx-0 lg:grid lg:grid-cols-2 xl:grid-cols-1">
-          {latest.map((item) => (
-            <li key={item.slug}>
-              {isBook(item) ? (
-                <BookPreview {...item} href={`/books/${item.slug}`} titleComponent="h3" />
-              ) : (
-                <PostPreview {...item} author="Violeta Reed" href={`/blog/${item.slug}`} titleComponent="h3" />
-              )}
-            </li>
-          ))}
-        </ul>
       </section>
 
       <Page.Sidebar>

@@ -28,15 +28,15 @@ const fragment = gql`
       description
       url(transform: { format: WEBP })
     }
-    synopsis {
-      json
-    }
     promotional {
       description
       url(transform: { format: WEBP })
     }
     publishedAt
     slug
+    synopsis {
+      json
+    }
     title
   }
 `;
@@ -61,6 +61,8 @@ const query = gql`
 const mapper = (item: RawBook): Book => {
   const cover = item.cover!;
   const promotional = item.promotional ?? undefined;
+
+  console.log(item.synopsis);
 
   return {
     checkout: [],

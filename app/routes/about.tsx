@@ -4,24 +4,21 @@ import { FormattedMessage } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
-import type { News } from '~/api/latest';
-import latestFetcher from '~/api/latest';
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
 
 import AboutMe from '~/components/AboutMe';
 import HTML from '~/components/HTML';
-import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
 
 const loader: LoaderFunction = async () => {
-  const [latest, profile] = await Promise.all([latestFetcher(), profileFetcher()]);
+  const [profile] = await Promise.all([profileFetcher()]);
 
-  return { latest, profile };
+  return { profile };
 };
 
 const About = () => {
-  const { latest, profile } = useLoaderData<{ latest: News[]; profile: Profile }>();
+  const { profile } = useLoaderData<{ profile: Profile }>();
 
   return (
     <Page>
@@ -31,7 +28,6 @@ const About = () => {
       <HTML className="about" content={profile.about} />
       <Page.Sidebar>
         <AboutMe {...profile} />
-        <LatestNews items={latest} />
       </Page.Sidebar>
     </Page>
   );

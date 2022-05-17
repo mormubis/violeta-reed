@@ -6,14 +6,11 @@ import { useLoaderData } from 'remix';
 
 import type { Book, Series } from '~/api/bibliography';
 import bibliographyFetcher from '~/api/bibliography';
-import type { News } from '~/api/latest';
-import latestFetcher from '~/api/latest';
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
 
 import AboutMe from '~/components/AboutMe';
 import BookPreview from '~/components/BookPreview';
-import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
 import SagaPreview from '~/components/SagaPreview';
 
@@ -25,19 +22,14 @@ const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
-  const [bibliography, latest, profile] = await Promise.all([
-    bibliographyFetcher({ preview }),
-    latestFetcher({ preview }),
-    profileFetcher({ preview }),
-  ]);
+  const [bibliography, profile] = await Promise.all([bibliographyFetcher({ preview }), profileFetcher({ preview })]);
 
-  return { bibliography, latest, profile };
+  return { bibliography, profile };
 };
 
 const Books = () => {
-  const { bibliography, latest, profile } = useLoaderData<{
+  const { bibliography, profile } = useLoaderData<{
     bibliography: (Book | Series)[];
-    latest: News[];
     profile: Profile;
   }>();
 
@@ -50,7 +42,7 @@ const Books = () => {
         {bibliography.map((item) => (
           <li key={item.title} className="flex flex-col gap-2">
             {isBook(item) ? (
-              <BookPreview {...item} author="Violeta Reed" href={`/books/${item.slug}`} noTag />
+              <BookPreview {...item} author="Violeta Reed" href={`/books/${item.slug}`} />
             ) : (
               <SagaPreview {...item} noTag />
             )}
@@ -59,7 +51,6 @@ const Books = () => {
       </ul>
       <Page.Sidebar>
         <AboutMe {...profile} />
-        <LatestNews items={latest} />
       </Page.Sidebar>
     </Page>
   );
