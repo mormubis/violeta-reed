@@ -15,7 +15,6 @@ import AboutMe from '~/components/AboutMe';
 import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
 import PostPreview from '~/components/PostPreview';
-import Tag from '~/components/Tag';
 
 const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -36,14 +35,13 @@ const Blog = () => {
   return (
     <Page>
       <Page.Heading>
-        <Tag type="post" />
-        <FormattedMessage defaultMessage="Últimos posts" id="LASTEST_POSTS" />
+        <FormattedMessage defaultMessage="Blog" id="BLOG" />
       </Page.Heading>
 
       <ul className="-mx-3 flex flex-col gap-5 md:mx-0">
         {posts.map((post) => (
           <li key={post.slug}>
-            <PostPreview {...post} author="Violeta Reed" href={`/blog/${post.slug}`} noTag />
+            <PostPreview {...post} author="Violeta Reed" href={`/blog/${post.slug}`} />
           </li>
         ))}
       </ul>

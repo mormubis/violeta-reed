@@ -10,11 +10,6 @@ type LoaderParams = {
   slug?: string;
 };
 
-type Tag = {
-  slug: string;
-  name: string;
-};
-
 type Post = {
   abstract?: string;
   content?: string;
@@ -22,7 +17,6 @@ type Post = {
   modifiedAt: string;
   publishedAt: string;
   slug: string;
-  tags: Tag[];
   title: string;
 };
 
@@ -72,12 +66,6 @@ const query = gql`
           url(transform: { format: WEBP })
         }
         slug
-        tagsCollection {
-          items {
-            name
-            slug
-          }
-        }
         title
       }
     }
@@ -96,8 +84,6 @@ async function loader({ index = 0, limit = 8, preview = false, slug }: LoaderPar
         const paragraph = blocks.find((block: any) => block.nodeType === 'paragraph');
         const abstract = richTextToHTML(paragraph);
 
-        const tags = item.tagsCollection?.items ?? [];
-
         return {
           abstract: abstract,
           content: richTextToHTML(item?.content?.json, item.content?.links),
@@ -105,13 +91,12 @@ async function loader({ index = 0, limit = 8, preview = false, slug }: LoaderPar
           modifiedAt: item.sys.publishedAt,
           publishedAt: item.sys.firstPublishedAt,
           slug: item.slug!,
-          tags: tags.map((tag) => tag!).map((tag) => ({ slug: tag.slug!, name: tag.name! })),
           title: item.title!,
         };
       }) ?? []
   );
 }
 
-export type { Post, Tag };
+export type { Post };
 
 export default loader;

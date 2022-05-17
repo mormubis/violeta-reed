@@ -16,7 +16,6 @@ import BookPreview from '~/components/BookPreview';
 import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
 import SagaPreview from '~/components/SagaPreview';
-import Tag from '~/components/Tag';
 
 const isBook = (item: Saga | Book): item is Book => {
   return (item as Saga).books === undefined;
@@ -45,7 +44,6 @@ const Books = () => {
   return (
     <Page className="bg-slate-50">
       <Page.Heading>
-        <Tag type="book" />
         <FormattedMessage defaultMessage="Libros" id="BOOKS" />
       </Page.Heading>
       <ul className="flex flex-col gap-5">

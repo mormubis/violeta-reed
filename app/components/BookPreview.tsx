@@ -13,12 +13,10 @@ import Card from './Card';
 import Cover from './Cover';
 import HTML from './HTML';
 import Link from './Link';
-import Tag from './Tag';
 
 type OwnProps = {
   author?: string;
   href: string;
-  noTag?: boolean;
   titleComponent?: React.ElementType;
 };
 
@@ -30,14 +28,12 @@ const BookPreview = ({
   cover,
   description,
   href,
-  noTag = false,
   publishedAt,
   title,
   titleComponent: TitleComponent = 'h2',
 }: Props) => {
   const intl = useIntl();
 
-  const label = intl.formatMessage({ id: 'BOOK', defaultMessage: 'Libro' });
   const moreInfo = intl.formatMessage(
     { id: 'MORE_INFO_%TITLE%', defaultMessage: 'Más información sobre {title}' },
     { title },
@@ -49,7 +45,7 @@ const BookPreview = ({
       title={
         <Link to={href}>
           <Heading as={TitleComponent} className="flex gap-3" level={3}>
-            {!noTag && <Tag title={label} type="book" />} {title}
+            {title}
           </Heading>
         </Link>
       }

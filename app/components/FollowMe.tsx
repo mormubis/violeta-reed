@@ -1,11 +1,11 @@
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl';
 
 import type { Profile as OwnProps } from '~/api/profile';
 
 import type { Props as CardProps } from '~/components/Card';
 import Card from '~/components/Card';
-import Header from '~/components/Header';
 import Heading from '~/components/Heading';
 import Icon from '~/components/Icon';
 
@@ -13,11 +13,11 @@ type Props = OwnProps & Omit<CardProps, keyof OwnProps>;
 
 const FollowMe = ({ social }: Props) => (
   <Card className="gap-10">
-    <Header>
+    <header>
       <Heading as="h3" level={3}>
         <FormattedMessage id="FOLLOW_ME" defaultMessage="Sígueme" />
       </Heading>
-    </Header>
+    </header>
     <ul className="flex justify-center gap-5">
       {social.map((link) => (
         <li key={link.name}>

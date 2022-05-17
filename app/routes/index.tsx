@@ -12,7 +12,6 @@ import type { Profile } from '~/api/profile';
 
 import AboutMe from '~/components/AboutMe';
 import BookPreview from '~/components/BookPreview';
-import FollowMe from '~/components/FollowMe';
 import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Icon from '~/components/Icon';
@@ -85,7 +84,6 @@ const Index = () => {
 
       <Page.Sidebar>
         <AboutMe {...profile} />
-        <FollowMe {...profile} />
       </Page.Sidebar>
     </Page>
   );

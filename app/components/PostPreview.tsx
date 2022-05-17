@@ -11,12 +11,10 @@ import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Icon from '~/components/Icon';
 import Link from '~/components/Link';
-import Tag from '~/components/Tag';
 
 type OwnProps = {
   author?: string;
   href: string;
-  noTag?: boolean;
   titleComponent?: React.ElementType;
 };
 
@@ -29,7 +27,6 @@ const PostPreview = ({
   href,
   image,
   modifiedAt,
-  noTag,
   publishedAt = modifiedAt,
   title,
   titleComponent: TitleComponent = 'h2',
@@ -45,7 +42,7 @@ const PostPreview = ({
       title={
         <Link to={href}>
           <Heading as={TitleComponent} className="flex gap-3" level={3}>
-            {!noTag && <Tag type="post" />} {title}
+            {title}
           </Heading>
         </Link>
       }

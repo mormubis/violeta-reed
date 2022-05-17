@@ -24,10 +24,11 @@ const Heading = <E extends React.ElementType = typeof defaultElement>({
       {...props}
       className={cx(
         className,
-        'font-serif',
-        level === 1 && 'text-2xl font-light md:text-4xl lg:text-5xl',
-        level === 2 && 'text-xl font-bold md:text-2xl lg:text-3xl',
-        level === 3 && 'text-xl font-normal lg:text-2xl',
+        'font-sans',
+        level === 1 && 'text-2xl font-semibold uppercase md:text-3xl lg:text-4xl',
+        level === 2 && 'text-xl font-bold md:text-xl lg:text-2xl',
+        level === 3 && 'text-lg font-semibold lg:text-xl',
+        level === 4 && 'uppercase',
       )}
     />
   );
