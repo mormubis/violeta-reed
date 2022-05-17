@@ -10,6 +10,7 @@ import instagram from './instagram';
 import menu from './menu';
 import newspaper from './newspaper';
 import pinterest from './pinterest';
+import spotify from './spotify';
 import twitter from './twitter';
 
 type OwnProps = {
@@ -28,6 +29,7 @@ const ICONS = {
   menu,
   newspaper,
   pinterest,
+  spotify,
   twitter,
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import type { Book, Saga } from '~/api/bibliography';
+import type { Book, Series } from '~/api/bibliography';
 
 import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
@@ -17,7 +17,7 @@ type OwnProps = {
   titleComponent?: React.ElementType;
 };
 
-type Props = OwnProps & Saga & Omit<React.ComponentPropsWithoutRef<'article'>, keyof OwnProps | keyof Saga>;
+type Props = OwnProps & Series & Omit<React.ComponentPropsWithoutRef<'article'>, keyof OwnProps | keyof Series>;
 
 const SagaPreview = ({
   books,

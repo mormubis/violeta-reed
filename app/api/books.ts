@@ -4,12 +4,12 @@ import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
 type Book = {
-  cover: string;
-  description: string;
-  links: string[];
+  checkout: Link[];
+  cover: Image;
+  promotional?: Image;
   publishedAt?: string;
-  saga?: string;
   slug: string;
+  synopsis: string;
   title: string;
 };
 
@@ -25,21 +25,17 @@ type LoaderParams = {
 const fragment = gql`
   fragment Book on Book {
     cover {
+      description
       url(transform: { format: WEBP })
     }
-    description {
+    synopsis {
       json
     }
-    linksCollection {
-      items {
-        name
-        url
-      }
+    promotional {
+      description
+      url(transform: { format: WEBP })
     }
     publishedAt
-    saga {
-      slug
-    }
     slug
     title
   }
@@ -47,12 +43,13 @@ const fragment = gql`
 
 const query = gql`
   ${fragment}
-  query Books($index: Int, $limit: Int, $preview: Boolean, $publishedAt: DateTime, $saga: String, $slug: String) {
+  query Books($index: Int, $limit: Int, $preview: Boolean, $publishedAt: DateTime, $slug: String) {
     bookCollection(
       limit: $limit
       preview: $preview
       skip: $index
-      where: { publishedAt_lte: $publishedAt, saga: { title: $saga }, slug: $slug }
+      order: publishedAt_DESC
+      where: { publishedAt_lte: $publishedAt, slug: $slug }
     ) {
       items {
         ...Book
@@ -61,36 +58,31 @@ const query = gql`
   }
 `;
 
-const mapper = (item: RawBook): Book => ({
-  cover: item.cover?.url!,
-  description: richTextToHTML(item.description?.json),
-  links: item.linksCollection?.items?.map((link) => link?.url!) ?? [],
-  publishedAt: item.publishedAt!,
-  saga: item.saga?.slug!,
-  slug: item.slug!,
-  title: item.title!,
-});
+const mapper = (item: RawBook): Book => {
+  const cover = item.cover!;
+  const promotional = item.promotional ?? undefined;
 
-const publishedDateSort = (a: Book, b: Book): number => {
-  return b.publishedAt! < a.publishedAt! ? 1 : -1;
+  return {
+    checkout: [],
+    cover: { description: cover.description!, url: cover.url! },
+    promotional: promotional && { description: promotional.description!, url: promotional.url! },
+    publishedAt: item.publishedAt,
+    slug: item.slug!,
+    synopsis: richTextToHTML(item.synopsis?.json),
+    title: item.title!,
+  };
 };
 
-async function loader({ index, limit, preview = false, published, saga, slug }: LoaderParams = {}): Promise<Book[]> {
+async function loader({ index, limit, preview = false, published, slug }: LoaderParams = {}): Promise<Book[]> {
   const { bookCollection } = await graphql<BooksQuery, BooksQueryVariables>(query, {
     index,
     limit,
     preview,
     publishedAt: published && new Date().toISOString(),
-    saga,
     slug,
   });
 
-  return (
-    bookCollection?.items
-      .map((book: RawBook | null) => book!)
-      .map(mapper)
-      .sort(publishedDateSort) ?? []
-  );
+  return bookCollection?.items.map((book: RawBook | null) => book!).map(mapper) ?? [];
 }
 
 export type { Book };

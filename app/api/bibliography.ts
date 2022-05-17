@@ -1,43 +1,50 @@
 import type { Book } from '~/api/books';
 import bookFetcher from '~/api/books';
-import type { Saga as RawSaga } from '~/api/sagas';
-import sagaFetcher from '~/api/sagas';
+import type { Series as RawSeries } from '~/api/series';
+import sagaFetcher from '~/api/series';
 
-type Saga = RawSaga & {
+type Series = Omit<RawSeries, 'books'> & {
   books: Book[];
   publishedAt?: string;
 };
 
 type LoaderParams = {
-  index?: number;
-  limit?: number;
   preview?: boolean;
 };
 
-const publishedDateSort = (a: Book | Saga, b: Book | Saga): number => {
+const publishedDateSort = (a: Book | Series, b: Book | Series): number => {
   return b.publishedAt! < a.publishedAt! ? 1 : -1;
 };
 
-async function loader({ index, limit, preview }: LoaderParams = {}): Promise<(Book | Saga)[]> {
-  const [books, rawSagas] = await Promise.all([bookFetcher({ preview }), sagaFetcher({ preview })]);
+async function loader({ preview }: LoaderParams = {}): Promise<(Book | Series)[]> {
+  const [books, series] = await Promise.all([bookFetcher({ preview }), sagaFetcher({ preview })]);
 
-  const sagas =
-    rawSagas.map((saga: RawSaga) => {
-      const sagaBooks = books.filter((book) => book.saga === saga.slug);
+  const seriesWithBooks: Series[] =
+    series.map((item: RawSeries) => {
+      const books: Book[] = item.books.map((slug: string) => books.find((book: Book) => book.slug === slug)!);
 
       return {
-        ...saga,
-        books: sagaBooks,
-        publishedAt: sagaBooks.reduce(
+        ...item,
+        books,
+        publishedAt: books.reduce(
           (acc, book) => (acc! > book.publishedAt! ? acc : book.publishedAt),
-          sagaBooks[0]?.publishedAt,
+          books[0]?.publishedAt,
         ),
       };
     }) ?? [];
 
-  return [...sagas, ...books.filter((book) => !book.saga)].sort(publishedDateSort);
+  const importantBooks = books.filter((book) => {
+    const isPublished = !!book.publishedAt;
+    const isPublishedLessThanOneYearAgo =
+      isPublished && new Date(book.publishedAt!).getTime() > Date.now() - 1000 * 60 * 60 * 24 * 365;
+    const isPartOfSeries = series.some((series) => series.books.includes(book.slug));
+
+    return !isPublished || isPublishedLessThanOneYearAgo || !isPartOfSeries;
+  });
+
+  return [...seriesWithBooks, ...importantBooks].sort(publishedDateSort);
 }
 
-export type { Book, Saga };
+export type { Book, Series };
 
 export default loader;

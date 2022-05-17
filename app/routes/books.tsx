@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
-import type { Book, Saga } from '~/api/bibliography';
+import type { Book, Series } from '~/api/bibliography';
 import bibliographyFetcher from '~/api/bibliography';
 import type { News } from '~/api/latest';
 import latestFetcher from '~/api/latest';
@@ -17,8 +17,8 @@ import LatestNews from '~/components/LatestNews';
 import Page from '~/components/Page';
 import SagaPreview from '~/components/SagaPreview';
 
-const isBook = (item: Saga | Book): item is Book => {
-  return (item as Saga).books === undefined;
+const isBook = (item: Series | Book): item is Book => {
+  return (item as Series).books === undefined;
 };
 
 const loader: LoaderFunction = async ({ request }) => {
@@ -36,7 +36,7 @@ const loader: LoaderFunction = async ({ request }) => {
 
 const Books = () => {
   const { bibliography, latest, profile } = useLoaderData<{
-    bibliography: (Book | Saga)[];
+    bibliography: (Book | Series)[];
     latest: News[];
     profile: Profile;
   }>();
