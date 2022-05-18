@@ -21,14 +21,14 @@ async function loader({ preview }: LoaderParams = {}): Promise<(Book | Series)[]
 
   const seriesWithBooks: Series[] =
     series.map((item: RawSeries) => {
-      const books: Book[] = item.books.map((slug: string) => books.find((book: Book) => book.slug === slug)!);
+      const seriesBook: Book[] = item.books.map((slug: string) => books.find((book: Book) => book.slug === slug)!);
 
       return {
         ...item,
-        books,
-        publishedAt: books.reduce(
+        books: seriesBook,
+        publishedAt: seriesBook.reduce(
           (acc, book) => (acc! > book.publishedAt! ? acc : book.publishedAt),
-          books[0]?.publishedAt,
+          seriesBook[0]?.publishedAt,
         ),
       };
     }) ?? [];

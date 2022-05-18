@@ -12,7 +12,7 @@ import profileFetcher from '~/api/profile';
 import AboutMe from '~/components/AboutMe';
 import BookPreview from '~/components/BookPreview';
 import Page from '~/components/Page';
-import SagaPreview from '~/components/SagaPreview';
+import SeriesPreview from '~/components/SeriesPreview';
 
 const isBook = (item: Series | Book): item is Book => {
   return (item as Series).books === undefined;
@@ -44,7 +44,7 @@ const Books = () => {
             {isBook(item) ? (
               <BookPreview {...item} author="Violeta Reed" href={`/books/${item.slug}`} />
             ) : (
-              <SagaPreview {...item} noTag />
+              <SeriesPreview {...item} noTag />
             )}
           </li>
         ))}

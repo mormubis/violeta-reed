@@ -21,21 +21,26 @@ const Card = ({ className, children, image, title, ...props }: Props) => (
     {...props}
     className={cx(
       className,
-      'relative flex flex-col gap-3 overflow-hidden border-b bg-white p-3 md:rounded-sm md:border-r md:p-6',
-      image && 'pt-48 md:pt-96',
+      'relative flex flex-col gap-3 border-b bg-white p-3 md:rounded-sm md:border-r md:p-6',
+      !image && 'pt-3 md:pt-6',
     )}
   >
+    {/* Image */}
     {image &&
       (isImage(image) ? (
         <img
           alt={image.description}
-          className="absolute left-0 top-0 h-48 w-full object-cover md:h-96"
+          className="-mx-3 -mt-3 h-48 max-w-none object-cover md:-mx-6 md:-mt-6 md:h-96"
           src={image.url}
         />
       ) : (
         <figure>{image}</figure>
       ))}
-    {title && <header className={cx('flex flex-col', image && 'mt-3 md:mt-6')}>{title}</header>}
+
+    {/* Title */}
+    {title && <header className="flex flex-col">{title}</header>}
+
+    {/* Content */}
     {children}
   </article>
 );

@@ -19,7 +19,7 @@ type OwnProps = {
 
 type Props = OwnProps & Series & Omit<React.ComponentPropsWithoutRef<'article'>, keyof OwnProps | keyof Series>;
 
-const SagaPreview = ({
+const SeriesPreview = ({
   books,
   className,
   noTag = false,
@@ -56,4 +56,4 @@ const SagaPreview = ({
   </Card>
 );
 
-export default SagaPreview;
+export default SeriesPreview;

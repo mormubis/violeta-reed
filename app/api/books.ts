@@ -62,8 +62,6 @@ const mapper = (item: RawBook): Book => {
   const cover = item.cover!;
   const promotional = item.promotional ?? undefined;
 
-  console.log(item.synopsis);
-
   return {
     checkout: [],
     cover: { description: cover.description!, url: cover.url! },
