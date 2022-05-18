@@ -28,7 +28,7 @@ const Social = ({ className, name, url, ...props }: SocialProps) => (
     rel="noreferrer"
     target="_blank"
   >
-    <Icon className="h-4" name={name as 'facebook'} />
+    <Icon className="h-4" name={name.toLocaleLowerCase() as 'facebook'} />
     {name}
   </a>
 );

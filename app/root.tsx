@@ -132,6 +132,11 @@ const App = () => {
                 <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
               </Navigation.Link>
             </Navigation>
+            <Header.Right>
+              {profile.social.map((link) => (
+                <Header.Social key={link.name} name={link.name} url={link.url} />
+              ))}
+            </Header.Right>
           </Header>
           <Outlet />
           <Footer>
