@@ -12,6 +12,7 @@ import newspaper from './newspaper';
 import pinterest from './pinterest';
 import spotify from './spotify';
 import twitter from './twitter';
+import wattpad from './wattpad';
 
 type OwnProps = {
   name: keyof typeof ICONS;
@@ -31,6 +32,7 @@ const ICONS = {
   pinterest,
   spotify,
   twitter,
+  wattpad,
 };
 
 const Icon = ({ name, ...props }: Props) => {

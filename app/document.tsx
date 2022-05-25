@@ -18,7 +18,7 @@ const Document = ({ children }: Props) => (
       {children}
       <ScrollRestoration />
       <Scripts />
-      <LiveReload port={8002} />
+      <LiveReload />
     </body>
   </html>
 );

@@ -36,7 +36,7 @@ const Books = () => {
   return (
     <Page className="bg-slate-50">
       <Page.Heading>
-        <FormattedMessage defaultMessage="Libros" id="BOOKS" />
+        <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
       </Page.Heading>
       <ul className="flex flex-col gap-5">
         {bibliography.map((item) => (

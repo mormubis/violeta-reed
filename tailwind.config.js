@@ -46,6 +46,9 @@ module.exports = {
           },
         },
       }),
+      screens: {
+        '@hover': { raw: '(hover: hover)' },
+      },
     },
     fontFamily: {
       sans: [

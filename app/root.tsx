@@ -116,14 +116,11 @@ const App = () => {
               className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
               id="navigation"
             >
-              <Navigation.Link className="md:hidden" to="/#home">
-                <FormattedMessage defaultMessage="Inicio" id="HOME" />
-              </Navigation.Link>
-              <Navigation.Link className="hidden md:flex" to="/">
+              <Navigation.Link to="/">
                 <FormattedMessage defaultMessage="Inicio" id="HOME" />
               </Navigation.Link>
               <Navigation.Link to="/books">
-                <FormattedMessage defaultMessage="Libros" id="BOOKS" />
+                <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
               </Navigation.Link>
               <Navigation.Link to="/blog">
                 <FormattedMessage defaultMessage="Blog" id="BLOG" />
