@@ -1,0 +1,12 @@
+.eslintrc
+.github/
+.gitignore
+.graphqlrc
+.husky/
+.lintstagerc
+.prettierrc
+deployment/
+prettier-plugins.js
+README.md
+remix.env.d.ts
+tsconfig.json
