@@ -62,7 +62,6 @@
     "generate:translations": "formatjs extract \"app/**/*.ts*\" --format simple --ignore=\"**/*.d.ts\" --out-file=\"app/translations/es.json\"",
     "lint": "eslint \"app/**/*.{ts,tsx}\" --fix",
     "lint:ci": "npm run lint -- --max-warnings 0",
-    "prepare": "husky install && npm run build:css && npm run generate:graphql && npm run generate:translations",
     "start": "remix-serve build"
   },
   "sideEffects": false
