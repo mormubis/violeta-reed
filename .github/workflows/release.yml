@@ -16,6 +16,6 @@ jobs:
           secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           account_id: ${{ secrets.AWS_ACCOUNT_ID }}
           repo: image-6feb348
-          region: ap-northeast-2
+          region: eu-west-3
           tags: latest,${{ github.sha }}
           image_scanning_configuration: true
