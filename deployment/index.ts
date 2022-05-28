@@ -51,7 +51,7 @@ new aws.route53.Record('SOA', {
 
 const registry = new aws.ecr.Repository('image');
 
-const serverFn = new aws.lambda.Function('server', {
+const serverFn = new aws.lambda.Function('server1', {
   imageUri: registry.repositoryUrl.apply((urn) => `${urn}:latest`),
   packageType: 'Image',
   role: 'arn:aws:iam::826353843014:role/server-role',
