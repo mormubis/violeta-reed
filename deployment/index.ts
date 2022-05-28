@@ -49,16 +49,15 @@ new aws.route53.Record('SOA', {
   zoneId: domain.zoneId,
 });
 
-const registry = new aws.ecr.Repository('remix');
+const registry = new aws.ecr.Repository('image');
 
-const role = new aws.iam.Role('server-role', {
-  assumeRolePolicy:
-    '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}',
+const serverFn = new aws.lambda.Function('server', {
+  imageUri: registry.repositoryUrl.apply((urn) => `${urn}:latest`),
+  packageType: 'Image',
+  role: 'arn:aws:iam::826353843014:role/server-role',
 });
 
-new aws.lambda.Function('server', {
-  handler: 'server/index.handler',
-  imageUri: registry.urn,
-  role: role.arn,
-  runtime: 'nodejs14.x',
+new aws.lambda.FunctionUrl('server-url', {
+  functionName: serverFn.arn,
+  authorizationType: 'NONE',
 });
