@@ -1,12 +1,11 @@
 FROM public.ecr.aws/lambda/nodejs:16
 
-# WORKDIR /usr/server/app
+WORKDIR ${LAMBDA_TASK_ROOT}
 
-COPY ./package.json ./
+COPY ./package.json .
 RUN npm install --production
 
-# COPY ./ .
-COPY helloWorldFunction.js ${LAMBDA_TASK_ROOT}
+COPY ./ .
 
 ENV NODE_ENV=production
-CMD [ "helloWorldFunction.handler" ]
+CMD [ "index.handler" ]
