@@ -8,4 +8,4 @@ RUN npm install --production
 COPY ./ .
 
 ENV NODE_ENV=production
-CMD [ "server/index.handler" ]
+CMD [ "helloWorldFunction.handler" ]
