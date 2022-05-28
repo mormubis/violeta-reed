@@ -6,7 +6,7 @@ COPY ./package.json ./
 RUN npm install --production
 
 # COPY ./ .
-COPY helloWorldFunction.js .
+COPY helloWorldFunction.js ${LAMBDA_TASK_ROOT}
 
 ENV NODE_ENV=production
 CMD [ "helloWorldFunction.handler" ]
