@@ -7,5 +7,7 @@ RUN npm install --production
 
 COPY ./ .
 
+RUN ls -l
+
 ENV NODE_ENV=production
 CMD [ "helloWorldFunction.handler" ]
