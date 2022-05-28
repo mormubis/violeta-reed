@@ -1,11 +1,4 @@
-FROM public.ecr.aws/lambda/nodejs:16
-
-WORKDIR /usr/server/app
-
-COPY ./package.json ./
-RUN npm install --production
-
-COPY ./ .
-
-ENV NODE_ENV=production
-CMD [ "server/index.handler" ]
+FROM public.ecr.aws/lambda/nodejs:14
+COPY helloWorldFunction.js package*.json ./
+RUN npm install
+CMD [ "helloWorldFunction.handler" ]
