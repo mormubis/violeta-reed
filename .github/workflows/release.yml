@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install
+      - run: npx remix setup
       - run: npm run build
       - uses: kciter/aws-ecr-action@v4
         with:
