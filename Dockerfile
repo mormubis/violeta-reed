@@ -8,4 +8,4 @@ RUN npm install --production
 COPY ./ .
 
 ENV NODE_ENV=production
-CMD ["npm", “run” ,"start"]
+CMD ["npm", "run" ,"start"]
