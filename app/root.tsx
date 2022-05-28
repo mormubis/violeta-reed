@@ -64,7 +64,7 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
 };
 
 const meta: MetaFunction = ({ data, location }) => {
-  const meta = (data as Data).meta;
+  const meta = (data as Data)?.meta;
 
   const description = meta?.description ?? 'Violeta Reed';
   const image = meta?.image ?? '/images/logotype.png';
