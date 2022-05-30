@@ -1,11 +1,9 @@
-FROM public.ecr.aws/lambda/nodejs:16
+FROM node
 
-WORKDIR ${LAMBDA_TASK_ROOT}
-
-COPY ./package.json ${LAMBDA_TASK_ROOT}
+COPY ./package.json .
 RUN npm install --production
 
-COPY ./ ${LAMBDA_TASK_ROOT}
+COPY ./ .
 
 ENV NODE_ENV=production
-CMD [ "index.handler" ]
+CMD [ "npm", "start" ]
