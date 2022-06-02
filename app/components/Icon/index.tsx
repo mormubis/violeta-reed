@@ -1,5 +1,6 @@
 import React from 'react';
 
+import amazon from './amazon';
 import arrowCircleDown from './arrow-circle-down';
 import arrowSmRight from './arrow-sm-right';
 import bookmark from './bookmark';
@@ -11,6 +12,7 @@ import menu from './menu';
 import newspaper from './newspaper';
 import pinterest from './pinterest';
 import spotify from './spotify';
+import tiktok from './tiktok';
 import twitter from './twitter';
 import wattpad from './wattpad';
 
@@ -20,6 +22,7 @@ type OwnProps = {
 type Props = OwnProps & Omit<React.ComponentPropsWithRef<'svg'>, keyof OwnProps>;
 
 const ICONS = {
+  amazon,
   'arrow-circle-down': arrowCircleDown,
   'arrow-sm-right': arrowSmRight,
   bookmark,
@@ -31,12 +34,13 @@ const ICONS = {
   newspaper,
   pinterest,
   spotify,
+  tiktok,
   twitter,
   wattpad,
 };
 
 const Icon = ({ name, ...props }: Props) => {
-  const Component = ICONS[name];
+  const Component = ICONS[name] ?? ICONS.heart;
 
   return <Component {...props} />;
 };
