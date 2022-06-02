@@ -6,7 +6,6 @@ import richTextToHTML from '~/lib/richTextToHTML';
 type Series = {
   books: string[];
   plot?: string;
-  slug: string;
   title: string;
 };
 
@@ -28,15 +27,14 @@ const fragment = gql`
     plot {
       json
     }
-    slug
     title
   }
 `;
 
 const query = gql`
   ${fragment}
-  query Series($index: Int, $limit: Int, $preview: Boolean, $saga: String, $slug: String) {
-    seriesCollection(limit: $limit, preview: $preview, skip: $index, where: { slug: $slug, title: $saga }) {
+  query Series($index: Int, $limit: Int, $preview: Boolean, $saga: String) {
+    seriesCollection(limit: $limit, preview: $preview, skip: $index, where: { title: $saga }) {
       items {
         ...Series
       }
@@ -51,7 +49,6 @@ const mapper = (item: RawSeries): Series => {
   return {
     books,
     plot,
-    slug: item.slug!,
     title: item.title!,
   };
 };
