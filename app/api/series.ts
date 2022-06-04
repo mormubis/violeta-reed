@@ -53,13 +53,12 @@ const mapper = (item: RawSeries): Series => {
   };
 };
 
-async function loader({ index, limit, preview, saga, slug }: LoaderParams = {}): Promise<Series[]> {
+async function loader({ index, limit, preview, saga }: LoaderParams = {}): Promise<Series[]> {
   const { seriesCollection } = await graphql<SeriesQuery, SeriesQueryVariables>(query, {
     index,
     limit,
     preview,
     saga,
-    slug,
   });
 
   return seriesCollection?.items.map((saga: RawSeries | null) => saga!).map(mapper) ?? [];
