@@ -51,9 +51,9 @@ const Index = () => {
 
   return (
     <Page className="!p-0 xl:grid-cols-2">
-      {presale && <Promotion className="h-[75vh] md:h-1/2" {...presale} />}
-      {next && <Promotion className="h-[75vh] md:h-1/2" {...next} />}
-      {last && <Promotion className="h-[75vh] md:h-1/2" {...last} />}
+      {presale && <Promotion className="h-screen md:h-1/2" {...presale} />}
+      {next && <Promotion className="h-screen md:h-1/2" {...next} />}
+      {last && <Promotion className="h-screen md:h-1/2" {...last} />}
     </Page>
   );
 };

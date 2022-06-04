@@ -14,6 +14,7 @@ type Props = OwnProps & Omit<React.ComponentPropsWithoutRef<'article'>, keyof Ow
 const Promotion = ({
   checkout,
   className,
+  color,
   cover,
   promotional,
   publishedAt,
@@ -28,10 +29,8 @@ const Promotion = ({
   return (
     <article
       {...props}
-      className={cx(
-        className,
-        'relative flex flex-col items-center justify-center gap-5 before:absolute before:left-0  before:top-0 before:-z-10 before:h-1/2 before:w-full before:bg-gradient-to-b before:from-purple-400 before:to-violet-500',
-      )}
+      className={cx(className, 'relative flex flex-col items-center justify-center gap-5')}
+      style={{ backgroundColor: color }}
     >
       <img alt={image.description} className="h-3/5 rounded border border-stone-800" src={image.url} />
       <header>

@@ -5,6 +5,7 @@ import richTextToHTML from '~/lib/richTextToHTML';
 
 type Book = {
   checkout: Link[];
+  color?: string;
   cover: Image;
   promotional?: Image;
   publishedAt?: string;
@@ -30,6 +31,7 @@ const fragment = gql`
         url
       }
     }
+    color
     cover {
       description
       url(transform: { format: WEBP })
@@ -72,6 +74,7 @@ const mapper = (item: RawBook): Book => {
 
   return {
     checkout,
+    color: item.color!,
     cover: { description: cover.description!, url: cover.url! },
     promotional: promotional && { description: promotional.description!, url: promotional.url! },
     publishedAt: item.publishedAt,
