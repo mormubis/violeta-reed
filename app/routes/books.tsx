@@ -34,7 +34,7 @@ const Books = () => {
   }>();
 
   return (
-    <Page className="bg-slate-50">
+    <Page>
       <Page.Heading>
         <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
       </Page.Heading>

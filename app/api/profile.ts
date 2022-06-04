@@ -3,6 +3,8 @@ import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
+import type { Props } from '~/components/LinkSocial';
+
 type LoaderParams = {
   preview?: boolean;
 };
@@ -12,7 +14,7 @@ type Profile = {
   avatar: string;
   bio: string;
   name: string;
-  social: { name: string; url: string }[];
+  social: { name: Props['name']; url: string }[];
 };
 
 const DEFAULT = {
@@ -131,7 +133,9 @@ async function loader({ preview = false }: LoaderParams = {}): Promise<Profile> 
     avatar: profile.avatar?.url!,
     bio: richTextToHTML(profile.bio?.json, profile.bio?.links),
     name: profile?.name!,
-    social: social.map((item: any) => item!).map((item: any) => ({ name: item.name!, url: item.url! })),
+    social: social
+      .map((item: any) => item!)
+      .map((item: any) => ({ name: item.name.toLocaleLowerCase(), url: item.url! })),
   };
 }
 

@@ -30,7 +30,7 @@ const Card = ({ className, children, image, title, ...props }: Props) => (
       (isImage(image) ? (
         <img
           alt={image.description}
-          className="-mx-3 -mt-3 h-48 max-w-none object-cover md:-mx-6 md:-mt-6 md:h-96"
+          className="-mx-3 -mt-3 h-48 max-w-none object-cover saturate-150 md:-mx-6 md:-mt-6 md:h-96"
           src={image.url}
         />
       ) : (

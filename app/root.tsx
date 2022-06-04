@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useCallback, useReducer } from 'react';
 
 import al from 'accept-language';
 import cx from 'classnames';
@@ -11,9 +11,12 @@ import metaFetcher from '~/api/meta';
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
 
+import Icon from '~/components/Icon';
 import Footer from '~/components/layout/Footer';
 import Header from '~/components/layout/Header';
 import Navigation from '~/components/layout/Navigation';
+import Link from '~/components/Link';
+import Logotype from '~/components/Logotype';
 import { Provider as PreviewProvider } from '~/components/Preview';
 
 import Document from './document';
@@ -92,43 +95,69 @@ const App = () => {
 
   const [isNavOpen, toggle] = useReducer((state: boolean) => !state, false);
 
+  const close = useCallback(() => {
+    if (isNavOpen) {
+      toggle();
+    }
+  }, [isNavOpen, toggle]);
+
   return (
     <IntlProvider defaultLocale="es" locale={locale} messages={es}>
       <PreviewProvider value={preview ?? false}>
         <Document>
-          <Header
-            className={cx('transition-transform duration-[350ms] ease-out md:!translate-y-0 md:transition-none', {
-              'translate-y-[192px]': isNavOpen,
-            })}
-          >
-            <button
-              aria-controls="navigation"
-              aria-expanded={isNavOpen}
-              className={
-                'flex w-full items-center justify-center text-sm font-medium uppercase transition-[background-color] focus:outline-none focus-visible:bg-stone-800 md:hidden'
-              }
-              onClick={toggle}
-              type="button"
+          <Header className="sticky top-0 z-50 w-full">
+            <Header.Left>
+              <button
+                aria-label="Abrir navigación"
+                aria-controls="navigation"
+                aria-expanded={isNavOpen}
+                className={
+                  'flex h-full w-16 items-center justify-center text-sm font-medium transition-[background-color] hover:text-purple-800 focus:outline-none focus-visible:text-purple-800 lg:hidden'
+                }
+                onClick={toggle}
+                type="button"
+              >
+                <Icon name="menu" />
+              </button>
+              <Navigation
+                className={cx(
+                  'absolute left-0 top-0 transition-[transform,visibility] duration-[350ms] ease-out lg:relative lg:translate-x-0 lg:transition-none',
+                  isNavOpen ? 'visible translate-x-0' : 'invisible -translate-x-full',
+                )}
+                id="navigation"
+              >
+                <button
+                  aria-label="Cerrar navigación"
+                  className={
+                    'flex h-16 w-16 items-center justify-center place-self-end text-sm font-medium text-white transition-[background-color] focus:outline-none lg:hidden'
+                  }
+                  onClick={close}
+                  type="button"
+                >
+                  <Icon name="x" />
+                </button>
+                <Navigation.Link onClick={close} to="/">
+                  <FormattedMessage defaultMessage="Inicio" id="HOME" />
+                </Navigation.Link>
+                <Navigation.Link onClick={close} to="/books">
+                  <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
+                </Navigation.Link>
+                <Navigation.Link onClick={close} to="/blog">
+                  <FormattedMessage defaultMessage="Blog" id="BLOG" />
+                </Navigation.Link>
+                <Navigation.Link onClick={close} to="/about">
+                  <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
+                </Navigation.Link>
+              </Navigation>
+            </Header.Left>
+
+            <Link
+              className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80"
+              to="/"
             >
-              <FormattedMessage defaultMessage="Menu" id="MENU" />
-            </button>
-            <Navigation
-              className={cx(isNavOpen ? 'visible' : 'invisible transition-[visibility] duration-[350ms] ease-out')}
-              id="navigation"
-            >
-              <Navigation.Link to="/">
-                <FormattedMessage defaultMessage="Inicio" id="HOME" />
-              </Navigation.Link>
-              <Navigation.Link to="/books">
-                <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
-              </Navigation.Link>
-              <Navigation.Link to="/blog">
-                <FormattedMessage defaultMessage="Blog" id="BLOG" />
-              </Navigation.Link>
-              <Navigation.Link to="/about">
-                <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
-              </Navigation.Link>
-            </Navigation>
+              <Logotype />
+            </Link>
+
             <Header.Right>
               {profile.social.map((link) => (
                 <Header.Social key={link.name} name={link.name} url={link.url} />

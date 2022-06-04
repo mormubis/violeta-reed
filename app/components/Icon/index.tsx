@@ -15,6 +15,7 @@ import spotify from './spotify';
 import tiktok from './tiktok';
 import twitter from './twitter';
 import wattpad from './wattpad';
+import x from './x';
 
 type OwnProps = {
   name: keyof typeof ICONS;
@@ -37,6 +38,7 @@ const ICONS = {
   tiktok,
   twitter,
   wattpad,
+  x,
 };
 
 const Icon = ({ name, ...props }: Props) => {

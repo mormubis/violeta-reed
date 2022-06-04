@@ -13,7 +13,7 @@ const AboutMe = ({ avatar, bio }: Props) => (
   <Card className="!border-0 !bg-transparent">
     <img
       alt="Violeta Reed"
-      className="m-auto h-48 w-48 rounded-full border-4 border-solid border-purple-200 object-cover"
+      className="m-auto h-48 w-48 rounded-full border-4 border-solid border-purple-300 object-cover"
       src={avatar}
     />
     <HTML className="text-center" content={bio} />

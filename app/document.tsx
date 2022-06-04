@@ -14,7 +14,7 @@ const Document = ({ children }: Props) => (
       <Meta />
       <Links />
     </head>
-    <body className="flex min-h-screen flex-col items-center bg-slate-50 font-sans font-light text-stone-900">
+    <body className="flex min-h-screen flex-col items-center bg-violet-50 font-sans font-light text-stone-900">
       {children}
       <ScrollRestoration />
       <Scripts />

@@ -11,6 +11,7 @@ function useEventListener(
   const handlerRef = useRef<Handler>();
 
   useEffect(() => {
+    console.log('change handler');
     handlerRef.current = handler;
   }, [handler]);
 
@@ -18,9 +19,12 @@ function useEventListener(
     () => {
       const eventListener = (...argv: unknown[]) => handlerRef.current?.(...argv);
 
+      console.log('addListener', eventListener);
       element.addEventListener(eventName, eventListener);
 
       return () => {
+        console.log('removeListener', eventListener);
+
         element.removeEventListener(eventName, eventListener);
       };
     },
