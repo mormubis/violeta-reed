@@ -4,34 +4,25 @@ import { FormattedMessage } from 'react-intl';
 import type { LoaderFunction } from 'remix';
 import { useLoaderData } from 'remix';
 
-import type { Book, Series } from '~/api/bibliography';
-import bibliographyFetcher from '~/api/bibliography';
-import type { Profile } from '~/api/profile';
-import profileFetcher from '~/api/profile';
+import type { Book as BookType } from '~/api/books';
+import bookFetcher from '~/api/books';
 
-import AboutMe from '~/components/AboutMe';
-import BookPreview from '~/components/BookPreview';
+import Book from '~/components/Book';
 import Page from '~/components/Page';
-import SeriesPreview from '~/components/SeriesPreview';
 
-const isBook = (item: Series | Book): item is Book => {
-  return (item as Series).books === undefined;
-};
+type Data = { books: BookType[] };
 
-const loader: LoaderFunction = async ({ request }) => {
+const loader: LoaderFunction = async ({ request }): Promise<Data> => {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
-  const [bibliography, profile] = await Promise.all([bibliographyFetcher({ preview }), profileFetcher({ preview })]);
+  const books = await bookFetcher({ preview });
 
-  return { bibliography, profile };
+  return { books };
 };
 
 const Books = () => {
-  const { bibliography, profile } = useLoaderData<{
-    bibliography: (Book | Series)[];
-    profile: Profile;
-  }>();
+  const { books } = useLoaderData<Data>();
 
   return (
     <Page>
@@ -39,19 +30,12 @@ const Books = () => {
         <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
       </Page.Heading>
       <ul className="flex flex-col gap-5">
-        {bibliography.map((item) => (
+        {books.map((item) => (
           <li key={item.title} className="flex flex-col gap-2">
-            {isBook(item) ? (
-              <BookPreview {...item} author="Violeta Reed" href={`/books/${item.slug}`} />
-            ) : (
-              <SeriesPreview {...item} noTag />
-            )}
+            <Book {...item} author="Violeta Reed" />
           </li>
         ))}
       </ul>
-      <Page.Sidebar>
-        <AboutMe {...profile} />
-      </Page.Sidebar>
     </Page>
   );
 };

@@ -6,24 +6,25 @@ import { useLoaderData } from 'remix';
 
 import type { Post } from '~/api/posts';
 import postsFetcher from '~/api/posts';
-import type { Profile } from '~/api/profile';
-import profileFetcher from '~/api/profile';
 
-import AboutMe from '~/components/AboutMe';
 import Page from '~/components/Page';
 import PostPreview from '~/components/PostPreview';
 
-const loader: LoaderFunction = async ({ request }) => {
+type Data = {
+  posts: Post[];
+};
+
+const loader: LoaderFunction = async ({ request }): Promise<Data> => {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
-  const [posts, profile] = await Promise.all([postsFetcher({ preview }), profileFetcher({ preview })]);
+  const posts = await postsFetcher({ preview });
 
-  return { posts, profile };
+  return { posts };
 };
 
 const Blog = () => {
-  const { posts, profile } = useLoaderData<{ posts: Post[]; profile: Profile }>();
+  const { posts } = useLoaderData<Data>();
 
   return (
     <Page>
@@ -31,17 +32,13 @@ const Blog = () => {
         <FormattedMessage defaultMessage="Blog" id="BLOG" />
       </Page.Heading>
 
-      <ul className="-mx-3 flex flex-col gap-5 md:mx-0">
+      <ul className="-mx-3 flex flex-col gap-5 md:mx-0 md:grid md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <li key={post.slug}>
             <PostPreview {...post} author="Violeta Reed" href={`/blog/${post.slug}`} />
           </li>
         ))}
       </ul>
-
-      <Page.Sidebar>
-        <AboutMe {...profile} />
-      </Page.Sidebar>
     </Page>
   );
 };

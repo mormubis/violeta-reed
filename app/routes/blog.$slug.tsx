@@ -19,7 +19,7 @@ const loader: LoaderFunction = async ({ params }) => {
 };
 
 const Post = () => {
-  const { content = '', image, tags, title, ...post } = useLoaderData<PostType>();
+  const { content = '', image, title, ...post } = useLoaderData<PostType>();
 
   const publishedAt = new Date(post.publishedAt);
 

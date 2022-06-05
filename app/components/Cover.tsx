@@ -1,5 +1,7 @@
 import React from 'react';
 
+import cx from 'classnames';
+
 type OwnProps = {
   title: string;
   url: string;
@@ -7,11 +9,11 @@ type OwnProps = {
 
 type Props = OwnProps & Omit<React.ComponentPropsWithoutRef<'img'>, keyof OwnProps>;
 
-const Cover = ({ title, url, ...props }: Props) => (
+const Cover = ({ className, title, url, ...props }: Props) => (
   <img
     {...props}
     alt={title}
-    className="block h-[256px] w-[168px] rounded border border-solid border-gray-300 object-cover"
+    className={cx(className, 'block aspect-[2/3] rounded border border-solid border-gray-300 object-cover')}
     src={url}
   />
 );

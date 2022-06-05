@@ -7,18 +7,19 @@ import { useLoaderData } from 'remix';
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
 
-import AboutMe from '~/components/AboutMe';
 import HTML from '~/components/HTML';
 import Page from '~/components/Page';
 
-const loader: LoaderFunction = async () => {
-  const [profile] = await Promise.all([profileFetcher()]);
+type Data = { profile: Profile };
+
+const loader: LoaderFunction = async (): Promise<Data> => {
+  const profile = await profileFetcher();
 
   return { profile };
 };
 
 const About = () => {
-  const { profile } = useLoaderData<{ profile: Profile }>();
+  const { profile } = useLoaderData<Data>();
 
   return (
     <Page>
@@ -26,9 +27,6 @@ const About = () => {
         <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
       </Page.Heading>
       <HTML className="about" content={profile.about} />
-      <Page.Sidebar>
-        <AboutMe {...profile} />
-      </Page.Sidebar>
     </Page>
   );
 };
