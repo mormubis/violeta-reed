@@ -11,7 +11,7 @@ const Footer = ({ className, ...props }: Props) => (
   <footer
     className={cx(
       className,
-      'flex w-full flex-col justify-center border-t border-stone-300 bg-white py-4 md:flex-row md:flex-wrap',
+      'flex w-full flex-col justify-center bg-purple-200 py-4 text-purple-900 md:flex-row md:flex-wrap',
     )}
     {...props}
   />

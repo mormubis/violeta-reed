@@ -25,11 +25,11 @@ const Books = () => {
   const { books } = useLoaderData<Data>();
 
   return (
-    <Page>
+    <Page className="!pb-0">
       <Page.Heading>
         <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
       </Page.Heading>
-      <ul className="flex flex-col gap-5">
+      <ul className="flex flex-col">
         {books.map((item) => (
           <li key={item.title} className="flex flex-col gap-2">
             <Book {...item} author="Violeta Reed" />

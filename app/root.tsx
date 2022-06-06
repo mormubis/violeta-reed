@@ -167,7 +167,7 @@ const App = () => {
           <Outlet />
           <Footer>
             {profile.social.map((link) => (
-              <Footer.Social key={link.name} name={link.name} url={link.url} />
+              <Footer.Social className="md:hidden" key={link.name} name={link.name} url={link.url} />
             ))}
             <Footer.Copyright>
               <FormattedMessage defaultMessage="Violeta Reed. All Rights Reserved" id="COPYRIGHT" />

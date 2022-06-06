@@ -68,7 +68,7 @@ module.exports = {
         'Segoe UI Symbol',
         'Noto Color Emoji',
       ],
-      serif: ['Playfair Display', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+      serif: ['Gill Sans', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
     },
   },
   plugins: [require('@tailwindcss/line-clamp'), require('@tailwindcss/typography')],

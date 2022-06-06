@@ -56,7 +56,7 @@ const query = gql`
       limit: $limit
       preview: $preview
       skip: $index
-      order: publishedAt_DESC
+      order: publishedAt_ASC
       where: { publishedAt_lte: $publishedAt, slug: $slug }
     ) {
       items {
