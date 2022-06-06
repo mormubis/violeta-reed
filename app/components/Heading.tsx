@@ -26,7 +26,7 @@ const Heading = <E extends React.ElementType = typeof defaultElement>({
         'font-serif',
         level === 1 && 'text-2xl font-normal uppercase tracking-wider md:text-3xl lg:text-4xl',
         level === 2 && 'text-xl font-normal tracking-widest md:text-xl lg:text-2xl',
-        level === 3 && 'text-lg font-semibold lg:text-xl',
+        level === 3 && 'text-lg font-normal tracking-wider lg:text-xl',
         level === 4 && 'uppercase',
         className,
       )}

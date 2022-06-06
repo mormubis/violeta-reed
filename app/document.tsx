@@ -51,7 +51,7 @@ const Document = ({ children }: Props) => (
         }}
       />
     </head>
-    <body className="flex min-h-screen flex-col items-center bg-white font-sans font-light text-stone-900">
+    <body className="flex min-h-screen flex-col items-center bg-white font-serif font-normal font-light text-stone-900">
       {children}
       <ScrollRestoration />
       <Scripts />

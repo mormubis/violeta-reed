@@ -11,34 +11,71 @@ type OwnProps = Book;
 
 type Props = OwnProps & Omit<React.ComponentPropsWithoutRef<'article'>, keyof OwnProps>;
 
+const TODAY = new Date();
+
 const Promotion = ({
   checkout,
   className,
-  color,
+  color: colorProp,
   cover,
   promotional,
+  promotionalColor,
   publishedAt,
+  series,
   slug,
   synopsis,
   title,
   ...props
 }: Props) => {
+  const color = promotionalColor ?? colorProp;
   const image = promotional ?? cover;
   const [link] = checkout;
+  const publishedDate = publishedAt ? new Date(publishedAt) : null;
+  const style = { '--bg-color': color, '--color': colorProp } as React.CSSProperties;
 
   return (
     <article
       {...props}
-      className={cx(className, 'relative flex flex-col items-center justify-center gap-5')}
-      style={{ backgroundColor: color }}
+      className={cx(
+        className,
+        'relative flex flex-col items-center justify-center gap-5 text-white before:absolute before:bottom-0 before:left-0 before:-z-10 before:h-1/2 before:w-full before:bg-[color:var(--bg-color)]',
+      )}
+      style={style}
     >
-      <img alt={image.description} className="h-3/5 rounded border border-stone-800" src={image.url} />
+      <img alt={image.description} className="w-11/12" src={image.url} />
       <header>
-        <Heading className="text-center !text-4xl">{title}</Heading>
+        <Heading as="h2" className="text-center uppercase" level={2}>
+          {title}
+        </Heading>
+        <Heading as="p" className="text-center uppercase" level={3}>
+          {series}
+        </Heading>
       </header>
+      {publishedDate && publishedDate > TODAY && (
+        <p>
+          <FormattedMessage
+            defaultMessage="A la venta <b>{date, date, ::MMMMd}</b>"
+            id="SALE_ON"
+            values={{
+              b: (chunks) => <b className="font-normal text-[color:var(--color)]">{chunks}</b>,
+              date: publishedDate,
+            }}
+          />
+        </p>
+      )}
       {link && (
-        <a className="rounded-sm border border-stone-900 bg-purple-900 px-3 py-2 text-sm text-white" href={link.url}>
-          <FormattedMessage defaultMessage="Comprar" id="BUY" />
+        <a
+          className="rounded-sm bg-[color:var(--color)] px-4 py-1 text-sm font-normal uppercase"
+          href={link.url}
+          rel="noreferrer"
+          style={style}
+          target="_blank"
+        >
+          {publishedDate && publishedDate > TODAY ? (
+            <FormattedMessage defaultMessage="Comprar en preventa" id="PRESALE" />
+          ) : (
+            <FormattedMessage defaultMessage="Comprar" id="BUY" />
+          )}
         </a>
       )}
     </article>

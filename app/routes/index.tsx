@@ -5,8 +5,6 @@ import { useLoaderData } from 'remix';
 
 import type { Book } from '~/api/books';
 import booksFetcher from '~/api/books';
-// import type { Series } from '~/api/series';
-import seriesFetcher from '~/api/series';
 
 import Page from '~/components/Page';
 import Promotion from '~/components/Promotion';
@@ -21,9 +19,9 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
-  const [books] = await Promise.all([booksFetcher({ preview }), seriesFetcher({ preview })]);
+  const books = await booksFetcher({ preview });
 
-  const [last, presale, next] = [
+  const [last, presale] = [
     books.find((book) => {
       const publishedDate = new Date(book.publishedAt!);
       const isPublished = publishedDate.getTime() < Date.now();
@@ -36,12 +34,17 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
 
       return hasCheckoutLinks;
     }),
-    books.find((book) => {
-      const hasPublishDate = book.publishedAt !== null;
-
-      return hasPublishDate;
-    }),
   ];
+
+  const next = books.find((book) => {
+    const hasPublishDate = book.publishedAt !== null;
+
+    const bookDate = book.publishedAt ? new Date(book.publishedAt) : null;
+    const presaleDate = presale?.publishedAt ? new Date(presale.publishedAt) : null;
+    const isNext = bookDate && presaleDate ? bookDate > presaleDate : false;
+
+    return hasPublishDate && isNext;
+  });
 
   return { last, presale, next };
 };
@@ -49,9 +52,11 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
 const Index = () => {
   const { last, presale, next } = useLoaderData<Data>();
 
+  console.log(last, presale, next);
+
   return (
     <Page className="!p-0 xl:grid-cols-2">
-      {presale && <Promotion className="h-screen md:h-1/2" {...presale} />}
+      {presale && <Promotion className="h-[80vh] md:h-1/2" {...presale} />}
       {next && <Promotion className="h-screen md:h-1/2" {...next} />}
       {last && <Promotion className="h-screen md:h-1/2" {...last} />}
     </Page>

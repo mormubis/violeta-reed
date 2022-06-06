@@ -8,7 +8,9 @@ type Book = {
   color?: string;
   cover: Image;
   promotional?: Image;
+  promotionalColor?: string;
   publishedAt?: string;
+  series?: string;
   slug: string;
   synopsis: string;
   title: string;
@@ -40,7 +42,11 @@ const fragment = gql`
       description
       url(transform: { format: WEBP })
     }
+    promotionalColor
     publishedAt
+    series {
+      title
+    }
     slug
     synopsis {
       json
@@ -77,7 +83,9 @@ const mapper = (item: RawBook): Book => {
     color: item.color!,
     cover: { description: cover.description!, url: cover.url! },
     promotional: promotional && { description: promotional.description!, url: promotional.url! },
+    promotionalColor: item.promotionalColor!,
     publishedAt: item.publishedAt,
+    series: item.series?.title!,
     slug: item.slug!,
     synopsis: richTextToHTML(item.synopsis?.json),
     title: item.title!,
