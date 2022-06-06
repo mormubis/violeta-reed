@@ -52,13 +52,11 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
 const Index = () => {
   const { last, presale, next } = useLoaderData<Data>();
 
-  console.log(last, presale, next);
-
   return (
-    <Page className="!p-0 xl:grid-cols-2">
-      {presale && <Promotion className="h-[80vh] md:h-1/2" {...presale} />}
-      {next && <Promotion className="h-screen md:h-1/2" {...next} />}
-      {last && <Promotion className="h-screen md:h-1/2" {...last} />}
+    <Page className="!p-0 md:grid-cols-2 md:!gap-0">
+      {presale && <Promotion className="h-[80vh] md:h-screen lg:h-[75vh]" {...presale} />}
+      {next && <Promotion className="h-screen md:h-screen lg:h-[75vh]" {...next} />}
+      {last && <Promotion className="h-screen md:h-screen lg:h-[75vh]" {...last} />}
     </Page>
   );
 };

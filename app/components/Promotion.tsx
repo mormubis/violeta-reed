@@ -42,7 +42,7 @@ const Promotion = ({
       )}
       style={style}
     >
-      <img alt={image.description} className="w-11/12" src={image.url} />
+      <img alt={image.description} className="w-11/12 md:w-3/5" src={image.url} />
       <header>
         <Heading as="h2" className="text-center uppercase" level={2}>
           {title}
@@ -63,7 +63,7 @@ const Promotion = ({
           />
         </p>
       )}
-      {link && (
+      {link ? (
         <a
           className="rounded-sm bg-[color:var(--color)] px-4 py-1 text-sm font-normal uppercase"
           href={link.url}
@@ -77,6 +77,10 @@ const Promotion = ({
             <FormattedMessage defaultMessage="Comprar" id="BUY" />
           )}
         </a>
+      ) : (
+        <div className="rounded-sm bg-[color:var(--color)] px-4 py-1 text-sm font-normal uppercase" style={style}>
+          <FormattedMessage defaultMessage="Próximamente" id="COMING_SOON" />
+        </div>
       )}
     </article>
   );

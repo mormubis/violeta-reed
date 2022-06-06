@@ -4,11 +4,14 @@
   "BOOK": "Libro",
   "BOOKS": "Novelas",
   "BUY": "Comprar",
+  "COMING_SOON": "Próximamente",
   "COPYRIGHT": "Violeta Reed. All Rights Reserved",
   "FOLLOW_ME": "Sígueme",
   "HOME": "Inicio",
   "MORE_INFO_%TITLE%": "Más información sobre {title}",
   "POST": "Publicación",
+  "PRESALE": "Comprar en preventa",
   "PROFILE": "Perfil",
-  "READ_MORE": "Leer más"
+  "READ_MORE": "Leer más",
+  "SALE_ON": "A la venta <b>{date, date, ::MMMMd}</b>"
 }
