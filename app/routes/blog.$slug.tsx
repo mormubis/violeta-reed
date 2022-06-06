@@ -12,8 +12,11 @@ import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Page from '~/components/Page';
 
-const loader: LoaderFunction = async ({ params }) => {
-  const [post] = await fetcher({ slug: params.slug });
+const loader: LoaderFunction = async ({ request, params }) => {
+  const url = new URL(request.url);
+  const preview = Boolean(url.searchParams.get('preview'));
+
+  const [post] = await fetcher({ slug: params.slug, preview });
 
   return post;
 };
