@@ -8,9 +8,10 @@ type LoaderParams = {
 };
 
 type Meta = {
-  title: string;
   description?: string;
   image?: string;
+  keywords: string;
+  title: string;
 };
 
 const query = gql`
@@ -21,6 +22,7 @@ const query = gql`
         image {
           url
         }
+        keywords
         title
       }
     }
@@ -43,6 +45,7 @@ async function loader({ path, preview = false }: LoaderParams): Promise<Meta | n
   return {
     description: meta.description!,
     image: meta.image?.url!,
+    keywords: meta.keywords!,
     title: meta.title!,
   };
 }

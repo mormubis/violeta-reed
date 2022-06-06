@@ -71,11 +71,13 @@ const meta: MetaFunction = ({ data, location }) => {
 
   const description = meta?.description ?? 'Violeta Reed';
   const image = meta?.image ?? '/images/logotype.png';
+  const keywords = meta?.keywords ?? 'violeta reed, novelas, libros, novelas de amor, novela romantica';
   const title = meta?.title ?? 'Violeta Reed';
   const url = location.pathname;
 
   return {
     description,
+    keywords,
     title,
     'og:type': 'website',
     'og:url': url,
