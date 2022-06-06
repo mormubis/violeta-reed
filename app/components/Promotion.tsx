@@ -57,7 +57,7 @@ const Promotion = ({
             defaultMessage="A la venta <b>{date, date, ::MMMMd}</b>"
             id="SALE_ON"
             values={{
-              b: (chunks) => <b className="font-normal text-[color:var(--color)]">{chunks}</b>,
+              b: (chunks) => <b className="font-normal uppercase text-[color:var(--color)]">{chunks}</b>,
               date: publishedDate,
             }}
           />

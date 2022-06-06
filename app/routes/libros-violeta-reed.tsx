@@ -29,13 +29,11 @@ const Books = () => {
       <Page.Heading>
         <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
       </Page.Heading>
-      <ul className="flex flex-col">
-        {books.map((item) => (
-          <li key={item.title} className="flex flex-col gap-2">
-            <Book {...item} author="Violeta Reed" />
-          </li>
+      <section className="-mx-3 overflow-hidden md:-mx-6 xl:overflow-visible">
+        {books.map((book) => (
+          <Book {...book} author="Violeta Reed" key={book.slug} />
         ))}
-      </ul>
+      </section>
     </Page>
   );
 };

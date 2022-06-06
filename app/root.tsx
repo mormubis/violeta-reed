@@ -3,7 +3,7 @@ import React, { useCallback, useReducer } from 'react';
 import al from 'accept-language';
 import cx from 'classnames';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import { Outlet, useCatch, useLoaderData } from 'remix';
+import { Outlet, useLoaderData } from 'remix';
 import type { LinksFunction, MetaFunction, LoaderFunction } from 'remix';
 
 import type { Meta } from '~/api/meta';
@@ -139,13 +139,13 @@ const App = () => {
                 <Navigation.Link onClick={close} to="/">
                   <FormattedMessage defaultMessage="Inicio" id="HOME" />
                 </Navigation.Link>
-                <Navigation.Link onClick={close} to="/books">
+                <Navigation.Link onClick={close} to="/libros-violeta-reed">
                   <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
                 </Navigation.Link>
                 <Navigation.Link onClick={close} to="/blog">
                   <FormattedMessage defaultMessage="Blog" id="BLOG" />
                 </Navigation.Link>
-                <Navigation.Link onClick={close} to="/about">
+                <Navigation.Link onClick={close} to="/sobre-mi">
                   <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
                 </Navigation.Link>
               </Navigation>
@@ -180,23 +180,19 @@ const App = () => {
 };
 
 const CatchBoundary = () => {
-  const caught = useCatch();
-
   return (
     <Document>
-      <p>
-        [CatchBoundary]: {caught.status} {caught.statusText}
-      </p>
+      <p>Parece que algo no anda muy bien</p>
     </Document>
   );
 };
 
-// const ErrorBoundary = ({ error }: { error: Error }) => (
-//   <Document>
-//     <p>[ErrorBoundary]: There was an error: {error.message}</p>
-//   </Document>
-// );
+const ErrorBoundary = ({ error }: { error: Error }) => (
+  <Document>
+    <p>Parece que algo no anda muy bien</p>
+  </Document>
+);
 
-export { CatchBoundary, links, loader, meta };
+export { CatchBoundary, ErrorBoundary, links, loader, meta };
 
 export default App;

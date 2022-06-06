@@ -46,7 +46,10 @@ const SeriesPreview = ({
     <ul className="relative -mb-6 flex gap-3 overflow-x-auto pb-6 md:gap-6">
       {books.map((book: Book) => (
         <li key={book.slug} className="shrink-0">
-          <Link className="flex h-full flex-col items-center gap-1 text-center" to={`/books/${book.slug}`}>
+          <Link
+            className="flex h-full flex-col items-center gap-1 text-center"
+            to={`/libros-violeta-reed/${book.slug}`}
+          >
             <Cover title={book.cover.description ?? book.title} url={book.cover.url} />
             <span className="font-serif font-semibold">{book.title}</span>
           </Link>
