@@ -42,7 +42,14 @@ const Promotion = ({
       )}
       style={style}
     >
-      <img alt={image.description} className="w-11/12 md:w-3/5" src={image.url} />
+      {link ? (
+        <a className="w-11/12 md:w-3/5" href={link.url} rel="noreferrer" style={style} target="_blank">
+          <img alt={image.description} src={image.url} />
+        </a>
+      ) : (
+        <img alt={image.description} className="w-11/12 md:w-3/5" src={image.url} />
+      )}
+
       <header>
         <Heading as="h2" className="text-center uppercase" level={2}>
           {title}

@@ -51,7 +51,7 @@ const links: LinksFunction = () => [
   // Fonts
   {
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap',
+    href: 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap',
   },
 ];
 
@@ -70,7 +70,7 @@ const meta: MetaFunction = ({ data, location }) => {
   const meta = (data as Data)?.meta;
 
   const description = meta?.description ?? 'Violeta Reed';
-  const image = meta?.image ?? '/images/logotype.png';
+  const image = meta?.image ?? '/images/logotype.svg';
   const keywords = meta?.keywords ?? 'violeta reed, novelas, libros, novelas de amor, novela romantica';
   const title = meta?.title ?? 'Violeta Reed';
   const url = location.pathname;
@@ -154,13 +154,13 @@ const App = () => {
             </Header.Left>
 
             <Link
-              className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80"
+              className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80 xl:w-[300px]"
               to="/"
             >
               <Logotype />
             </Link>
 
-            <Header.Right>
+            <Header.Right className="xl:px-12">
               {profile.social.map((link) => (
                 <Header.Social key={link.name} name={link.name} url={link.url} />
               ))}

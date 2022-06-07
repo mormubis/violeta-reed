@@ -54,9 +54,9 @@ const Index = () => {
 
   return (
     <Page className="!p-0 md:grid-cols-2 md:!gap-0">
-      {presale && <Promotion className="h-[80vh] md:h-screen lg:h-[75vh]" {...presale} />}
-      {next && <Promotion className="h-screen md:h-screen lg:h-[75vh]" {...next} />}
-      {last && <Promotion className="h-screen md:h-screen lg:h-[75vh]" {...last} />}
+      {presale && <Promotion className="h-[80vh] md:h-screen lg:h-[75vh] lg:min-h-[700px]" {...presale} />}
+      {next && <Promotion className="h-[80vh] md:h-screen lg:h-[75vh] lg:min-h-[700px]" {...next} />}
+      {last && <Promotion className="h-[80vh] md:h-screen lg:h-[75vh] lg:min-h-[700px]" {...last} />}
     </Page>
   );
 };

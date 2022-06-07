@@ -24,6 +24,7 @@ const Book = ({
   publishedAt,
   promotional,
   promotionalColor,
+  series,
   slug,
   synopsis,
   title,
@@ -44,8 +45,12 @@ const Book = ({
       <Heading as="h2" className="uppercase text-[color:var(--color)]" level={2}>
         {title}
       </Heading>
+      {series && (
+        <Heading as="p" className="uppercase text-[color:var(--color)] opacity-80" level={3}>
+          {series}
+        </Heading>
+      )}
       <HTML content={synopsis} />
-      <div>{JSON.stringify(checkout)}</div>
     </article>
   );
 };
