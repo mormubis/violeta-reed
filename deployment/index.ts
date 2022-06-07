@@ -16,7 +16,7 @@ async function resolve(domain: string): Promise<string> {
 const NS = ['book', 'framboise', 'love', 'wonderland'];
 
 /** DOMAIN */
-const domain = new awsx.route53.Zone('violetareed.com', { comment: 'Violeta Reed Website' });
+const domain = new awsx.route53.Zone('domain', { name: 'violetareed.com' });
 
 domain.nameServers.apply((nameservers) => {
   nameservers.forEach(async (ns: string, index: number) => {
@@ -154,8 +154,13 @@ const ami = awsx.ec2.getAmiOutput({
   owners: ['amazon'],
 });
 
+const profile = awsx.iam.getInstanceProfileOutput({
+  name: 'ecsInstanceRole',
+});
+
 const template = new awsx.ec2.LaunchTemplate('instance-template', {
   ebsOptimized: 'true',
+  iamInstanceProfile: { arn: profile.arn },
   imageId: ami.apply((ami) => ami.id),
   instanceType: 't3a.nano',
   monitoring: {
@@ -172,25 +177,58 @@ echo ECS_CLUSTER=production >> /etc/ecs/ecs.config`),
 });
 
 new awsx.autoscaling.Group('instance-cluster', {
-  // availabilityZones: ['eu-west-3a', 'eu-west-3b', 'eu-west-3c'],
   capacityRebalance: true,
   launchTemplate: { id: template.id },
   healthCheckGracePeriod: 30,
   maxInstanceLifetime: 60 * 60 * 24 * 7, // a week
   maxSize: 10,
   minSize: 1,
-
   vpcZoneIdentifiers: [subnetA.id, subnetB.id, subnetC.id],
 });
 
 /** ECS */
 
-new awsx.ecr.Repository('server-renderer', {
-  imageTagMutability: 'IMMUTABLE',
+const role = awsx.iam.getRoleOutput({ name: 'ecsTaskExecutionRole' });
+
+new awsx.ecr.Repository('server-renderer-repo', {
   name: 'server-renderer',
 });
 
-new awsx.ecs.Cluster('server-renderer', {
+new awsx.ecs.TaskDefinition('server-renderer-template', {
+  containerDefinitions: JSON.stringify([
+    {
+      cpu: 10,
+      essential: true,
+      image: '826353843014.dkr.ecr.eu-west-3.amazonaws.com/server-renderer:latest',
+      logConfiguration: {
+        logDriver: 'awslogs',
+        options: {
+          'awslogs-group': '/ecs/server-renderer',
+          'awslogs-region': 'eu-west-3',
+          'awslogs-stream-prefix': 'ecs',
+        },
+      },
+      memory: 512,
+      name: 'first',
+      portMappings: [
+        {
+          hostPort: 0,
+          protocol: 'tcp',
+          containerPort: 3000,
+        },
+      ],
+      runtimePlatform: {
+        operatingSystemFamily: 'LINUX',
+      },
+    },
+  ]),
+  executionRoleArn: role.arn,
+  family: 'server-renderer',
+  networkMode: 'bridge',
+  requiresCompatibilities: ['EC2'],
+});
+
+new awsx.ecs.Cluster('task-cluster', {
   name: 'production',
   settings: [
     {
