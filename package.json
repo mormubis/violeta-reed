@@ -20,7 +20,7 @@
   "devDependencies": {
     "@formatjs/cli": "^5.0.1",
     "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/import-types-preset": "^2.1.18",
+    "@graphql-codegen/import-types-preset": "^2.1.19",
     "@graphql-codegen/introspection": "^2.1.1",
     "@graphql-codegen/typed-document-node": "^2.2.11",
     "@graphql-codegen/typescript": "^2.4.11",
