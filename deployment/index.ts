@@ -48,6 +48,33 @@ new awsx.route53.Record('SOA', {
   zoneId: domain.zoneId,
 });
 
+new awsx.route53.Record('CNAME', {
+  name: 'www.violetareed.com',
+  records: ['violetareed.com'],
+  ttl: 900,
+  type: 'CNAME',
+  zoneId: domain.zoneId,
+});
+
+const ssl = new awsx.acm.Certificate('ssl', {
+  domainName: domain.name,
+  validationMethod: 'DNS',
+});
+
+ssl.domainValidationOptions.apply((options) => {
+  options.forEach(({ resourceRecordName: name, resourceRecordType: type, resourceRecordValue: value }) => {
+    new awsx.route53.Record(`cert-${name}`, {
+      allowOverwrite: true,
+      name,
+      records: [value],
+      ttl: 60,
+      type,
+      zoneId: domain.zoneId,
+    });
+  });
+  // const { resourceRecordName: name, resourceRecordType: type, resourceRecordValue: value} = options;
+});
+
 /** NETWORK */
 const vpc = new awsx.ec2.Vpc('network', { cidrBlock: '10.0.0.0/16' });
 
@@ -96,8 +123,8 @@ new awsx.ec2.DefaultSecurityGroup('network-default-sg', {
   vpcId: vpc.id,
   ingress: [
     {
+      cidrBlocks: ['0.0.0.0/0'],
       protocol: '-1',
-      self: true,
       fromPort: 0,
       toPort: 0,
     },
@@ -106,8 +133,8 @@ new awsx.ec2.DefaultSecurityGroup('network-default-sg', {
     {
       cidrBlocks: ['0.0.0.0/0'],
       fromPort: 0,
-      toPort: 0,
       protocol: '-1',
+      toPort: 0,
     },
   ],
 });
@@ -158,7 +185,7 @@ const profile = awsx.iam.getInstanceProfileOutput({
   name: 'ecsInstanceRole',
 });
 
-const template = new awsx.ec2.LaunchTemplate('instance-template', {
+const instanceTemplate = new awsx.ec2.LaunchTemplate('instance-template', {
   ebsOptimized: 'true',
   iamInstanceProfile: { arn: profile.arn },
   imageId: ami.apply((ami) => ami.id),
@@ -178,12 +205,73 @@ echo ECS_CLUSTER=production >> /etc/ecs/ecs.config`),
 
 new awsx.autoscaling.Group('instance-cluster', {
   capacityRebalance: true,
-  launchTemplate: { id: template.id },
+  launchTemplate: { id: instanceTemplate.id },
   healthCheckGracePeriod: 30,
   maxInstanceLifetime: 60 * 60 * 24 * 7, // a week
   maxSize: 10,
   minSize: 1,
   vpcZoneIdentifiers: [subnetA.id, subnetB.id, subnetC.id],
+});
+
+/** LOAD BALANCER */
+
+const targetGroup = new awsx.alb.TargetGroup('server-renderer-tg', {
+  deregistrationDelay: 60,
+  protocol: 'HTTP',
+  port: 3000,
+  healthCheck: {
+    port: 'traffic-port',
+  },
+  vpcId: vpc.id,
+});
+
+const balancer = new awsx.alb.LoadBalancer('server-renderer-lb', {
+  enableHttp2: true,
+  internal: false,
+  subnets: [subnetA.id, subnetB.id, subnetC.id],
+});
+
+new awsx.route53.Record('WWW', {
+  aliases: [
+    {
+      name: balancer.dnsName,
+      zoneId: balancer.zoneId,
+      evaluateTargetHealth: true,
+    },
+  ],
+  name: 'violetareed.com',
+  type: 'A',
+  zoneId: domain.zoneId,
+});
+
+new awsx.lb.Listener('http-listener', {
+  loadBalancerArn: balancer.arn,
+  port: 80,
+  protocol: 'HTTP',
+  defaultActions: [
+    {
+      type: 'redirect',
+      redirect: {
+        port: '443',
+        protocol: 'HTTPS',
+        statusCode: 'HTTP_301',
+      },
+    },
+  ],
+});
+
+new awsx.lb.Listener('https-listener', {
+  certificateArn: ssl.arn,
+  defaultActions: [
+    {
+      type: 'forward',
+      targetGroupArn: targetGroup.arn,
+    },
+  ],
+  loadBalancerArn: balancer.arn,
+  port: 443,
+  protocol: 'HTTPS',
+  sslPolicy: 'ELBSecurityPolicy-2016-08',
 });
 
 /** ECS */
@@ -194,10 +282,10 @@ new awsx.ecr.Repository('server-renderer-repo', {
   name: 'server-renderer',
 });
 
-new awsx.ecs.TaskDefinition('server-renderer-template', {
+const taskTemplate = new awsx.ecs.TaskDefinition('server-renderer-template', {
   containerDefinitions: JSON.stringify([
     {
-      cpu: 10,
+      cpu: 256,
       essential: true,
       image: '826353843014.dkr.ecr.eu-west-3.amazonaws.com/server-renderer:latest',
       logConfiguration: {
@@ -208,7 +296,7 @@ new awsx.ecs.TaskDefinition('server-renderer-template', {
           'awslogs-stream-prefix': 'ecs',
         },
       },
-      memory: 512,
+      memory: 128,
       name: 'first',
       portMappings: [
         {
@@ -224,11 +312,10 @@ new awsx.ecs.TaskDefinition('server-renderer-template', {
   ]),
   executionRoleArn: role.arn,
   family: 'server-renderer',
-  networkMode: 'bridge',
   requiresCompatibilities: ['EC2'],
 });
 
-new awsx.ecs.Cluster('task-cluster', {
+const cluster = new awsx.ecs.Cluster('task-cluster', {
   name: 'production',
   settings: [
     {
@@ -236,4 +323,28 @@ new awsx.ecs.Cluster('task-cluster', {
       value: 'enabled',
     },
   ],
+});
+
+new awsx.ecs.Service('server-renderer-service', {
+  cluster: cluster.arn,
+  desiredCount: 3,
+  forceNewDeployment: true,
+  loadBalancers: [
+    {
+      targetGroupArn: targetGroup.arn,
+      containerName: taskTemplate.containerDefinitions.apply((definition) => {
+        const [container] = JSON.parse(definition);
+        return container.name;
+      }),
+      containerPort: 3000,
+    },
+  ],
+  name: 'server-renderer',
+  orderedPlacementStrategies: [
+    {
+      type: 'binpack',
+      field: 'cpu',
+    },
+  ],
+  taskDefinition: taskTemplate.arn,
 });
