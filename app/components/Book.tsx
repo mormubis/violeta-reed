@@ -52,28 +52,28 @@ const Book = ({
       style={style}
     >
       <Cover
-        className={cx('row-span-5 h-64 self-center md:h-auto', isEven && 'order-2')}
+        className={cx('row-span-5 h-64 self-center md:h-auto', isEven && 'md:order-2')}
         title={cover.description ?? title}
         url={cover.url}
       />
-      <Heading as="h2" className={cx('uppercase text-[color:var(--color)]', isEven && 'order-1')} level={2}>
+      <Heading as="h2" className={cx('uppercase text-[color:var(--color)]', isEven && 'md:order-1')} level={2}>
         {title}
       </Heading>
       {series && (
         <Heading
           as="p"
-          className={cx('-mt-5 uppercase text-[color:var(--color)] opacity-80', isEven && 'order-3')}
+          className={cx('-mt-5 uppercase text-[color:var(--color)] opacity-80', isEven && 'md:order-3')}
           level={3}
         >
           {series}
         </Heading>
       )}
-      <HTML className={cx('lg:!prose-p:text-base prose-p:text-sm', isEven && 'order-4')} content={synopsis} />
+      <HTML className={cx('lg:!prose-p:text-base prose-p:text-sm', isEven && 'md:order-4')} content={synopsis} />
       {publishedDate && publishedDate > TODAY && (
         <p
           className={cx(
             'border-b-solid place-self-center border-b-2 border-[color:var(--color)] text-center text-xl',
-            isEven && 'order-5',
+            isEven && 'md:order-5',
           )}
         >
           <FormattedMessage
@@ -90,7 +90,7 @@ const Book = ({
         <div
           className={cx(
             '-mx-3 -mb-5 grid grid-cols-3 justify-items-center gap-5 bg-white px-3 py-3 md:grid-cols-7 md:bg-transparent',
-            isEven && 'order-6',
+            isEven && 'md:order-6',
           )}
         >
           <Heading as="h3" className="col-span-3 md:col-span-7" level={3}>
