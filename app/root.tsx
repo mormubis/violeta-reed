@@ -93,7 +93,7 @@ const meta: MetaFunction = ({ data, location }) => {
 };
 
 const App = () => {
-  const { locale, preview, profile } = useLoaderData<Data>();
+  const { preview, profile } = useLoaderData<Data>();
 
   const [isNavOpen, toggle] = useReducer((state: boolean) => !state, false);
 
@@ -104,7 +104,7 @@ const App = () => {
   }, [isNavOpen, toggle]);
 
   return (
-    <IntlProvider defaultLocale="es" locale={locale} messages={es}>
+    <IntlProvider defaultLocale="es" locale="es" messages={es}>
       <PreviewProvider value={preview ?? false}>
         <Document>
           <Header className="sticky top-0 z-50 w-full">
@@ -157,7 +157,7 @@ const App = () => {
               className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80 xl:w-[300px]"
               to="/"
             >
-              <Logotype />
+              <Logotype className="h-full w-full" />
             </Link>
 
             <Header.Right className="xl:px-12">

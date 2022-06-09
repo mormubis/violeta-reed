@@ -4,6 +4,7 @@
   "BOOK": "Libro",
   "BOOKS": "Novelas",
   "BUY": "Comprar",
+  "BUY_IN": "Cómpralo en",
   "COMING_SOON": "Próximamente",
   "COPYRIGHT": "Violeta Reed. All Rights Reserved",
   "FOLLOW_ME": "Sígueme",
@@ -13,5 +14,5 @@
   "PRESALE": "Comprar en preventa",
   "PROFILE": "Perfil",
   "READ_MORE": "Leer más",
-  "SALE_ON": "A la venta <b>{date, date, ::MMMMd}</b>"
+  "SALE_ON": "A la venta el <b>{date, date, ::MMMMd}</b>"
 }

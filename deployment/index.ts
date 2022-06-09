@@ -58,6 +58,7 @@ new awsx.route53.Record('CNAME', {
 
 const ssl = new awsx.acm.Certificate('ssl', {
   domainName: domain.name,
+  subjectAlternativeNames: [domain.name.apply((name) => `www.${name}`)],
   validationMethod: 'DNS',
 });
 
@@ -83,30 +84,6 @@ const gateway = new awsx.ec2.InternetGateway('internet-gateway');
 new awsx.ec2.InternetGatewayAttachment('network-gateway-connection', {
   internetGatewayId: gateway.id,
   vpcId: vpc.id,
-});
-
-new awsx.ec2.DefaultNetworkAcl('network-default-acl', {
-  defaultNetworkAclId: vpc.defaultNetworkAclId,
-  ingress: [
-    {
-      protocol: '-1',
-      ruleNo: 100,
-      action: 'allow',
-      cidrBlock: '0.0.0.0/0',
-      fromPort: 0,
-      toPort: 0,
-    },
-  ],
-  egress: [
-    {
-      protocol: '-1',
-      ruleNo: 100,
-      action: 'allow',
-      cidrBlock: '0.0.0.0/0',
-      fromPort: 0,
-      toPort: 0,
-    },
-  ],
 });
 
 const routeTable = new awsx.ec2.DefaultRouteTable('network-default-rt', {
@@ -153,6 +130,31 @@ const subnetC = new awsx.ec2.Subnet('network-subnet-c', {
   availabilityZoneId: 'euw3-az3',
   cidrBlock: '10.0.128.0/24',
   vpcId: vpc.id,
+});
+
+new awsx.ec2.DefaultNetworkAcl('network-default-acl', {
+  defaultNetworkAclId: vpc.defaultNetworkAclId,
+  ingress: [
+    {
+      protocol: '-1',
+      ruleNo: 100,
+      action: 'allow',
+      cidrBlock: '0.0.0.0/0',
+      fromPort: 0,
+      toPort: 0,
+    },
+  ],
+  egress: [
+    {
+      protocol: '-1',
+      ruleNo: 100,
+      action: 'allow',
+      cidrBlock: '0.0.0.0/0',
+      fromPort: 0,
+      toPort: 0,
+    },
+  ],
+  subnetIds: [subnetA.id, subnetB.id, subnetC.id],
 });
 
 new awsx.ec2.RouteTableAssociation('network-subnet-a-rt-association', {
