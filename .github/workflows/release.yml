@@ -22,3 +22,7 @@ jobs:
           region: eu-west-3
           tags: latest,${{ github.sha }}
           image_scanning_configuration: true
+      - uses: donaldpiret/ecs-deploy@master
+        with:
+          cluster: production
+          target: server-renderer

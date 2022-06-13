@@ -73,7 +73,6 @@ ssl.domainValidationOptions.apply((options) => {
       zoneId: domain.zoneId,
     });
   });
-  // const { resourceRecordName: name, resourceRecordType: type, resourceRecordValue: value} = options;
 });
 
 /** NETWORK */
@@ -205,14 +204,28 @@ const instanceTemplate = new awsx.ec2.LaunchTemplate('instance-template', {
 echo ECS_CLUSTER=production >> /etc/ecs/ecs.config`),
 });
 
-new awsx.autoscaling.Group('instance-cluster', {
+const asg = new awsx.autoscaling.Group('instance-cluster', {
   capacityRebalance: true,
   launchTemplate: { id: instanceTemplate.id },
   healthCheckGracePeriod: 30,
   maxInstanceLifetime: 60 * 60 * 24 * 7, // a week
   maxSize: 10,
-  minSize: 1,
+  minSize: 3,
   vpcZoneIdentifiers: [subnetA.id, subnetB.id, subnetC.id],
+});
+
+const policyScaleOut = new awsx.autoscaling.Policy('policy-scale-out', {
+  scalingAdjustment: 1,
+  adjustmentType: 'ChangeInCapacity',
+  cooldown: 120,
+  autoscalingGroupName: asg.name,
+});
+
+const policyScaleIn = new awsx.autoscaling.Policy('policy-scale-in', {
+  scalingAdjustment: -1,
+  adjustmentType: 'ChangeInCapacity',
+  cooldown: 120,
+  autoscalingGroupName: asg.name,
 });
 
 /** LOAD BALANCER */
@@ -349,4 +362,108 @@ new awsx.ecs.Service('server-renderer-service', {
     },
   ],
   taskDefinition: taskTemplate.arn,
+});
+
+const target = new awsx.appautoscaling.Target('task-number', {
+  maxCapacity: 24,
+  minCapacity: 3,
+  resourceId: 'service/production/server-renderer',
+  scalableDimension: 'ecs:service:DesiredCount',
+  serviceNamespace: 'ecs',
+});
+
+const appPolicyScaleIn = new awsx.appautoscaling.Policy('app-policy-scale-in', {
+  policyType: 'StepScaling',
+  resourceId: target.resourceId,
+  scalableDimension: target.scalableDimension,
+  serviceNamespace: target.serviceNamespace,
+  stepScalingPolicyConfiguration: {
+    adjustmentType: 'ChangeInCapacity',
+    cooldown: 30,
+    metricAggregationType: 'Maximum',
+    stepAdjustments: [
+      {
+        metricIntervalUpperBound: '0',
+        scalingAdjustment: -1,
+      },
+    ],
+  },
+});
+
+const appPolicyScaleOut = new awsx.appautoscaling.Policy('app-policy-scale-out', {
+  policyType: 'StepScaling',
+  resourceId: target.resourceId,
+  scalableDimension: target.scalableDimension,
+  serviceNamespace: target.serviceNamespace,
+  stepScalingPolicyConfiguration: {
+    adjustmentType: 'ChangeInCapacity',
+    cooldown: 30,
+    metricAggregationType: 'Maximum',
+    stepAdjustments: [
+      {
+        metricIntervalUpperBound: '0',
+        scalingAdjustment: 1,
+      },
+    ],
+  },
+});
+
+/** ALARMS */
+
+new awsx.cloudwatch.MetricAlarm('memory-reservation-low', {
+  alarmActions: [policyScaleOut.arn],
+  comparisonOperator: 'GreaterThanOrEqualToThreshold',
+  dimensions: {
+    ClusterName: cluster.name,
+  },
+  evaluationPeriods: 3,
+  metricName: 'MemoryReservation',
+  namespace: 'AWS/ECS',
+  period: 120,
+  statistic: 'Average',
+  threshold: 40,
+});
+
+new awsx.cloudwatch.MetricAlarm('memory-reservation-high', {
+  alarmActions: [policyScaleIn.arn],
+  comparisonOperator: 'LessThanThreshold',
+  dimensions: {
+    ClusterName: cluster.name,
+  },
+  evaluationPeriods: 3,
+  metricName: 'MemoryReservation',
+  namespace: 'AWS/ECS',
+  period: 120,
+  statistic: 'Average',
+  threshold: 20,
+});
+
+new awsx.cloudwatch.MetricAlarm('request-count-high', {
+  alarmActions: [appPolicyScaleOut.arn],
+  comparisonOperator: 'GreaterThanOrEqualToThreshold',
+  dimensions: {
+    LoadBalancer: balancer.arnSuffix,
+    TargetGroup: targetGroup.arnSuffix,
+  },
+  evaluationPeriods: 3,
+  metricName: 'RequestCountPerTarget',
+  namespace: 'AWS/ApplicationELB',
+  period: 60,
+  statistic: 'Average',
+  threshold: 40,
+});
+
+new awsx.cloudwatch.MetricAlarm('request-count-low', {
+  alarmActions: [appPolicyScaleIn.arn],
+  comparisonOperator: 'LessThanThreshold',
+  dimensions: {
+    LoadBalancer: balancer.arnSuffix,
+    TargetGroup: targetGroup.arnSuffix,
+  },
+  evaluationPeriods: 3,
+  metricName: 'RequestCountPerTarget',
+  namespace: 'AWS/ApplicationELB',
+  period: 60,
+  statistic: 'Average',
+  threshold: 20,
 });
