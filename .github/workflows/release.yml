@@ -9,11 +9,22 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npx remix setup
-      - run: npm run build
-      - uses: kciter/aws-ecr-action@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Remix setup
+        run: npx remix setup
+      - name: Build application
+        run: npm run build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-3
+      - name: Upload docker image
+        uses: kciter/aws-ecr-action@v4
         with:
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -22,7 +33,9 @@ jobs:
           region: eu-west-3
           tags: latest,${{ github.sha }}
           image_scanning_configuration: true
-      - uses: donaldpiret/ecs-deploy@master
+      - name: Deploy to Amazon ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           cluster: production
-          target: server-renderer
+          force-new-deployment: true
+          service: server-renderer
