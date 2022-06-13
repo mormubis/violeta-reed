@@ -38,7 +38,7 @@ const Promotion = ({
       {...props}
       className={cx(
         className,
-        'relative flex flex-col items-center justify-center gap-5 text-white before:absolute before:bottom-0 before:left-0 before:-z-10 before:h-1/2 before:w-full before:bg-[color:var(--bg-color)]',
+        'relative flex flex-col items-center justify-center gap-5 py-10 text-white before:absolute before:bottom-0 before:left-0 before:-z-10 before:h-1/2 before:w-full before:bg-[color:var(--bg-color)]',
       )}
       style={style}
     >
