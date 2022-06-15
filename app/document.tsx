@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from 'remix';
+import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from '@remix-run/react';
 
 type Props = {
   children?: React.ReactNode;

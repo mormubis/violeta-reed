@@ -1,8 +1,8 @@
 import React from 'react';
 
+import type { LoaderFunction } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
 import cx from 'classnames';
-import type { LoaderFunction } from 'remix';
-import { useLoaderData } from 'remix';
 
 import fetcher from '~/api/posts';
 import type { Post as PostType } from '~/api/posts';

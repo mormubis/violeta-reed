@@ -1,8 +1,8 @@
 import React from 'react';
 
+import type { LoaderFunction } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
 import { FormattedMessage } from 'react-intl';
-import type { LoaderFunction } from 'remix';
-import { useLoaderData } from 'remix';
 
 import type { Asset } from '~/api/assets';
 import assetFetcher from '~/api/assets';

@@ -1,10 +1,10 @@
 import React, { useCallback, useReducer } from 'react';
 
+import type { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
+import { Outlet, useLoaderData } from '@remix-run/react';
 import al from 'accept-language';
 import cx from 'classnames';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import { Outlet, useLoaderData } from 'remix';
-import type { LinksFunction, MetaFunction, LoaderFunction } from 'remix';
 
 import type { Meta } from '~/api/meta';
 import metaFetcher from '~/api/meta';
