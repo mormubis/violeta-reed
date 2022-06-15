@@ -32,7 +32,6 @@ jobs:
           repo: server-renderer
           region: eu-west-3
           tags: latest,${{ github.sha }}
-          image_scanning_configuration: true
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
