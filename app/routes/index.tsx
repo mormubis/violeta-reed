@@ -54,6 +54,7 @@ const Index = () => {
 
   return (
     <Page className="!p-0 md:grid-cols-2 md:!gap-0">
+      <Page.Heading className="!absolute opacity-0">Violeta Reed</Page.Heading>
       {presale && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...presale} />}
       {next && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...next} />}
       {last && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...last} />}

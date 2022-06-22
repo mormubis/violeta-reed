@@ -142,7 +142,7 @@ const App = () => {
                   <FormattedMessage defaultMessage="Inicio" id="HOME" />
                 </Navigation.Link>
                 <Navigation.Link onClick={close} to="/libros-violeta-reed">
-                  <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
+                  <FormattedMessage defaultMessage="Libros" id="BOOKS" />
                 </Navigation.Link>
                 <Navigation.Link onClick={close} to="/blog">
                   <FormattedMessage defaultMessage="Blog" id="BLOG" />
@@ -154,6 +154,7 @@ const App = () => {
             </Header.Left>
 
             <Link
+              aria-label="Violeta Reed"
               className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80 xl:w-[300px]"
               to="/"
             >

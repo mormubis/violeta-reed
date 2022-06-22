@@ -31,7 +31,7 @@ const Books = () => {
   return (
     <Page className="!pb-0">
       <Page.Heading>
-        <FormattedMessage defaultMessage="Novelas" id="BOOKS" />
+        <FormattedMessage defaultMessage="Libros" id="BOOKS" />
       </Page.Heading>
       <section className="-mx-3 overflow-hidden md:-mx-6 xl:overflow-visible">
         {books.map((book, index) => (
