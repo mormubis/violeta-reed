@@ -1,5 +1,6 @@
 import type { BookFragment as RawBook, BooksQuery, BooksQueryVariables } from '~/.graphql/types';
 
+import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
@@ -93,6 +94,10 @@ const mapper = (item: RawBook): Book => {
 };
 
 async function loader({ index, limit, preview = false, published, slug }: LoaderParams = {}): Promise<Book[]> {
+  if (cache.has(`books:${index}-${limit}`) && !preview) {
+    return cache.get<Book[]>(`books:${index}-${limit}`)!;
+  }
+
   const { bookCollection } = await graphql<BooksQuery, BooksQueryVariables>(query, {
     index,
     limit,
@@ -101,7 +106,15 @@ async function loader({ index, limit, preview = false, published, slug }: Loader
     slug,
   });
 
-  return bookCollection?.items.map((book: RawBook | null) => book!).map(mapper) ?? [];
+  const data = bookCollection?.items.map((book: RawBook | null) => book!).map(mapper) ?? [];
+
+  if (!preview) {
+    cache.set(`books:${index}-${limit}`, data, { ttl: 30 * 24 * 60 * 60 * 1000 }); // Cache for a month
+  } else {
+    cache.delete(`books:${index}-${limit}`);
+  }
+
+  return data;
 }
 
 export type { Book };

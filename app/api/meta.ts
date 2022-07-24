@@ -1,5 +1,6 @@
 import type { MetaQuery, MetaQueryVariables } from '~/.graphql/types';
 
+import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
 
 type LoaderParams = {
@@ -30,6 +31,10 @@ const query = gql`
 `;
 
 async function loader({ path, preview = false }: LoaderParams): Promise<Meta | null> {
+  if (cache.has(`meta:${path}`) && !preview) {
+    return cache.get<Meta>(`meta:${path}`)!;
+  }
+
   const { metaCollection } = await graphql<MetaQuery, MetaQueryVariables>(query, { path, preview });
 
   if (!metaCollection) {
@@ -42,12 +47,20 @@ async function loader({ path, preview = false }: LoaderParams): Promise<Meta | n
     return null;
   }
 
-  return {
+  const data = {
     description: meta.description!,
     image: meta.image?.url!,
     keywords: meta.keywords!,
     title: meta.title!,
   };
+
+  if (!preview) {
+    cache.set(`meta:${path}`, data);
+  } else {
+    cache.delete(`meta:${path}`);
+  }
+
+  return data;
 }
 
 export type { Meta };

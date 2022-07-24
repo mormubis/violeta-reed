@@ -1,5 +1,6 @@
 import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
 
+import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
@@ -108,6 +109,10 @@ const query = gql`
 `;
 
 async function loader({ preview = false }: LoaderParams = {}): Promise<Profile> {
+  if (cache.has('profile') && !preview) {
+    return cache.get<Profile>('profile')!;
+  }
+
   const { profileCollection } = await graphql<ProfileQuery, ProfileQueryVariables>(query, { preview });
 
   if (!profileCollection) {
@@ -128,7 +133,7 @@ async function loader({ preview = false }: LoaderParams = {}): Promise<Profile> 
 
   const { items: social = [] } = profile?.socialCollection ?? {};
 
-  return {
+  const data = {
     about: richTextToHTML(profile.about?.json, profile.about?.links),
     avatar: profile.avatar?.url!,
     bio: richTextToHTML(profile.bio?.json, profile.bio?.links),
@@ -137,6 +142,14 @@ async function loader({ preview = false }: LoaderParams = {}): Promise<Profile> 
       .map((item: any) => item!)
       .map((item: any) => ({ name: item.name.toLocaleLowerCase(), url: item.url! })),
   };
+
+  if (!preview) {
+    cache.set('profile', data, { ttl: 24 * 60 * 60 * 1000 }); // Cache for a day
+  } else {
+    cache.delete('profile');
+  }
+
+  return data;
 }
 
 export type { Profile };

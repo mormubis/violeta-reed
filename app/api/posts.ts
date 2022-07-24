@@ -1,5 +1,6 @@
 import type { PostsQuery, PostsQueryVariables } from '~/.graphql/types';
 
+import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
@@ -73,9 +74,13 @@ const query = gql`
 `;
 
 async function loader({ index = 0, limit = 8, preview = false, slug }: LoaderParams = {}): Promise<Post[]> {
+  if (cache.has(`post:${index}-${limit}-${slug}`) && !preview) {
+    return cache.get<Post[]>(`post:${index}-${limit}-${slug}`)!;
+  }
+
   const { postCollection } = await graphql<PostsQuery, PostsQueryVariables>(query, { limit, index, preview, slug });
 
-  return (
+  const data =
     postCollection?.items
       .map((item) => item!)
       .map((item) => {
@@ -93,8 +98,15 @@ async function loader({ index = 0, limit = 8, preview = false, slug }: LoaderPar
           slug: item.slug!,
           title: item.title!,
         };
-      }) ?? []
-  );
+      }) ?? [];
+
+  if (!preview) {
+    cache.set(`post:${index}-${limit}-${slug}`, data);
+  } else {
+    cache.delete(`post:${index}-${limit}-${slug}`);
+  }
+
+  return data;
 }
 
 export type { Post };

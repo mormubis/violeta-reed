@@ -30,9 +30,11 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
       return isPublished && hasCheckoutLinks;
     }),
     books.find((book) => {
+      const publishedDate = new Date(book.publishedAt!);
+      const isPublished = publishedDate.getTime() < Date.now();
       const hasCheckoutLinks = book.checkout.length > 0;
 
-      return hasCheckoutLinks;
+      return !isPublished && hasCheckoutLinks;
     }),
   ];
 
@@ -40,7 +42,7 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
     const hasPublishDate = book.publishedAt !== null;
 
     const bookDate = book.publishedAt ? new Date(book.publishedAt) : null;
-    const presaleDate = presale?.publishedAt ? new Date(presale.publishedAt) : null;
+    const presaleDate = presale?.publishedAt ? new Date(presale.publishedAt) : new Date(last?.publishedAt!);
     const isNext = bookDate && presaleDate ? bookDate > presaleDate : false;
 
     return hasPublishDate && isNext;
@@ -52,12 +54,14 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
 const Index = () => {
   const { last, presale, next } = useLoaderData<Data>();
 
+  console.log({ last, presale, next });
+
   return (
     <Page className="!p-0 md:grid-cols-2 md:!gap-0">
       <Page.Heading className="!absolute opacity-0">Violeta Reed</Page.Heading>
       {presale && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...presale} />}
-      {next && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...next} />}
       {last && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...last} />}
+      {next && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...next} />}
     </Page>
   );
 };

@@ -1,5 +1,6 @@
 import type { AssetsQuery, AssetsQueryVariables } from '~/.graphql/types';
 
+import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
 
 type LoaderParams = {
@@ -26,6 +27,10 @@ const query = gql`
 `;
 
 async function loader({ preview = false }: LoaderParams): Promise<Asset[]> {
+  if (cache.has('assets') && !preview) {
+    return cache.get<Asset[]>('assets')!;
+  }
+
   const { assetCollection } = await graphql<AssetsQuery, AssetsQueryVariables>(query, { preview });
 
   if (!assetCollection) {
@@ -34,7 +39,15 @@ async function loader({ preview = false }: LoaderParams): Promise<Asset[]> {
 
   const assets = assetCollection.items;
 
-  return assets.map((asset) => asset!).map((asset) => ({ title: asset.title!, url: asset.url! }));
+  const data = assets.map((asset) => asset!).map((asset) => ({ title: asset.title!, url: asset.url! }));
+
+  if (!preview) {
+    cache.set('assets', data, { ttl: 365 * 24 * 60 * 60 * 1000 }); // Cache for a year
+  } else {
+    cache.delete('assets');
+  }
+
+  return data;
 }
 
 export type { Asset };
