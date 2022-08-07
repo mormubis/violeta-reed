@@ -54,8 +54,6 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
 const Index = () => {
   const { last, presale, next } = useLoaderData<Data>();
 
-  console.log({ last, presale, next });
-
   return (
     <Page className="!p-0 md:grid-cols-2 md:!gap-0">
       <Page.Heading className="!absolute opacity-0">Violeta Reed</Page.Heading>
