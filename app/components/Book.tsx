@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 
 import type { Asset } from '~/api/assets';
 import type { Book as BookType } from '~/api/books';
-
 import Heading from '~/components/Heading';
 
 import Cover from './Cover';

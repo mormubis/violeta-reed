@@ -1,14 +1,14 @@
 import React from 'react';
 
-import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { FormattedMessage } from 'react-intl';
 
 import type { Post } from '~/api/posts';
 import postsFetcher from '~/api/posts';
-
 import Page from '~/components/Page';
 import PostPreview from '~/components/PostPreview';
+
+import type { LoaderFunction } from '@remix-run/node';
 
 type Data = {
   posts: Post[];

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { FormattedMessage } from 'react-intl';
 
@@ -8,9 +7,10 @@ import type { Asset } from '~/api/assets';
 import assetFetcher from '~/api/assets';
 import type { Book as BookType } from '~/api/books';
 import bookFetcher from '~/api/books';
-
 import Book from '~/components/Book';
 import Page from '~/components/Page';
+
+import type { LoaderFunction } from '@remix-run/node';
 
 type Data = { assets: { [key: string]: Asset }; books: BookType[] };
 

@@ -1,8 +1,8 @@
-import type { BookFragment as RawBook, BooksQuery, BooksQueryVariables } from '~/.graphql/types';
-
 import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
+
+import type { BookFragment as RawBook, BooksQuery, BooksQueryVariables } from '~/.graphql/types';
 
 type Book = {
   checkout: Link[];

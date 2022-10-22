@@ -1,16 +1,15 @@
 import React, { useCallback, useReducer } from 'react';
 
-import type { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import al from 'accept-language';
 import cx from 'classnames';
+import normalize from 'normalize.css';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 
 import type { Meta } from '~/api/meta';
 import metaFetcher from '~/api/meta';
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
-
 import Icon from '~/components/Icon';
 import Footer from '~/components/layout/Footer';
 import Header from '~/components/layout/Header';
@@ -18,13 +17,12 @@ import Navigation from '~/components/layout/Navigation';
 import Link from '~/components/Link';
 import Logotype from '~/components/Logotype';
 import { Provider as PreviewProvider } from '~/components/Preview';
-
-import Document from './document';
-
 import es from '~/translations/es.json';
 
+import Document from './document';
 import tailwind from './tailwind.css';
-import normalize from 'normalize.css';
+
+import type { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 
 type Data = {
   locale: string;

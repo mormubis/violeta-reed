@@ -1,21 +1,9 @@
 {
-  "importOrder": [
-    "^react$",
-    "<THIRD_PARTY_MODULES>",
-    "^~/[.]graphql.*",
-    "^~/api.*",
-    "^~/lib.*",
-    "^~/components.*",
-    "^~.*(?<!css|json)$",
-    "^[.].*(?<!css|json)$",
-    ".*[.]json$",
-    ".*[.]css$"
-  ],
-  "importOrderCaseInsensitive": true,
-  "importOrderSeparation": true,
+  "bracketSpacing": true,
   "printWidth": 120,
   "proseWrap": "always",
+  "quoteProps": "consistent",
   "singleQuote": true,
   "trailingComma": "all",
-  "plugins": ["./prettier-plugins.js"]
+  "useTabs": false
 }

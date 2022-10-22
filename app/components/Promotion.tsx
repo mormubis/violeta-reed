@@ -4,7 +4,6 @@ import cx from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
 import type { Book } from '~/api/books';
-
 import Heading from '~/components/Heading';
 
 type OwnProps = Book;

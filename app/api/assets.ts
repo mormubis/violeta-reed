@@ -1,7 +1,7 @@
-import type { AssetsQuery, AssetsQueryVariables } from '~/.graphql/types';
-
 import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
+
+import type { AssetsQuery, AssetsQueryVariables } from '~/.graphql/types';
 
 type LoaderParams = {
   preview?: boolean;

@@ -1,7 +1,7 @@
-import type { MetaQuery, MetaQueryVariables } from '~/.graphql/types';
-
 import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
+
+import type { MetaQuery, MetaQueryVariables } from '~/.graphql/types';
 
 type LoaderParams = {
   path: string;

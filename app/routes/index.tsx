@@ -1,13 +1,13 @@
 import React from 'react';
 
-import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
 import type { Book } from '~/api/books';
 import booksFetcher from '~/api/books';
-
 import Page from '~/components/Page';
 import Promotion from '~/components/Promotion';
+
+import type { LoaderFunction } from '@remix-run/node';
 
 type Data = {
   last?: Book;

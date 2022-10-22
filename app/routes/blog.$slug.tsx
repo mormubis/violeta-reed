@@ -1,16 +1,16 @@
 import React from 'react';
 
-import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import cx from 'classnames';
 
 import fetcher from '~/api/posts';
 import type { Post as PostType } from '~/api/posts';
-
 import ByLine from '~/components/ByLine';
 import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Page from '~/components/Page';
+
+import type { LoaderFunction } from '@remix-run/node';
 
 const loader: LoaderFunction = async ({ request, params }) => {
   const url = new URL(request.url);

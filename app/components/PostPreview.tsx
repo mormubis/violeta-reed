@@ -4,7 +4,6 @@ import cx from 'classnames';
 import { useIntl } from 'react-intl';
 
 import type { Post } from '~/api/posts';
-
 import ByLine from '~/components/ByLine';
 import Card from '~/components/Card';
 import Heading from '~/components/Heading';

@@ -1,10 +1,9 @@
-import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
-
+import type { Props } from '~/components/LinkSocial';
 import cache from '~/lib/cache';
 import graphql, { gql } from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
-import type { Props } from '~/components/LinkSocial';
+import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
 
 type LoaderParams = {
   preview?: boolean;

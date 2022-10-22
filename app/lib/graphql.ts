@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
+
 import type { RequestDocument } from 'graphql-request';
 import type { Variables } from 'graphql-request/src/types';
 

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { FormattedMessage } from 'react-intl';
 
 import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
-
 import HTML from '~/components/HTML';
 import Page from '~/components/Page';
+
+import type { LoaderFunction } from '@remix-run/node';
 
 type Data = { profile: Profile };
 
@@ -26,7 +26,7 @@ const About = () => {
       <Page.Heading>
         <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
       </Page.Heading>
-      <HTML className="about" content={profile.about} />
+      <HTML content={profile.about} />
     </Page>
   );
 };

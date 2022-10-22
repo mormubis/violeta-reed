@@ -3,7 +3,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import type { Profile as OwnProps } from '~/api/profile';
-
 import type { Props as CardProps } from '~/components/Card';
 import Card from '~/components/Card';
 import Heading from '~/components/Heading';

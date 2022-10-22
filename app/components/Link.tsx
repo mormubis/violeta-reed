@@ -1,10 +1,11 @@
 import React from 'react';
 
-import type { LinkProps } from '@remix-run/react';
 import { Link as Local } from '@remix-run/react';
 import cx from 'classnames';
 
 import { usePreview } from './Preview';
+
+import type { LinkProps } from '@remix-run/react';
 
 type OwnProps = { to: string };
 type Props = OwnProps & Omit<LinkProps, keyof OwnProps>;

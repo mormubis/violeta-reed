@@ -4,7 +4,6 @@ import cx from 'classnames';
 import { useIntl } from 'react-intl';
 
 import type { Book } from '~/api/books';
-
 import ByLine from '~/components/ByLine';
 import Heading from '~/components/Heading';
 import Icon from '~/components/Icon';
