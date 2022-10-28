@@ -26,7 +26,7 @@
     "@graphql-codegen/typescript": "^2.7.5",
     "@graphql-codegen/typescript-operations": "^2.5.5",
     "@graphql-codegen/typescript-react-apollo": "^3.3.5",
-    "@remix-run/dev": "^1.7.3",
+    "@remix-run/dev": "^1.7.4",
     "@remix-run/eslint-config": "^1.7.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.7",
