@@ -34,7 +34,7 @@
     "@types/react-dom": "^18.0.8",
     "concurrently": "^7.5.0",
     "deepmerge": "^4.2.2",
-    "eslint": "^8.26.0",
+    "eslint": "^8.27.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-tailwindcss": "^3.6.2",
     "husky": "^8.0.1",
