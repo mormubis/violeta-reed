@@ -4,7 +4,7 @@
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^15.13.1",
     "@contentful/rich-text-types": "^15.13.2",
-    "@remix-run/node": "^1.7.4",
+    "@remix-run/node": "^1.8.0",
     "@remix-run/react": "^1.7.4",
     "@remix-run/serve": "^1.7.4",
     "accept-language": "^3.0.18",
