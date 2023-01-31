@@ -24,7 +24,7 @@
     "@graphql-codegen/introspection": "^2.2.3",
     "@graphql-codegen/typed-document-node": "^2.3.10",
     "@graphql-codegen/typescript": "^2.8.5",
-    "@graphql-codegen/typescript-operations": "^2.5.10",
+    "@graphql-codegen/typescript-operations": "^2.5.13",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@remix-run/dev": "^1.8.2",
     "@remix-run/eslint-config": "^1.8.2",
