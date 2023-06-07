@@ -61,8 +61,6 @@ const loader = async ({ request }: LoaderArgs): Promise<Data> => {
 
   const [meta, profile] = await Promise.all([metaFetcher({ path: url.pathname }), profileFetcher()]);
 
-  console.log('loader', meta);
-
   return { locale, meta, preview, profile };
 };
 
