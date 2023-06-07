@@ -2,7 +2,7 @@ schema:
   - 'https://graphql.contentful.com/content/v1/spaces/v1kazl7nd6vv/environments/master':
       headers:
         'Authorization': 'Bearer ua7edGKBMBvdZLon8l-UPGLwPXWgVob_ssQxzouGFzY'
-documents: './app/**/!(*.d).{ts,tsx}'
+documents: './app/**/*.graphql'
 extensions:
   codegen:
     generates:

@@ -8,20 +8,20 @@ import postsFetcher from '~/api/posts';
 import Page from '~/components/Page';
 import PostPreview from '~/components/PostPreview';
 
-import type { LoaderFunction } from '@remix-run/node';
+import type { LoaderArgs } from '@remix-run/node';
 
 type Data = {
   posts: Post[];
 };
 
-const loader: LoaderFunction = async ({ request }): Promise<Data> => {
+async function loader({ request }: LoaderArgs): Promise<Data> {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
   const posts = await postsFetcher({ preview });
 
   return { posts };
-};
+}
 
 const Blog = () => {
   const { posts } = useLoaderData<Data>();

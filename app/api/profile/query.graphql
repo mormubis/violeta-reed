@@ -1,0 +1,76 @@
+fragment AboutLinks on ProfileAboutLinks {
+    assets {
+        block {
+            contentType
+            description
+            height
+            sys {
+                id
+            }
+            title
+            url(transform: { format: WEBP })
+            width
+        }
+    }
+    entries {
+        block {
+            __typename
+            sys {
+                id
+            }
+        }
+    }
+}
+
+fragment BioLinks on ProfileBioLinks {
+    assets {
+        block {
+            contentType
+            description
+            height
+            sys {
+                id
+            }
+            title
+            url(transform: { format: WEBP })
+            width
+        }
+    }
+    entries {
+        block {
+            __typename
+            sys {
+                id
+            }
+        }
+    }
+}
+
+query Profile($preview: Boolean) {
+    profileCollection(limit: 1, preview: $preview) {
+        items {
+            about {
+                json
+                links {
+                    ...AboutLinks
+                }
+            }
+            avatar {
+                url(transform: { format: WEBP })
+            }
+            bio {
+                json
+                links {
+                    ...BioLinks
+                }
+            }
+            name
+            socialCollection {
+                items {
+                    name
+                    url
+                }
+            }
+        }
+    }
+}

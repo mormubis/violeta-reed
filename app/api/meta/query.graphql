@@ -1,0 +1,12 @@
+query Meta($path: String!, $preview: Boolean) {
+    metaCollection(preview: $preview, where: { path: $path }) {
+        items {
+            description
+            image {
+                url
+            }
+            keywords
+            title
+        }
+    }
+}

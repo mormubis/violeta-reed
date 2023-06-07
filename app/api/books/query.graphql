@@ -1,0 +1,41 @@
+fragment Book on Book {
+    checkoutCollection {
+        items {
+            name
+            url
+        }
+    }
+    color
+    cover {
+        description
+        url(transform: { format: WEBP })
+    }
+    promotional {
+        description
+        url(transform: { format: WEBP })
+    }
+    promotionalColor
+    publishedAt
+    series {
+        title
+    }
+    slug
+    synopsis {
+        json
+    }
+    title
+}
+
+query Books($index: Int, $limit: Int, $preview: Boolean, $publishedAt: DateTime, $slug: String) {
+    bookCollection(
+        limit: $limit
+        preview: $preview
+        skip: $index
+        order: publishedAt_ASC
+        where: { publishedAt_lte: $publishedAt, slug: $slug }
+    ) {
+        items {
+            ...Book
+        }
+    }
+}

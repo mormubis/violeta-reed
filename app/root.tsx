@@ -1,6 +1,6 @@
 import React, { useCallback, useReducer } from 'react';
 
-import { Outlet, useLoaderData } from '@remix-run/react';
+import { Outlet, useLoaderData, useRouteError } from '@remix-run/react';
 import al from 'accept-language';
 import cx from 'classnames';
 import normalize from 'normalize.css';
@@ -22,11 +22,11 @@ import es from '~/translations/es.json';
 import Document from './document';
 import tailwind from './tailwind.css';
 
-import type { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
+import type { LinksFunction, LoaderArgs, V2_MetaFunction } from '@remix-run/node';
 
 type Data = {
   locale: string;
-  meta: Meta | null;
+  meta?: Meta;
   preview?: boolean;
   profile: Profile;
 };
@@ -53,7 +53,7 @@ const links: LinksFunction = () => [
   },
 ];
 
-const loader: LoaderFunction = async ({ request }): Promise<Data> => {
+const loader = async ({ request }: LoaderArgs): Promise<Data> => {
   const locale = al.get(request.headers.get('accept-language')) ?? 'es';
 
   const url = new URL(request.url);
@@ -61,33 +61,38 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
 
   const [meta, profile] = await Promise.all([metaFetcher({ path: url.pathname }), profileFetcher()]);
 
+  console.log('loader', meta);
+
   return { locale, meta, preview, profile };
 };
 
-const meta: MetaFunction = ({ data, location }) => {
-  const meta = (data as Data)?.meta;
+const meta: V2_MetaFunction<typeof loader> = ({ data, location }) => {
+  const metadata = data?.meta;
 
-  const description = meta?.description ?? 'Violeta Reed';
-  const image = meta?.image ?? '/images/logotype.svg';
-  const keywords = meta?.keywords ?? 'violeta reed, novelas, libros, novelas de amor, novela romantica';
-  const title = meta?.title ?? 'Violeta Reed';
+  const {
+    description = 'Violeta Reed',
+    image = '/images/logotype.svg',
+    keywords = 'violeta reed, novelas, libros, novelas de amor, novela romantica',
+    title = 'Violeta Reed',
+  } = metadata ?? {};
   const url = location.pathname;
 
-  return {
-    description,
-    keywords,
-    title,
-    'og:type': 'website',
-    'og:url': url,
-    'og:title': title,
-    'og:description': description,
-    'og:image': image,
-    'twitter:card': 'summary_large_image',
-    'twitter:url': url,
-    'twitter:title': title,
-    'twitter:description': description,
-    'twitter:image': image,
-  };
+  return [
+    { title },
+    { content: description, name: 'description' },
+    { content: keywords, name: 'keywords' },
+    { content: 'Violeta Reed', name: 'author' },
+    { content: 'website', name: 'og:type' },
+    { content: url, name: 'og:url' },
+    { content: title, name: 'og:title' },
+    { content: description, name: 'og:description' },
+    { content: image, name: 'og:image' },
+    { content: 'summary_large_image', name: 'twitter:card' },
+    { content: url, name: 'twitter:url' },
+    { content: title, name: 'twitter:title' },
+    { content: description, name: 'twitter:description' },
+    { content: image, name: 'twitter:image' },
+  ];
 };
 
 const App = () => {
@@ -180,7 +185,11 @@ const App = () => {
   );
 };
 
-const CatchBoundary = () => {
+const ErrorBoundary = () => {
+  const error = useRouteError();
+
+  console.error(error);
+
   return (
     <Document>
       <p>Parece que algo no anda muy bien</p>
@@ -188,12 +197,6 @@ const CatchBoundary = () => {
   );
 };
 
-const ErrorBoundary = ({ error }: { error: Error }) => (
-  <Document>
-    <p>Parece que algo no anda muy bien</p>
-  </Document>
-);
-
-export { CatchBoundary, ErrorBoundary, links, loader, meta };
+export { ErrorBoundary, links, loader, meta };
 
 export default App;

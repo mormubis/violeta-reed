@@ -7,7 +7,7 @@ import booksFetcher from '~/api/books';
 import Page from '~/components/Page';
 import Promotion from '~/components/Promotion';
 
-import type { LoaderFunction } from '@remix-run/node';
+import type { LoaderArgs } from '@remix-run/node';
 
 type Data = {
   last?: Book;
@@ -15,7 +15,7 @@ type Data = {
   next?: Book;
 };
 
-const loader: LoaderFunction = async ({ request }): Promise<Data> => {
+async function loader({ request }: LoaderArgs): Promise<Data> {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
@@ -49,7 +49,7 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
   });
 
   return { last, presale, next };
-};
+}
 
 const Index = () => {
   const { last, presale, next } = useLoaderData<Data>();

@@ -10,11 +10,11 @@ import bookFetcher from '~/api/books';
 import Book from '~/components/Book';
 import Page from '~/components/Page';
 
-import type { LoaderFunction } from '@remix-run/node';
+import type { LoaderArgs } from '@remix-run/node';
 
 type Data = { assets: { [key: string]: Asset }; books: BookType[] };
 
-const loader: LoaderFunction = async ({ request }): Promise<Data> => {
+async function loader({ request }: LoaderArgs): Promise<Data> {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
@@ -23,7 +23,7 @@ const loader: LoaderFunction = async ({ request }): Promise<Data> => {
   const logos = assets.reduce((acc, asset) => ({ ...acc, [asset.title]: asset }), {} as { [key: string]: Asset });
 
   return { assets: logos, books };
-};
+}
 
 const Books = () => {
   const { assets, books } = useLoaderData<Data>();

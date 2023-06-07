@@ -10,16 +10,16 @@ import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Page from '~/components/Page';
 
-import type { LoaderFunction } from '@remix-run/node';
+import type { LoaderArgs } from '@remix-run/node';
 
-const loader: LoaderFunction = async ({ request, params }) => {
+async function loader({ request, params }: LoaderArgs): Promise<PostType> {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
   const [post] = await fetcher({ slug: params.slug, preview });
 
   return post;
-};
+}
 
 const Post = () => {
   const { content = '', image, title, ...post } = useLoaderData<PostType>();

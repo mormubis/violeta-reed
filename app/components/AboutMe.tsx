@@ -17,7 +17,7 @@ const AboutMe = ({ avatar, bio }: Props) => (
     />
     <HTML className="text-center" content={bio} />
     <a
-      className="absolute left-0 bottom-5 flex w-full justify-center text-center motion-safe:animate-bounce md:hidden"
+      className="absolute bottom-5 left-0 flex w-full justify-center text-center motion-safe:animate-bounce md:hidden"
       href="#home"
     >
       <Icon className="h-8 text-stone-300" name="arrow-circle-down" />
