@@ -62,7 +62,8 @@
     "generate:translations": "formatjs extract \"app/**/*.ts*\" --format simple --ignore=\"**/*.d.ts\" --out-file=\"app/translations/es.json\"",
     "lint": "eslint \"app/**/*.{ts,tsx}\" --fix",
     "lint:ci": "npm run lint -- --max-warnings 0",
-    "start": "remix-serve build"
+    "start": "remix-serve build/index.js"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "type": "module"
 }
