@@ -23,6 +23,7 @@ fragment Book on Book {
     synopsis {
         json
     }
+    tagline
     title
 }
 

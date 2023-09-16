@@ -5,16 +5,13 @@ import { FormattedMessage } from 'react-intl';
 
 import type { Asset } from '~/api/assets';
 import assetFetcher from '~/api/assets';
-import type { Book as BookType } from '~/api/books';
 import bookFetcher from '~/api/books';
 import Book from '~/components/Book';
-import Page from '~/components/Page';
+import Page, { Heading } from '~/components/Page';
 
-import type { LoaderArgs } from '@remix-run/node';
+import type { LoaderFunctionArgs } from '@remix-run/node';
 
-type Data = { assets: { [key: string]: Asset }; books: BookType[] };
-
-async function loader({ request }: LoaderArgs): Promise<Data> {
+async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
@@ -26,16 +23,16 @@ async function loader({ request }: LoaderArgs): Promise<Data> {
 }
 
 const Books = () => {
-  const { assets, books } = useLoaderData<Data>();
+  const { assets, books } = useLoaderData<typeof loader>();
 
   return (
     <Page className="!pb-0">
-      <Page.Heading>
+      <Heading>
         <FormattedMessage defaultMessage="Libros" id="BOOKS" />
-      </Page.Heading>
+      </Heading>
       <section className="-mx-3 overflow-hidden md:-mx-6 xl:overflow-visible">
         {books.map((book, index) => (
-          <Book {...book} assets={assets} author="Violeta Reed" key={book.slug} index={index} />
+          <Book {...book} assets={assets} key={book.slug} index={index} />
         ))}
       </section>
     </Page>

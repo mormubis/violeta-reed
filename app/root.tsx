@@ -22,7 +22,7 @@ import es from '~/translations/es.json';
 import Document from './document';
 import tailwind from './tailwind.css';
 
-import type { LinksFunction, LoaderArgs, V2_MetaFunction } from '@remix-run/node';
+import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from '@remix-run/node';
 
 type Data = {
   locale: string;
@@ -53,7 +53,7 @@ const links: LinksFunction = () => [
   },
 ];
 
-const loader = async ({ request }: LoaderArgs): Promise<Data> => {
+const loader = async ({ request }: LoaderFunctionArgs): Promise<Data> => {
   const locale = al.get(request.headers.get('accept-language')) ?? 'es';
 
   const url = new URL(request.url);
@@ -64,7 +64,7 @@ const loader = async ({ request }: LoaderArgs): Promise<Data> => {
   return { locale, meta, preview, profile };
 };
 
-const meta: V2_MetaFunction<typeof loader> = ({ data, location }) => {
+const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   const metadata = data?.meta;
 
   const {
@@ -147,9 +147,6 @@ const App = () => {
                 </Navigation.Link>
                 <Navigation.Link onClick={close} to="/blog">
                   <FormattedMessage defaultMessage="Blog" id="BLOG" />
-                </Navigation.Link>
-                <Navigation.Link onClick={close} to="/sobre-mi">
-                  <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
                 </Navigation.Link>
               </Navigation>
             </Header.Left>

@@ -17,6 +17,7 @@ type Book = {
   series?: string;
   slug: string;
   synopsis: string;
+  tagline: string;
   title: string;
 };
 
@@ -41,7 +42,16 @@ const cache = new Cache<`${string}-${string}`, Book[], LoaderParams>({
       slug,
     });
 
-    return bookCollection?.items.map((book: RawBook | null) => book!).map(mapper) ?? [];
+    const books = bookCollection?.items.map((book: RawBook | null) => book!).map(mapper) ?? [];
+
+    books.sort((a, b) => {
+      const publishedA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+      const publishedB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+
+      return publishedB - publishedA;
+    });
+
+    return books;
   },
   max: 25,
   ttl: MONTH,
@@ -49,20 +59,25 @@ const cache = new Cache<`${string}-${string}`, Book[], LoaderParams>({
 
 const mapper = (item: RawBook): Book => {
   const checkout =
-    item.checkoutCollection?.items.map((checkout) => ({ name: checkout?.name!, url: checkout?.url! })) ?? [];
+    item.checkoutCollection?.items.map((checkout) => ({ name: String(checkout?.name), url: String(checkout?.url) })) ??
+    [];
   const cover = item.cover!;
   const promotional = item.promotional ?? undefined;
 
   return {
     checkout,
     color: item.color!,
-    cover: { description: cover.description!, url: cover.url! },
-    promotional: promotional && { description: promotional.description!, url: promotional.url! },
+    cover: { description: cover ? cover.description! : '', url: cover ? cover.url! : '' },
+    promotional: promotional && {
+      description: promotional ? promotional.description! : '',
+      url: promotional ? promotional.url! : '',
+    },
     promotionalColor: item.promotionalColor!,
     publishedAt: item.publishedAt,
-    series: item.series?.title!,
+    series: item.series ? String(item.series?.title) : undefined,
     slug: item.slug!,
     synopsis: richTextToHTML(item.synopsis?.json),
+    tagline: item.tagline!,
     title: item.title!,
   };
 };

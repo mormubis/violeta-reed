@@ -1,25 +1,30 @@
 import React from 'react';
 
 import { useLoaderData } from '@remix-run/react';
+import { FormattedMessage } from 'react-intl';
 
-import type { Book } from '~/api/books';
+import type { Asset } from '~/api/assets';
+import assetFetcher from '~/api/assets';
 import booksFetcher from '~/api/books';
-import Page from '~/components/Page';
-import Promotion from '~/components/Promotion';
+import profileFetcher from '~/api/profile';
+import Book from '~/components/Book';
+import Heading from '~/components/Heading';
+import HTML from '~/components/HTML';
+import Page, { Section } from '~/components/Page';
 
-import type { LoaderArgs } from '@remix-run/node';
+import type { LoaderFunctionArgs } from '@remix-run/node';
 
-type Data = {
-  last?: Book;
-  presale?: Book;
-  next?: Book;
-};
-
-async function loader({ request }: LoaderArgs): Promise<Data> {
+async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
-  const books = await booksFetcher({ preview });
+  const [assets, books, profile] = await Promise.all([
+    assetFetcher({ preview }),
+    booksFetcher({ preview }),
+    profileFetcher({ preview }),
+  ]);
+
+  const logos = assets.reduce((acc, asset) => ({ ...acc, [asset.title]: asset }), {} as { [key: string]: Asset });
 
   const [last, presale] = [
     books.find((book) => {
@@ -42,24 +47,38 @@ async function loader({ request }: LoaderArgs): Promise<Data> {
     const hasPublishDate = book.publishedAt !== null;
 
     const bookDate = book.publishedAt ? new Date(book.publishedAt) : null;
-    const presaleDate = presale?.publishedAt ? new Date(presale.publishedAt) : new Date(last?.publishedAt!);
+    const presaleDate = presale?.publishedAt ? new Date(presale.publishedAt) : new Date(Number(last?.publishedAt));
     const isNext = bookDate && presaleDate ? bookDate > presaleDate : false;
 
     return hasPublishDate && isNext;
   });
 
-  return { last, presale, next };
+  return { assets: logos, last, next, presale, profile };
 }
 
 const Index = () => {
-  const { last, presale, next } = useLoaderData<Data>();
+  const { assets, last, next, presale, profile } = useLoaderData<typeof loader>();
 
   return (
-    <Page className="!p-0 md:grid-cols-2 md:!gap-0">
+    <Page className="!gap-y-0 !py-0">
       <Page.Heading className="!absolute opacity-0">Violeta Reed</Page.Heading>
-      {last && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...last} />}
-      {presale && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...presale} />}
-      {next && <Promotion className="min-h-[80vh] md:min-h-screen lg:h-[75vh] lg:min-h-[700px]" {...next} />}
+      <section className="-mx-3 overflow-hidden md:-mx-6 xl:overflow-visible">
+        {presale && <Book {...presale} assets={assets} index={0} landing />}
+        {last && <Book {...last} assets={assets} index={1} landing mini />}
+        {next && <Book {...next} assets={assets} index={2} landing mini />}
+      </section>
+      <Section
+        className="-mx-3 overflow-hidden md:-mx-6 xl:overflow-visible"
+        style={{ '--color': '#6f1f63' } as React.CSSProperties}
+      >
+        <figure className="row-span-2 m-auto w-2/3 rounded border border-purple-900 bg-white object-cover p-4">
+          <img alt="Violeta Reed" className="object-cover" src={profile.avatar} />
+        </figure>
+        <Heading className="uppercase text-[color:var(--color)]" level={2}>
+          <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
+        </Heading>
+        <HTML className="lg:!prose-p:text-base text-justify prose-p:text-sm" content={profile.about} />
+      </Section>
     </Page>
   );
 };

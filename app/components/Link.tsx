@@ -12,8 +12,10 @@ type Props = OwnProps & Omit<LinkProps, keyof OwnProps>;
 
 const Link = ({ className, to, ...props }: Props) => {
   const preview = usePreview();
+  const url = new URL(to, typeof window === 'undefined' ? 'http://localhost' : window.location.href);
+  url.searchParams.set('preview', 'true');
 
-  const href = preview ? `${to}?preview=${preview}` : to;
+  const href = preview ? url.toString() : to;
 
   return (
     <Local

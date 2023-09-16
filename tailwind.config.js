@@ -2,6 +2,21 @@ module.exports = {
   content: ['./app/**/*.{ts,tsx,js,jsx}'],
   theme: {
     extend: {
+      colors: {
+        purple: {
+          50: '#fef5fd',
+          100: '#fde9fe',
+          200: '#fbd3fb',
+          300: '#f7b0f2',
+          400: '#f280ea',
+          500: '#e550d9',
+          600: '#c930bb',
+          700: '#a72498',
+          800: '#88207b',
+          900: '#6f1f63',
+          950: '#4a0840',
+        },
+      },
       lineClamp: {
         7: '7',
         8: '8',
@@ -71,5 +86,5 @@ module.exports = {
       serif: ['Gill Sans', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
     },
   },
-  plugins: [require('@tailwindcss/line-clamp'), require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography')],
 };

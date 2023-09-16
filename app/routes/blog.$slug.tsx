@@ -4,15 +4,13 @@ import { useLoaderData } from '@remix-run/react';
 import cx from 'classnames';
 
 import fetcher from '~/api/posts';
-import type { Post as PostType } from '~/api/posts';
 import ByLine from '~/components/ByLine';
-import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
-import Page from '~/components/Page';
+import Page, { Heading, Section } from '~/components/Page';
 
-import type { LoaderArgs } from '@remix-run/node';
+import type { LoaderFunctionArgs } from '@remix-run/node';
 
-async function loader({ request, params }: LoaderArgs): Promise<PostType> {
+async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
@@ -22,24 +20,28 @@ async function loader({ request, params }: LoaderArgs): Promise<PostType> {
 }
 
 const Post = () => {
-  const { content = '', image, title, ...post } = useLoaderData<PostType>();
+  const { content = '', image, title, ...post } = useLoaderData<typeof loader>();
 
   const publishedAt = new Date(post.publishedAt);
 
   return (
     <Page>
-      <article className="flex flex-col gap-3 md:gap-6">
-        <header
-          className={cx(
-            'text-center md:order-2 md:flex md:flex-col md:items-start md:justify-center md:text-left lg:items-start',
-            !image && 'col-span-2',
-          )}
-        >
-          <Heading className="!block">{title}</Heading>
-          <ByLine author="Violeta Reed" className="text-xs" date={publishedAt} />
-        </header>
-        <HTML className="flex flex-col md:order-3 md:col-span-2" content={content} />
-      </article>
+      <header
+        className={cx('text-center md:flex md:flex-col md:items-start md:justify-center md:text-left lg:items-start')}
+      >
+        <Heading className="!block">{title}</Heading>
+        <ByLine author="Violeta Reed" className="text-xs" date={publishedAt} />
+      </header>
+      <Section className="-mx-3 flex flex-col gap-3 md:gap-6" style={{ '--color': '#6f1f63' } as React.CSSProperties}>
+        <div className="row-span-2">
+          <figure className="sticky top-48 rounded border border-purple-900 bg-white object-cover p-4">
+            <img alt={title} src={image} />
+          </figure>
+        </div>
+        <div className="md:order-3">
+          <HTML className="lg:!prose-p:text-base flex flex-col prose-p:text-sm" content={content} />
+        </div>
+      </Section>
     </Page>
   );
 };
