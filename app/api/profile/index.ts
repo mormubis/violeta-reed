@@ -55,9 +55,9 @@ const cache = new Cache<'profile', Profile, LoaderParams>({
 
     return {
       about: richTextToHTML(profile.about?.json, profile.about?.links),
-      avatar: profile.avatar?.url!,
+      avatar: profile.avatar?.url ?? '',
       bio: richTextToHTML(profile.bio?.json, profile.bio?.links),
-      name: profile?.name!,
+      name: profile?.name ?? 'Violeta Reed',
       social: social
         .map((item: any) => item!)
         .map((item: any) => ({ name: item.name.toLocaleLowerCase(), url: item.url! })),

@@ -42,7 +42,7 @@ const cache = new Cache<string, Post[], LoaderParams>({
           return {
             abstract: abstract,
             content: richTextToHTML(item?.content?.json, item.content?.links),
-            image: item.image?.url!,
+            image: item.image?.url ?? undefined,
             modifiedAt: item.sys.publishedAt,
             publishedAt: item.sys.firstPublishedAt,
             slug: item.slug!,

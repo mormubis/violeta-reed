@@ -36,7 +36,7 @@ const cache = new Cache<`meta:${string}`, Meta, LoaderParams>({
 
     return {
       description: meta.description!,
-      image: meta.image?.url!,
+      image: meta.image?.url ?? undefined,
       keywords: meta.keywords!,
       title: meta.title!,
     };
