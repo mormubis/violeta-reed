@@ -13,7 +13,7 @@ const Page = ({ className, ...props }: Props) => (
     {...props}
     className={cx(
       className,
-      'grid w-full max-w-screen-xl grow gap-y-5 px-3 py-5 pb-10 md:gap-y-10 md:px-6 md:py-10 grid-cols-1',
+      'grid w-full max-w-screen-xl grow gap-y-5 px-3 py-5 pb-10 md:gap-y-10 md:px-6 md:py-10 grid-cols-1 overflow-x-hidden',
     )}
   />
 );

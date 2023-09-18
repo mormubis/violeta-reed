@@ -56,7 +56,7 @@ const Document = ({ children }: Props) => (
         }}
       />
     </head>
-    <body className="flex min-h-screen flex-col items-center bg-white font-light text-stone-900">
+    <body className="flex min-h-screen w-screen flex-col items-center bg-white font-light text-stone-900">
       {children}
 
       {/* Manages scroll position for client-side transitions */}

@@ -43,34 +43,24 @@ async function loader({ request }: LoaderFunctionArgs) {
     }),
   ];
 
-  const next = books.find((book) => {
-    const hasPublishDate = book.publishedAt !== null;
-
-    const bookDate = book.publishedAt ? new Date(book.publishedAt) : null;
-    const presaleDate = presale?.publishedAt ? new Date(presale.publishedAt) : new Date(Number(last?.publishedAt));
-    const isNext = bookDate && presaleDate ? bookDate > presaleDate : false;
-
-    return hasPublishDate && isNext;
-  });
-
-  return { assets: logos, last, next, presale, profile };
+  return { assets: logos, last, presale, profile };
 }
 
 const Index = () => {
-  const { assets, last, next, presale, profile } = useLoaderData<typeof loader>();
+  const { assets, last, presale, profile } = useLoaderData<typeof loader>();
+
+  const cover = presale ?? last;
 
   return (
-    <Page className="!gap-y-0 !py-0">
+    <Page className="!gap-y-0 !p-0">
       <Page.Heading className="!absolute opacity-0">Violeta Reed</Page.Heading>
-      <section className="-mx-3 overflow-hidden md:-mx-6 xl:overflow-visible">
-        {presale && <Book {...presale} assets={assets} index={0} landing />}
-        {last && <Book {...last} assets={assets} index={1} landing mini />}
-        {next && <Book {...next} assets={assets} index={2} landing mini />}
-      </section>
-      <Section
-        className="-mx-3 overflow-hidden md:-mx-6 xl:overflow-visible"
-        style={{ '--color': '#6f1f63' } as React.CSSProperties}
-      >
+      {cover && <Book {...cover} assets={assets} index={0} landing />}
+      <Section index={1} style={{ '--color': '#f2c073' } as React.CSSProperties}>
+        <Heading className="uppercase text-[color:var(--color)]" level={2}>
+          <FormattedMessage defaultMessage="Mis libros" id="MY_BOOKS" />
+        </Heading>
+      </Section>
+      <Section index={2} style={{ '--color': '#6c1f62' } as React.CSSProperties}>
         <figure className="row-span-2 m-auto w-2/3 rounded border border-purple-900 bg-white object-cover p-4">
           <img alt="Violeta Reed" className="object-cover" src={profile.avatar} />
         </figure>

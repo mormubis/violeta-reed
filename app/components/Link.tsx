@@ -22,7 +22,7 @@ const Link = ({ className, to, ...props }: Props) => {
       {...props}
       className={cx(
         className,
-        'inline-block text-purple-800 transition-[color] focus:text-purple-700 focus:outline-none',
+        'inline-block text-purple-800 transition-colors focus:text-purple-500 focus:outline-none visited:text-purple-500',
       )}
       to={href}
     />

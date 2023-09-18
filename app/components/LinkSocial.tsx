@@ -28,7 +28,7 @@ const LinkSocial = ({ className, name, to, ...props }: Props) => (
     target="_blank"
   >
     <Icon className="h-4" name={name} />
-    {name}
+    <span className="sr-only">{name}</span>
   </a>
 );
 

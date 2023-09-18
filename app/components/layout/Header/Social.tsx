@@ -13,10 +13,7 @@ type Props = OwnProps &
 const Social = ({ className, name, url, ...props }: Props) => (
   <LinkSocial
     {...props}
-    className={cx(
-      className,
-      'space-between flex h-full w-full items-center justify-center indent-[-9999px] text-xs md:w-auto md:px-3',
-    )}
+    className={cx(className, 'space-between flex h-full w-full items-center justify-center text-xs md:w-auto md:px-3')}
     name={name}
     to={url}
   />

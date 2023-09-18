@@ -18,7 +18,7 @@ async function loader({ request }: LoaderFunctionArgs) {
   return { posts };
 }
 
-const Blog_index = () => {
+const Blog = () => {
   const { posts } = useLoaderData<typeof loader>();
 
   return (
@@ -40,4 +40,4 @@ const Blog_index = () => {
 
 export { loader };
 
-export default Blog_index;
+export default Blog;

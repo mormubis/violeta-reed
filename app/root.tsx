@@ -156,7 +156,7 @@ const App = () => {
               className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80 xl:w-[300px]"
               to="/"
             >
-              <Logotype className="h-full w-full" />
+              <Logotype className="h-full w-full text-purple-500" />
             </Link>
 
             <Header.Right className="xl:px-12">
