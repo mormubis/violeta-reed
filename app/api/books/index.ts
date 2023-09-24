@@ -48,7 +48,7 @@ const cache = new Cache<`${string}-${string}`, Book[], LoaderParams>({
       const publishedA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
       const publishedB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
 
-      return publishedB - publishedA;
+      return a.series === b.series ? publishedA - publishedB : publishedB - publishedA;
     });
 
     return books;

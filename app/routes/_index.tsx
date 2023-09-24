@@ -8,9 +8,10 @@ import assetFetcher from '~/api/assets';
 import booksFetcher from '~/api/books';
 import profileFetcher from '~/api/profile';
 import Book from '~/components/Book';
-import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
-import Page, { Section } from '~/components/Page';
+import Link from '~/components/Link';
+import Page from '~/components/Page';
+import Section, { Content, Image, Title } from '~/components/Page/Section';
 
 import type { LoaderFunctionArgs } from '@remix-run/node';
 
@@ -53,20 +54,33 @@ const Index = () => {
 
   return (
     <Page className="!gap-y-0 !p-0">
-      <Page.Heading className="!absolute opacity-0">Violeta Reed</Page.Heading>
+      <Page.Heading className="!absolute opacity-0">{profile.name}</Page.Heading>
       {cover && <Book {...cover} assets={assets} index={0} landing />}
       <Section index={1} style={{ '--color': '#f2c073' } as React.CSSProperties}>
-        <Heading className="uppercase text-[color:var(--color)]" level={2}>
+        <Title className="uppercase text-[color:var(--color)]" level={2}>
           <FormattedMessage defaultMessage="Mis libros" id="MY_BOOKS" />
-        </Heading>
+        </Title>
+        <Content>
+          <FormattedMessage defaultMessage="¿Quieres conocer mis otras novelas?" id="KNOW_MORE" />
+          <Link to="/libros-violeta-reed">
+            <FormattedMessage defaultMessage="Pincha aquí" id="CLICK_HERE" />
+          </Link>
+        </Content>
+        <Image>
+          <img alt={profile.name} className="rounded border border-purple-900 object-cover p-4" src={profile.books} />
+        </Image>
       </Section>
       <Section index={2} style={{ '--color': '#6c1f62' } as React.CSSProperties}>
-        <figure className="row-span-2 m-auto w-2/3 rounded border border-purple-900 bg-white object-cover p-4">
-          <img alt="Violeta Reed" className="object-cover" src={profile.avatar} />
-        </figure>
-        <Heading className="uppercase text-[color:var(--color)]" level={2}>
+        <Image>
+          <img
+            alt={profile.name}
+            className="w-2/3 rounded border border-purple-900 bg-white object-cover p-4"
+            src={profile.avatar}
+          />
+        </Image>
+        <Title className="uppercase text-[color:var(--color)]" level={2}>
           <FormattedMessage defaultMessage="Sobre mí" id="ABOUT_ME" />
-        </Heading>
+        </Title>
         <HTML className="lg:!prose-p:text-base text-justify prose-p:text-sm" content={profile.about} />
       </Section>
     </Page>

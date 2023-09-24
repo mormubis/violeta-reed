@@ -15,7 +15,7 @@ type LoaderParams = {
 type Profile = {
   about: string;
   avatar: string;
-  bio: string;
+  books: string;
   name: string;
   social: { name: Props['name']; url: string }[];
 };
@@ -56,7 +56,7 @@ const cache = new Cache<'profile', Profile, LoaderParams>({
     return {
       about: richTextToHTML(profile.about?.json, profile.about?.links),
       avatar: profile.avatar?.url ?? '',
-      bio: richTextToHTML(profile.bio?.json, profile.bio?.links),
+      books: profile.books?.url ?? '',
       name: profile?.name ?? 'Violeta Reed',
       social: social
         .map((item: any) => item!)
