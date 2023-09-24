@@ -26,7 +26,7 @@ const DEFAULT = {
   about: '',
   avatar:
     'https://images.ctfassets.net/v1kazl7nd6vv/vXU5OyezNm0ZVqctsc6In/73ed6eeea572e016e9aac8fd85ec2b79/photo_2022-04-27_22.34.15.jpeg?fm=webp',
-  bio: 'Os doy la bienvenida a mi País de las Maravillas. Aquí encontraréis un trocito más de mí.',
+  books: '',
   name: 'Violeta Reed',
   social: [],
 };
