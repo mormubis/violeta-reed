@@ -1,4 +1,4 @@
-FROM node
+FROM arm64v8/node
 
 COPY ./package.json .
 RUN npm install --production
@@ -6,4 +6,4 @@ RUN npm install --production
 COPY ./ .
 
 ENV NODE_ENV=production
-ENTRYPOINT ["npm start"]
+CMD ["npm", "start"]
