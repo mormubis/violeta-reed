@@ -1,4 +1,4 @@
-FROM arm64v8/node
+FROM arm64v8/node:20
 
 COPY ./package.json .
 RUN npm install --production
