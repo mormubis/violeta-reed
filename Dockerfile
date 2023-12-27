@@ -6,4 +6,4 @@ RUN npm install --production
 COPY ./ .
 
 ENV NODE_ENV=production
-CMD [ "npm", "start" ]
+ENTRYPOINT ["npm start"]
