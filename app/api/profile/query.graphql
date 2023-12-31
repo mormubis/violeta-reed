@@ -32,10 +32,10 @@ query Profile($preview: Boolean) {
                 }
             }
             avatar {
-                url(transform: { format: WEBP })
+                url(transform: { format: WEBP, width: 600 })
             }
             books {
-                url(transform: { format: WEBP })
+                url(transform: { format: WEBP, width: 600 })
             }
             name
             socialCollection {
