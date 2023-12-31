@@ -5,7 +5,7 @@ query Assets($preview: Boolean) {
     ) {
         items {
             title
-            url(transform: { format: WEBP })
+            url(transform: { format: WEBP, width: 100 })
         }
     }
 }
