@@ -8,11 +8,11 @@ fragment Book on Book {
     color
     cover {
         description
-        url(transform: { format: WEBP })
+        url(transform: { format: WEBP, width: 600 })
     }
     promotional {
         description
-        url(transform: { format: WEBP })
+        url(transform: { format: WEBP, width: 600 })
     }
     promotionalColor
     publishedAt
