@@ -9,6 +9,9 @@ type Props = {
 const Document = ({ children }: Props) => (
   <html className="overflow-x-hidden scroll-smooth" lang="es">
     <head>
+      <link rel="DNS-prefetch" href="//fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width,initial-scale=1" />
 
