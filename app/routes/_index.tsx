@@ -28,20 +28,36 @@ async function loader({ request }: LoaderFunctionArgs) {
   const logos = assets.reduce((acc, asset) => ({ ...acc, [asset.title]: asset }), {} as { [key: string]: Asset });
 
   const [last, presale] = [
-    books.find((book) => {
-      const publishedDate = new Date(book.publishedAt!);
-      const isPublished = publishedDate.getTime() < Date.now();
-      const hasCheckoutLinks = book.checkout.length > 0;
+    books
+      .filter((book) => book.publishedAt)
+      .sort((a, b) => {
+        const dateA = new Date(a.publishedAt!);
+        const dateB = new Date(b.publishedAt!);
 
-      return isPublished && hasCheckoutLinks;
-    }),
-    books.find((book) => {
-      const publishedDate = new Date(book.publishedAt!);
-      const isPublished = publishedDate.getTime() < Date.now();
-      const hasCheckoutLinks = book.checkout.length > 0;
+        return dateA.getTime() - dateB.getTime();
+      })
+      .find((book) => {
+        const publishedDate = new Date(book.publishedAt!);
+        const isPublished = publishedDate.getTime() < Date.now();
+        const hasCheckoutLinks = book.checkout.length > 0;
 
-      return !isPublished && hasCheckoutLinks;
-    }),
+        return isPublished && hasCheckoutLinks;
+      }),
+    books
+      .filter((book) => book.publishedAt)
+      .sort((a, b) => {
+        const dateA = new Date(a.publishedAt!);
+        const dateB = new Date(b.publishedAt!);
+
+        return dateA.getTime() - dateB.getTime();
+      })
+      .find((book) => {
+        const publishedDate = new Date(book.publishedAt!);
+        const isPublished = publishedDate.getTime() < Date.now();
+        const hasCheckoutLinks = book.checkout.length > 0;
+
+        return !isPublished && hasCheckoutLinks;
+      }),
   ];
 
   return { assets: logos, last, presale, profile };
