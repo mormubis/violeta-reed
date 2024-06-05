@@ -34,7 +34,7 @@ async function loader({ request }: LoaderFunctionArgs) {
         const dateA = new Date(a.publishedAt!);
         const dateB = new Date(b.publishedAt!);
 
-        return dateA.getTime() - dateB.getTime();
+        return dateB.getTime() - dateA.getTime();
       })
       .find((book) => {
         const publishedDate = new Date(book.publishedAt!);
@@ -49,7 +49,7 @@ async function loader({ request }: LoaderFunctionArgs) {
         const dateA = new Date(a.publishedAt!);
         const dateB = new Date(b.publishedAt!);
 
-        return dateA.getTime() - dateB.getTime();
+        return dateB.getTime() - dateA.getTime();
       })
       .find((book) => {
         const publishedDate = new Date(book.publishedAt!);
