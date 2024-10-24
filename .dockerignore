@@ -1,12 +1,17 @@
-.eslintrc
+# Github
 .github/
+
+# Git
+.git/
 .gitignore
-.graphqlrc
 .husky/
 .lintstagerc
-.prettierrc
-deployment/
-prettier-plugins.js
+
+# Prettier
+prettier.config.mjs
+
+# Non-prod files
 README.md
+deployment/
 remix.env.d.ts
 tsconfig.json
