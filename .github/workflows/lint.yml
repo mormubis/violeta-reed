@@ -30,5 +30,8 @@ jobs:
       - name: 📥 Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: 📜 Generate types
+        run: pnpm run generate:types
+
       - name: 🔬 Lint
         run: pnpm run lint:ci

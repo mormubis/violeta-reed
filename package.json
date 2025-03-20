@@ -51,17 +51,17 @@
   "private": true,
   "scripts": {
     "build": "react-router build",
+    "codegen": "graphql-codegen --config codegen.ts",
     "dev": "react-router dev",
     "format": "pnpm run format:ci --write",
     "format:ci": "prettier --ignore-unknown --list-different \"**/*\"",
+    "generate:types": "react-router typegen",
     "lint": "pnpm run lint:style && pnpm run lint:types",
     "lint:ci": "pnpm run lint:style --max-warnings 0 && pnpm run lint:types",
     "lint:style": "eslint \"app/**/*.{ts,tsx}\" --fix",
     "lint:types": "tsc --noEmit --project tsconfig.json",
     "start": "react-router-serve ./build/server/index.js",
-    "translations": "formatjs extract \"app/**/*.ts*\" --format simple --ignore=\"**/*.d.ts\" --out-file=\"app/translations/es.json\"",
-    "typecheck": "react-router typegen && tsc",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "translations": "formatjs extract \"app/**/*.ts*\" --format simple --ignore=\"**/*.d.ts\" --out-file=\"app/translations/es.json\""
   },
   "type": "module",
   "version": "1.0.3"
