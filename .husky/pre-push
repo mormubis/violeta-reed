@@ -1,2 +1,2 @@
 #!/bin/sh
-pnpm run format:ci && && pnpm run lint:ci
+pnpm run format:ci && pnpm run lint:ci
