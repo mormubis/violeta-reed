@@ -9,7 +9,8 @@ type OwnProps<E extends React.ElementType = React.ElementType> = {
   index?: number;
 };
 
-type Props<E extends React.ElementType> = OwnProps<E> & Omit<React.ComponentProps<E>, keyof OwnProps>;
+type Props<E extends React.ElementType> = OwnProps<E> &
+  Omit<React.ComponentProps<E>, keyof OwnProps>;
 
 const defaultElement = 'section';
 

@@ -1,33 +1,22 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends Record<string, unknown>> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends Record<string, unknown>,
-  K extends keyof T,
-> = Partial<Record<K, never>>;
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends Record<string, unknown>, K extends keyof T> = Partial<Record<K, never>>;
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  DateTime: { input: any; output: any };
-  Dimension: { input: any; output: any };
-  HexColor: { input: any; output: any };
-  JSON: { input: any; output: any };
-  Quality: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
+  Dimension: { input: any; output: any; }
+  HexColor: { input: any; output: any; }
+  JSON: { input: any; output: any; }
+  Quality: { input: any; output: any; }
 };
 
 /** Represents a binary file in a space. An asset can be any file type. */
@@ -46,46 +35,55 @@ export type Asset = {
   width?: Maybe<Scalars['Int']['output']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetContentTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetFileNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetHeightArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetLinkedFromArgs = {
   allowedLocales?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetSizeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetUrlArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   transform?: InputMaybe<ImageTransformOptions>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetWidthArgs = {
@@ -178,6 +176,7 @@ export type AssetLinkingCollections = {
   profileCollection?: Maybe<ProfileCollection>;
 };
 
+
 export type AssetLinkingCollectionsBookCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -186,12 +185,14 @@ export type AssetLinkingCollectionsBookCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type AssetLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type AssetLinkingCollectionsMetaCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -201,6 +202,7 @@ export type AssetLinkingCollectionsMetaCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type AssetLinkingCollectionsPostCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -209,12 +211,11 @@ export type AssetLinkingCollectionsPostCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type AssetLinkingCollectionsProfileCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<
-    InputMaybe<AssetLinkingCollectionsProfileCollectionOrder>[]
-  >;
+  order?: InputMaybe<InputMaybe<AssetLinkingCollectionsProfileCollectionOrder>[]>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -239,7 +240,7 @@ export enum AssetLinkingCollectionsBookCollectionOrder {
   TaglineAsc = 'tagline_ASC',
   TaglineDesc = 'tagline_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export enum AssetLinkingCollectionsMetaCollectionOrder {
@@ -258,7 +259,7 @@ export enum AssetLinkingCollectionsMetaCollectionOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export enum AssetLinkingCollectionsPostCollectionOrder {
@@ -273,7 +274,7 @@ export enum AssetLinkingCollectionsPostCollectionOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export enum AssetLinkingCollectionsProfileCollectionOrder {
@@ -286,7 +287,7 @@ export enum AssetLinkingCollectionsProfileCollectionOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export enum AssetOrder {
@@ -309,7 +310,7 @@ export enum AssetOrder {
   UrlAsc = 'url_ASC',
   UrlDesc = 'url_DESC',
   WidthAsc = 'width_ASC',
-  WidthDesc = 'width_DESC',
+  WidthDesc = 'width_DESC'
 }
 
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
@@ -331,6 +332,7 @@ export type Book = Entry & {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookCheckoutCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -341,10 +343,12 @@ export type BookCheckoutCollectionArgs = {
   where?: InputMaybe<LinkFilter>;
 };
 
+
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookColorArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookCoverArgs = {
@@ -352,10 +356,12 @@ export type BookCoverArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookLinkedFromArgs = {
   allowedLocales?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
 };
+
 
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookPromotionalArgs = {
@@ -363,15 +369,18 @@ export type BookPromotionalArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookPromotionalColorArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookPublishedAtArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookSeriesArgs = {
@@ -380,20 +389,24 @@ export type BookSeriesArgs = {
   where?: InputMaybe<SeriesFilter>;
 };
 
+
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookSlugArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookSynopsisArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookTaglineArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Novelas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/book) */
 export type BookTitleArgs = {
@@ -420,7 +433,7 @@ export enum BookCheckoutCollectionOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   UrlAsc = 'url_ASC',
-  UrlDesc = 'url_DESC',
+  UrlDesc = 'url_DESC'
 }
 
 export type BookCollection = {
@@ -451,9 +464,7 @@ export type BookFilter = {
   promotionalColor_in?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
   promotionalColor_not?: InputMaybe<Scalars['String']['input']>;
   promotionalColor_not_contains?: InputMaybe<Scalars['String']['input']>;
-  promotionalColor_not_in?: InputMaybe<
-    InputMaybe<Scalars['String']['input']>[]
-  >;
+  promotionalColor_not_in?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
   promotional_exists?: InputMaybe<Scalars['Boolean']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   publishedAt_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -499,12 +510,14 @@ export type BookLinkingCollections = {
   seriesCollection?: Maybe<SeriesCollection>;
 };
 
+
 export type BookLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type BookLinkingCollectionsSeriesCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -526,7 +539,7 @@ export enum BookLinkingCollectionsSeriesCollectionOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export enum BookOrder {
@@ -549,7 +562,7 @@ export enum BookOrder {
   TaglineAsc = 'tagline_ASC',
   TaglineDesc = 'tagline_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export type BookSynopsis = {
@@ -637,7 +650,7 @@ export enum EntryOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export enum ImageFormat {
@@ -659,7 +672,7 @@ export enum ImageFormat {
    */
   Png8 = 'PNG8',
   /** WebP image format. */
-  Webp = 'WEBP',
+  Webp = 'WEBP'
 }
 
 export enum ImageResizeFocus {
@@ -684,7 +697,7 @@ export enum ImageResizeFocus {
   /** Focus the resizing on the top left. */
   TopLeft = 'TOP_LEFT',
   /** Focus the resizing on the top right. */
-  TopRight = 'TOP_RIGHT',
+  TopRight = 'TOP_RIGHT'
 }
 
 export enum ImageResizeStrategy {
@@ -702,7 +715,7 @@ export enum ImageResizeStrategy {
   /** Resizes the image to the specified dimensions, changing the original aspect ratio if needed. */
   Scale = 'SCALE',
   /** Creates a thumbnail from the image. */
-  Thumb = 'THUMB',
+  Thumb = 'THUMB'
 }
 
 export type ImageTransformOptions = {
@@ -745,15 +758,18 @@ export type Link = Entry & {
   url?: Maybe<Scalars['String']['output']>;
 };
 
+
 /** Enlaces. Esta entidad es multi-propósito. No hace falta crear los enlaces con antelación, la mayor parte de las veces se pueden crear dentro de las otras entidades. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/link) */
 export type LinkLinkedFromArgs = {
   allowedLocales?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
 };
 
+
 /** Enlaces. Esta entidad es multi-propósito. No hace falta crear los enlaces con antelación, la mayor parte de las veces se pueden crear dentro de las otras entidades. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/link) */
 export type LinkNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Enlaces. Esta entidad es multi-propósito. No hace falta crear los enlaces con antelación, la mayor parte de las veces se pueden crear dentro de las otras entidades. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/link) */
 export type LinkUrlArgs = {
@@ -796,6 +812,7 @@ export type LinkLinkingCollections = {
   profileCollection?: Maybe<ProfileCollection>;
 };
 
+
 export type LinkLinkingCollectionsBookCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -804,6 +821,7 @@ export type LinkLinkingCollectionsBookCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type LinkLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -811,12 +829,11 @@ export type LinkLinkingCollectionsEntryCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
 export type LinkLinkingCollectionsProfileCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<
-    InputMaybe<LinkLinkingCollectionsProfileCollectionOrder>[]
-  >;
+  order?: InputMaybe<InputMaybe<LinkLinkingCollectionsProfileCollectionOrder>[]>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -841,7 +858,7 @@ export enum LinkLinkingCollectionsBookCollectionOrder {
   TaglineAsc = 'tagline_ASC',
   TaglineDesc = 'tagline_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export enum LinkLinkingCollectionsProfileCollectionOrder {
@@ -854,7 +871,7 @@ export enum LinkLinkingCollectionsProfileCollectionOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export enum LinkOrder {
@@ -869,7 +886,7 @@ export enum LinkOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   UrlAsc = 'url_ASC',
-  UrlDesc = 'url_DESC',
+  UrlDesc = 'url_DESC'
 }
 
 /** Propiedades SEO. En caso de necesitar sobreescribir alguna URL, esta entidad permite generar nuevas propiedades SEO para una página en concreto. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/meta) */
@@ -885,10 +902,12 @@ export type Meta = Entry & {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+
 /** Propiedades SEO. En caso de necesitar sobreescribir alguna URL, esta entidad permite generar nuevas propiedades SEO para una página en concreto. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/meta) */
 export type MetaDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Propiedades SEO. En caso de necesitar sobreescribir alguna URL, esta entidad permite generar nuevas propiedades SEO para una página en concreto. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/meta) */
 export type MetaImageArgs = {
@@ -896,20 +915,24 @@ export type MetaImageArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 /** Propiedades SEO. En caso de necesitar sobreescribir alguna URL, esta entidad permite generar nuevas propiedades SEO para una página en concreto. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/meta) */
 export type MetaKeywordsArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Propiedades SEO. En caso de necesitar sobreescribir alguna URL, esta entidad permite generar nuevas propiedades SEO para una página en concreto. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/meta) */
 export type MetaLinkedFromArgs = {
   allowedLocales?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
 };
 
+
 /** Propiedades SEO. En caso de necesitar sobreescribir alguna URL, esta entidad permite generar nuevas propiedades SEO para una página en concreto. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/meta) */
 export type MetaPathArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Propiedades SEO. En caso de necesitar sobreescribir alguna URL, esta entidad permite generar nuevas propiedades SEO para una página en concreto. [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/meta) */
 export type MetaTitleArgs = {
@@ -965,6 +988,7 @@ export type MetaLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type MetaLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -988,7 +1012,7 @@ export enum MetaOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 /** Blog [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/post) */
@@ -1003,10 +1027,12 @@ export type Post = Entry & {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+
 /** Blog [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/post) */
 export type PostContentArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Blog [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/post) */
 export type PostImageArgs = {
@@ -1014,15 +1040,18 @@ export type PostImageArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 /** Blog [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/post) */
 export type PostLinkedFromArgs = {
   allowedLocales?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
 };
 
+
 /** Blog [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/post) */
 export type PostSlugArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Blog [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/post) */
 export type PostTitleArgs = {
@@ -1098,6 +1127,7 @@ export type PostLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type PostLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -1117,7 +1147,7 @@ export enum PostOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 /** Website [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/profile) */
@@ -1133,10 +1163,12 @@ export type Profile = Entry & {
   sys: Sys;
 };
 
+
 /** Website [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/profile) */
 export type ProfileAboutArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Website [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/profile) */
 export type ProfileAvatarArgs = {
@@ -1144,21 +1176,25 @@ export type ProfileAvatarArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 /** Website [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/profile) */
 export type ProfileBooksArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
 /** Website [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/profile) */
 export type ProfileLinkedFromArgs = {
   allowedLocales?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
 };
 
+
 /** Website [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/profile) */
 export type ProfileNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Website [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/profile) */
 export type ProfileSocialCollectionArgs = {
@@ -1235,6 +1271,7 @@ export type ProfileLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type ProfileLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -1252,7 +1289,7 @@ export enum ProfileOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export type ProfileSocialCollection = {
@@ -1275,7 +1312,7 @@ export enum ProfileSocialCollectionOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   UrlAsc = 'url_ASC',
-  UrlDesc = 'url_DESC',
+  UrlDesc = 'url_DESC'
 }
 
 export type Query = {
@@ -1297,11 +1334,13 @@ export type Query = {
   seriesCollection?: Maybe<SeriesCollection>;
 };
 
+
 export type QueryAssetArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryAssetCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1312,11 +1351,13 @@ export type QueryAssetCollectionArgs = {
   where?: InputMaybe<AssetFilter>;
 };
 
+
 export type QueryBookArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryBookCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1327,6 +1368,7 @@ export type QueryBookCollectionArgs = {
   where?: InputMaybe<BookFilter>;
 };
 
+
 export type QueryEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -1336,11 +1378,13 @@ export type QueryEntryCollectionArgs = {
   where?: InputMaybe<EntryFilter>;
 };
 
+
 export type QueryLinkArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryLinkCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1351,11 +1395,13 @@ export type QueryLinkCollectionArgs = {
   where?: InputMaybe<LinkFilter>;
 };
 
+
 export type QueryMetaArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryMetaCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1366,11 +1412,13 @@ export type QueryMetaCollectionArgs = {
   where?: InputMaybe<MetaFilter>;
 };
 
+
 export type QueryPostArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryPostCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1381,11 +1429,13 @@ export type QueryPostCollectionArgs = {
   where?: InputMaybe<PostFilter>;
 };
 
+
 export type QueryProfileArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QueryProfileCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1396,11 +1446,13 @@ export type QueryProfileCollectionArgs = {
   where?: InputMaybe<ProfileFilter>;
 };
 
+
 export type QuerySeriesArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
 
 export type QuerySeriesCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1435,6 +1487,7 @@ export type Series = Entry & {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+
 /** Sagas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/series) */
 export type SeriesBooksCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1445,20 +1498,24 @@ export type SeriesBooksCollectionArgs = {
   where?: InputMaybe<BookFilter>;
 };
 
+
 /** Sagas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/series) */
 export type SeriesLinkedFromArgs = {
   allowedLocales?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
 };
+
 
 /** Sagas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/series) */
 export type SeriesPlotArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
+
 /** Sagas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/series) */
 export type SeriesSlugArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
+
 
 /** Sagas [See type definition](https://app.contentful.com/spaces/v1kazl7nd6vv/content_types/series) */
 export type SeriesTitleArgs = {
@@ -1493,7 +1550,7 @@ export enum SeriesBooksCollectionOrder {
   TaglineAsc = 'tagline_ASC',
   TaglineDesc = 'tagline_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export type SeriesCollection = {
@@ -1536,6 +1593,7 @@ export type SeriesLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type SeriesLinkingCollectionsBookCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -1543,6 +1601,7 @@ export type SeriesLinkingCollectionsBookCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
+
 
 export type SeriesLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1571,7 +1630,7 @@ export enum SeriesLinkingCollectionsBookCollectionOrder {
   TaglineAsc = 'tagline_ASC',
   TaglineDesc = 'tagline_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export enum SeriesOrder {
@@ -1586,7 +1645,7 @@ export enum SeriesOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 export type SeriesPlot = {
@@ -1639,9 +1698,7 @@ export type SysFilter = {
   firstPublishedAt_lt?: InputMaybe<Scalars['DateTime']['input']>;
   firstPublishedAt_lte?: InputMaybe<Scalars['DateTime']['input']>;
   firstPublishedAt_not?: InputMaybe<Scalars['DateTime']['input']>;
-  firstPublishedAt_not_in?: InputMaybe<
-    InputMaybe<Scalars['DateTime']['input']>[]
-  >;
+  firstPublishedAt_not_in?: InputMaybe<InputMaybe<Scalars['DateTime']['input']>[]>;
   id?: InputMaybe<Scalars['String']['input']>;
   id_contains?: InputMaybe<Scalars['String']['input']>;
   id_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1688,9 +1745,7 @@ export type CfBookNestedFilter = {
   promotionalColor_in?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
   promotionalColor_not?: InputMaybe<Scalars['String']['input']>;
   promotionalColor_not_contains?: InputMaybe<Scalars['String']['input']>;
-  promotionalColor_not_in?: InputMaybe<
-    InputMaybe<Scalars['String']['input']>[]
-  >;
+  promotionalColor_not_in?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
   promotional_exists?: InputMaybe<Scalars['Boolean']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   publishedAt_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1779,47 +1834,10 @@ export type AssetsQueryVariables = Exact<{
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
-export type AssetsQuery = {
-  __typename?: 'Query';
-  assetCollection?: {
-    __typename?: 'AssetCollection';
-    items: ({
-      __typename?: 'Asset';
-      title?: string | null;
-      url?: string | null;
-    } | null)[];
-  } | null;
-};
 
-export type BookFragment = {
-  __typename?: 'Book';
-  color?: string | null;
-  promotionalColor?: string | null;
-  publishedAt?: any | null;
-  slug?: string | null;
-  tagline?: string | null;
-  title?: string | null;
-  checkoutCollection?: {
-    __typename?: 'BookCheckoutCollection';
-    items: ({
-      __typename?: 'Link';
-      name?: string | null;
-      url?: string | null;
-    } | null)[];
-  } | null;
-  cover?: {
-    __typename?: 'Asset';
-    description?: string | null;
-    url?: string | null;
-  } | null;
-  promotional?: {
-    __typename?: 'Asset';
-    description?: string | null;
-    url?: string | null;
-  } | null;
-  series?: { __typename?: 'Series'; title?: string | null } | null;
-  synopsis?: { __typename?: 'BookSynopsis'; json: any } | null;
-};
+export type AssetsQuery = { __typename?: 'Query', assetCollection?: { __typename?: 'AssetCollection', items: ({ __typename?: 'Asset', title?: string | null, url?: string | null } | null)[] } | null };
+
+export type BookFragment = { __typename?: 'Book', color?: string | null, promotionalColor?: string | null, publishedAt?: any | null, slug?: string | null, tagline?: string | null, title?: string | null, checkoutCollection?: { __typename?: 'BookCheckoutCollection', items: ({ __typename?: 'Link', name?: string | null, url?: string | null } | null)[] } | null, cover?: { __typename?: 'Asset', description?: string | null, url?: string | null } | null, promotional?: { __typename?: 'Asset', description?: string | null, url?: string | null } | null, series?: { __typename?: 'Series', title?: string | null } | null, synopsis?: { __typename?: 'BookSynopsis', json: any } | null };
 
 export type BooksQueryVariables = Exact<{
   index?: InputMaybe<Scalars['Int']['input']>;
@@ -1829,89 +1847,18 @@ export type BooksQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-export type BooksQuery = {
-  __typename?: 'Query';
-  bookCollection?: {
-    __typename?: 'BookCollection';
-    items: ({
-      __typename?: 'Book';
-      color?: string | null;
-      promotionalColor?: string | null;
-      publishedAt?: any | null;
-      slug?: string | null;
-      tagline?: string | null;
-      title?: string | null;
-      checkoutCollection?: {
-        __typename?: 'BookCheckoutCollection';
-        items: ({
-          __typename?: 'Link';
-          name?: string | null;
-          url?: string | null;
-        } | null)[];
-      } | null;
-      cover?: {
-        __typename?: 'Asset';
-        description?: string | null;
-        url?: string | null;
-      } | null;
-      promotional?: {
-        __typename?: 'Asset';
-        description?: string | null;
-        url?: string | null;
-      } | null;
-      series?: { __typename?: 'Series'; title?: string | null } | null;
-      synopsis?: { __typename?: 'BookSynopsis'; json: any } | null;
-    } | null)[];
-  } | null;
-};
+
+export type BooksQuery = { __typename?: 'Query', bookCollection?: { __typename?: 'BookCollection', items: ({ __typename?: 'Book', color?: string | null, promotionalColor?: string | null, publishedAt?: any | null, slug?: string | null, tagline?: string | null, title?: string | null, checkoutCollection?: { __typename?: 'BookCheckoutCollection', items: ({ __typename?: 'Link', name?: string | null, url?: string | null } | null)[] } | null, cover?: { __typename?: 'Asset', description?: string | null, url?: string | null } | null, promotional?: { __typename?: 'Asset', description?: string | null, url?: string | null } | null, series?: { __typename?: 'Series', title?: string | null } | null, synopsis?: { __typename?: 'BookSynopsis', json: any } | null } | null)[] } | null };
 
 export type MetaQueryVariables = Exact<{
   path: Scalars['String']['input'];
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
-export type MetaQuery = {
-  __typename?: 'Query';
-  metaCollection?: {
-    __typename?: 'MetaCollection';
-    items: ({
-      __typename?: 'Meta';
-      description?: string | null;
-      keywords?: string | null;
-      title?: string | null;
-      image?: { __typename?: 'Asset'; url?: string | null } | null;
-    } | null)[];
-  } | null;
-};
 
-export type PostContentLinksFragment = {
-  __typename?: 'PostContentLinks';
-  assets: {
-    __typename?: 'PostContentAssets';
-    block: ({
-      __typename?: 'Asset';
-      contentType?: string | null;
-      description?: string | null;
-      height?: number | null;
-      title?: string | null;
-      url?: string | null;
-      width?: number | null;
-      sys: { __typename?: 'Sys'; id: string };
-    } | null)[];
-  };
-  entries: {
-    __typename?: 'PostContentEntries';
-    block: (
-      | { __typename: 'Book'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Link'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Meta'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Post'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Profile'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Series'; sys: { __typename?: 'Sys'; id: string } }
-      | null
-    )[];
-  };
-};
+export type MetaQuery = { __typename?: 'Query', metaCollection?: { __typename?: 'MetaCollection', items: ({ __typename?: 'Meta', description?: string | null, keywords?: string | null, title?: string | null, image?: { __typename?: 'Asset', url?: string | null } | null } | null)[] } | null };
+
+export type PostContentLinksFragment = { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: ({ __typename?: 'Asset', contentType?: string | null, description?: string | null, height?: number | null, title?: string | null, url?: string | null, width?: number | null, sys: { __typename?: 'Sys', id: string } } | null)[] }, entries: { __typename?: 'PostContentEntries', block: ({ __typename: 'Book', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Meta', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Post', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Profile', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Series', sys: { __typename?: 'Sys', id: string } } | null)[] } };
 
 export type PostsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1920,151 +1867,14 @@ export type PostsQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-export type PostsQuery = {
-  __typename?: 'Query';
-  postCollection?: {
-    __typename?: 'PostCollection';
-    items: ({
-      __typename?: 'Post';
-      slug?: string | null;
-      title?: string | null;
-      sys: {
-        __typename?: 'Sys';
-        firstPublishedAt?: any | null;
-        id: string;
-        publishedAt?: any | null;
-      };
-      content?: {
-        __typename?: 'PostContent';
-        json: any;
-        links: {
-          __typename?: 'PostContentLinks';
-          assets: {
-            __typename?: 'PostContentAssets';
-            block: ({
-              __typename?: 'Asset';
-              contentType?: string | null;
-              description?: string | null;
-              height?: number | null;
-              title?: string | null;
-              url?: string | null;
-              width?: number | null;
-              sys: { __typename?: 'Sys'; id: string };
-            } | null)[];
-          };
-          entries: {
-            __typename?: 'PostContentEntries';
-            block: (
-              | { __typename: 'Book'; sys: { __typename?: 'Sys'; id: string } }
-              | { __typename: 'Link'; sys: { __typename?: 'Sys'; id: string } }
-              | { __typename: 'Meta'; sys: { __typename?: 'Sys'; id: string } }
-              | { __typename: 'Post'; sys: { __typename?: 'Sys'; id: string } }
-              | {
-                  __typename: 'Profile';
-                  sys: { __typename?: 'Sys'; id: string };
-                }
-              | {
-                  __typename: 'Series';
-                  sys: { __typename?: 'Sys'; id: string };
-                }
-              | null
-            )[];
-          };
-        };
-      } | null;
-      image?: { __typename?: 'Asset'; url?: string | null } | null;
-    } | null)[];
-  } | null;
-};
 
-export type AboutLinksFragment = {
-  __typename?: 'ProfileAboutLinks';
-  assets: {
-    __typename?: 'ProfileAboutAssets';
-    block: ({
-      __typename?: 'Asset';
-      contentType?: string | null;
-      description?: string | null;
-      height?: number | null;
-      title?: string | null;
-      url?: string | null;
-      width?: number | null;
-      sys: { __typename?: 'Sys'; id: string };
-    } | null)[];
-  };
-  entries: {
-    __typename?: 'ProfileAboutEntries';
-    block: (
-      | { __typename: 'Book'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Link'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Meta'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Post'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Profile'; sys: { __typename?: 'Sys'; id: string } }
-      | { __typename: 'Series'; sys: { __typename?: 'Sys'; id: string } }
-      | null
-    )[];
-  };
-};
+export type PostsQuery = { __typename?: 'Query', postCollection?: { __typename?: 'PostCollection', items: ({ __typename?: 'Post', slug?: string | null, title?: string | null, sys: { __typename?: 'Sys', firstPublishedAt?: any | null, id: string, publishedAt?: any | null }, content?: { __typename?: 'PostContent', json: any, links: { __typename?: 'PostContentLinks', assets: { __typename?: 'PostContentAssets', block: ({ __typename?: 'Asset', contentType?: string | null, description?: string | null, height?: number | null, title?: string | null, url?: string | null, width?: number | null, sys: { __typename?: 'Sys', id: string } } | null)[] }, entries: { __typename?: 'PostContentEntries', block: ({ __typename: 'Book', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Meta', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Post', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Profile', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Series', sys: { __typename?: 'Sys', id: string } } | null)[] } } } | null, image?: { __typename?: 'Asset', url?: string | null } | null } | null)[] } | null };
+
+export type AboutLinksFragment = { __typename?: 'ProfileAboutLinks', assets: { __typename?: 'ProfileAboutAssets', block: ({ __typename?: 'Asset', contentType?: string | null, description?: string | null, height?: number | null, title?: string | null, url?: string | null, width?: number | null, sys: { __typename?: 'Sys', id: string } } | null)[] }, entries: { __typename?: 'ProfileAboutEntries', block: ({ __typename: 'Book', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Meta', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Post', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Profile', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Series', sys: { __typename?: 'Sys', id: string } } | null)[] } };
 
 export type ProfileQueryVariables = Exact<{
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
-export type ProfileQuery = {
-  __typename?: 'Query';
-  profileCollection?: {
-    __typename?: 'ProfileCollection';
-    items: ({
-      __typename?: 'Profile';
-      name?: string | null;
-      about?: {
-        __typename?: 'ProfileAbout';
-        json: any;
-        links: {
-          __typename?: 'ProfileAboutLinks';
-          assets: {
-            __typename?: 'ProfileAboutAssets';
-            block: ({
-              __typename?: 'Asset';
-              contentType?: string | null;
-              description?: string | null;
-              height?: number | null;
-              title?: string | null;
-              url?: string | null;
-              width?: number | null;
-              sys: { __typename?: 'Sys'; id: string };
-            } | null)[];
-          };
-          entries: {
-            __typename?: 'ProfileAboutEntries';
-            block: (
-              | { __typename: 'Book'; sys: { __typename?: 'Sys'; id: string } }
-              | { __typename: 'Link'; sys: { __typename?: 'Sys'; id: string } }
-              | { __typename: 'Meta'; sys: { __typename?: 'Sys'; id: string } }
-              | { __typename: 'Post'; sys: { __typename?: 'Sys'; id: string } }
-              | {
-                  __typename: 'Profile';
-                  sys: { __typename?: 'Sys'; id: string };
-                }
-              | {
-                  __typename: 'Series';
-                  sys: { __typename?: 'Sys'; id: string };
-                }
-              | null
-            )[];
-          };
-        };
-      } | null;
-      avatar?: { __typename?: 'Asset'; url?: string | null } | null;
-      books?: { __typename?: 'Asset'; url?: string | null } | null;
-      socialCollection?: {
-        __typename?: 'ProfileSocialCollection';
-        items: ({
-          __typename?: 'Link';
-          name?: string | null;
-          url?: string | null;
-        } | null)[];
-      } | null;
-    } | null)[];
-  } | null;
-};
+
+export type ProfileQuery = { __typename?: 'Query', profileCollection?: { __typename?: 'ProfileCollection', items: ({ __typename?: 'Profile', name?: string | null, about?: { __typename?: 'ProfileAbout', json: any, links: { __typename?: 'ProfileAboutLinks', assets: { __typename?: 'ProfileAboutAssets', block: ({ __typename?: 'Asset', contentType?: string | null, description?: string | null, height?: number | null, title?: string | null, url?: string | null, width?: number | null, sys: { __typename?: 'Sys', id: string } } | null)[] }, entries: { __typename?: 'ProfileAboutEntries', block: ({ __typename: 'Book', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Meta', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Post', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Profile', sys: { __typename?: 'Sys', id: string } } | { __typename: 'Series', sys: { __typename?: 'Sys', id: string } } | null)[] } } } | null, avatar?: { __typename?: 'Asset', url?: string | null } | null, books?: { __typename?: 'Asset', url?: string | null } | null, socialCollection?: { __typename?: 'ProfileSocialCollection', items: ({ __typename?: 'Link', name?: string | null, url?: string | null } | null)[] } | null } | null)[] } | null };

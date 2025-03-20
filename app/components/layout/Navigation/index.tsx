@@ -1,5 +1,7 @@
 import { clsx as cx } from 'clsx';
 
+import Item from './Item';
+
 import type React from 'react';
 
 type Props = React.ComponentPropsWithRef<'nav'>;
@@ -9,10 +11,10 @@ const Navigation = ({ className, ...props }: Props) => (
     {...props}
     className={cx(
       className,
-      'flex h-screen w-[80vw] flex-col bg-stone-900 md:w-[50vw] lg:visible lg:inline-flex lg:h-full lg:w-auto lg:flex-row lg:bg-transparent xl:px-12',
+      'bg-alabaster-900 md:text-alabaster-950 fixed h-screen w-[80vw] flex-col gap-y-4 py-16 text-lg text-white open:flex md:relative md:inline-flex md:h-auto md:w-auto md:flex-row md:gap-x-4 md:bg-transparent md:py-0 md:text-base',
     )}
   />
 );
 
-export { default as Item } from './Item';
+export { Item };
 export default Navigation;

@@ -1,11 +1,14 @@
 import { clsx as cx } from 'clsx';
 
-import type React from 'react';
+import type { ComponentProps } from 'react';
 
-type Props = React.ComponentPropsWithoutRef<'aside'>;
+type Props = ComponentProps<'aside'>;
 
 const Sidebar = ({ className, ...props }: Props) => (
-  <aside {...props} className={cx(className, 'hidden gap-5 xl:flex xl:flex-col')} />
+  <aside
+    {...props}
+    className={cx(className, 'hidden gap-5 xl:flex xl:flex-col')}
+  />
 );
 
 export default Sidebar;

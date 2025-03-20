@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { LRUCache as Cache } from 'lru-cache';
 
 import graphql from '~/lib/graphql';
@@ -5,7 +6,21 @@ import richTextToHTML from '~/lib/richTextToHTML';
 
 import query from './query.graphql';
 
-import type { BooksQuery, BooksQueryVariables, BookFragment as RawBook } from '~/.graphql/types';
+import type {
+  BooksQuery,
+  BooksQueryVariables,
+  BookFragment as RawBook,
+} from '~/.graphql/types';
+
+type Image = {
+  description: string;
+  url: string;
+};
+
+type Link = {
+  name: string;
+  url: string;
+};
 
 type Book = {
   checkout: Link[];
@@ -33,22 +48,33 @@ type LoaderParams = {
 const MONTH = 30 * 24 * 60 * 60 * 1000;
 
 const cache = new Cache<`${string}-${string}`, Book[], LoaderParams>({
-  async fetchMethod(key, stale, { context: { index, limit, preview, published, slug } }) {
-    const { bookCollection } = await graphql<BooksQuery, BooksQueryVariables>(query, {
-      index,
-      limit,
-      preview,
-      publishedAt: published && new Date().toISOString(),
-      slug,
-    });
+  async fetchMethod(
+    key,
+    stale,
+    { context: { index, limit, preview, published, slug } },
+  ) {
+    const { bookCollection } = await graphql<BooksQuery, BooksQueryVariables>(
+      query,
+      {
+        index,
+        limit,
+        preview,
+        publishedAt: published && new Date().toISOString(),
+        slug,
+      },
+    );
 
-    const books = bookCollection?.items.map((book: RawBook | null) => book!).map(mapper) ?? [];
+    const books =
+      bookCollection?.items.map((book: RawBook | null) => book!).map(mapper) ??
+      [];
 
     books.sort((a, b) => {
       const publishedA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
       const publishedB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
 
-      return a.series === b.series ? publishedA - publishedB : publishedB - publishedA;
+      return a.series === b.series
+        ? publishedA - publishedB
+        : publishedB - publishedA;
     });
 
     return books;
@@ -59,20 +85,21 @@ const cache = new Cache<`${string}-${string}`, Book[], LoaderParams>({
 
 const mapper = (item: RawBook): Book => {
   const checkout =
-    item.checkoutCollection?.items.map((checkout) => ({ name: String(checkout?.name), url: String(checkout?.url) })) ??
-    [];
+    item.checkoutCollection?.items
+      .map((checkout) => ({
+        name: String(checkout?.name),
+        url: String(checkout?.url),
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name)) ?? [];
   const cover = item.cover!;
-  const promotional = item.promotional ?? undefined;
 
   return {
     checkout,
     color: item.color!,
-    cover: { description: cover ? cover.description! : '', url: cover ? cover.url! : '' },
-    promotional: promotional && {
-      description: promotional ? promotional.description! : '',
-      url: promotional ? promotional.url! : '',
+    cover: {
+      description: cover ? cover.description! : '',
+      url: cover ? cover.url! : '',
     },
-    promotionalColor: item.promotionalColor!,
     publishedAt: item.publishedAt,
     series: item.series ? String(item.series?.title) : undefined,
     slug: item.slug!,
@@ -82,7 +109,13 @@ const mapper = (item: RawBook): Book => {
   };
 };
 
-async function loader({ index, limit, preview = false, published, slug }: LoaderParams = {}): Promise<Book[]> {
+async function loader({
+  index,
+  limit,
+  preview = false,
+  published,
+  slug,
+}: LoaderParams = {}): Promise<Book[]> {
   return (await cache.fetch(`${index}-${limit}{${published}}`, {
     context: { index, limit, preview, published, slug },
     forceRefresh: preview,

@@ -1,6 +1,6 @@
-import type React from 'react';
+import type { ComponentProps } from 'react';
 
-type Props = React.ComponentPropsWithRef<'svg'>;
+type Props = ComponentProps<'svg'>;
 
 const amazon = (props: Props) => (
   <svg

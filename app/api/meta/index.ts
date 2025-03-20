@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { LRUCache as Cache } from 'lru-cache';
 
 import graphql from '~/lib/graphql';
@@ -22,7 +23,10 @@ const MIN = 60 * 1000;
 
 const cache = new Cache<`meta:${string}`, Meta, LoaderParams>({
   async fetchMethod(key, stale, { context: { path, preview } }) {
-    const { metaCollection } = await graphql<MetaQuery, MetaQueryVariables>(query, { path, preview });
+    const { metaCollection } = await graphql<MetaQuery, MetaQueryVariables>(
+      query,
+      { path, preview },
+    );
 
     if (!metaCollection) {
       return undefined;
@@ -45,8 +49,14 @@ const cache = new Cache<`meta:${string}`, Meta, LoaderParams>({
   ttl: 5 * MIN,
 });
 
-async function loader({ path, preview = false }: LoaderParams): Promise<Meta | undefined> {
-  return (await cache.fetch(`meta:${path}`, { context: { path, preview }, forceRefresh: preview }))!;
+async function loader({
+  path,
+  preview = false,
+}: LoaderParams): Promise<Meta | undefined> {
+  return (await cache.fetch(`meta:${path}`, {
+    context: { path, preview },
+    forceRefresh: preview,
+  }))!;
 }
 
 export type { Meta };

@@ -7,12 +7,23 @@ import context from './context';
 
 import type { ComponentPropsWithoutRef } from 'react';
 
-const Title = ({ className, ...props }: ComponentPropsWithoutRef<typeof Heading>) => {
+
+const Title = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<typeof Heading>) => {
   const index = useContext(context);
   const isEven = (index ?? 0) % 2 === 1;
 
   return (
-    <Heading {...props} className={cx(className, 'uppercase text-[color:var(--color)]', isEven && 'md:order-1')} />
+    <Heading
+      {...props}
+      className={cx(
+        className,
+        'uppercase text-[color:var(--color)]',
+        isEven && 'md:order-1',
+      )}
+    />
   );
 };
 

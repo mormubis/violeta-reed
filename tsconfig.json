@@ -1,20 +1,42 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    /* Base Options: */
     "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
     "isolatedModules": true,
-    "jsx": "react-jsx",
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "moduleResolution": "node",
+    "verbatimModuleSyntax": true,
+
+    /* Strictness */
+    "strict": true,
+    "noImplicitOverride": true,
+
+    /* If NOT transpiling with TypeScript: */
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "noEmit": true,
+
+    /* If your code doesn't run in the DOM: */
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+
+    /** AND React */
+    "jsx": "react-jsx",
+
+    /** AND React Router */
+    "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]
     },
-    "resolveJsonModule": true,
-    "strict": true,
-    "target": "ES2019",
-    "forceConsistentCasingInFileNames": true,
-    "allowJs": true
+    "rootDirs": [".", "./.react-router/types"],
+    "types": ["node", "vite/client"]
   },
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    "**/.client/**/*",
+    ".react-router/types/**/*"
+  ]
 }

@@ -1,26 +1,17 @@
-import { clsx as cx } from 'clsx';
+import { clsx } from 'clsx';
 
-import Heading from './Heading';
-import Section from './Section';
-import Sidebar from './Sidebar';
+import type { ComponentProps } from 'react';
 
-import type React from 'react';
-
-type Props = React.ComponentPropsWithoutRef<'main'>;
+type Props = ComponentProps<'main'>;
 
 const Page = ({ className, ...props }: Props) => (
   <main
     {...props}
-    className={cx(
+    className={clsx(
+      'grid w-full max-w-screen-xl grow grid-cols-1 gap-y-5 overflow-x-hidden py-5 pb-10 md:gap-y-10 md:px-6 md:py-10',
       className,
-      'grid w-full max-w-screen-xl grow gap-y-5 px-3 py-5 pb-10 md:gap-y-10 md:px-6 md:py-10 grid-cols-1 overflow-x-hidden',
     )}
   />
 );
 
-Page.Heading = Heading;
-Page.Section = Section;
-Page.Sidebar = Sidebar;
-
-export { Heading, Section, Sidebar };
 export default Page;

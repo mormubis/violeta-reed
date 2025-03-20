@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { LRUCache as Cache } from 'lru-cache';
 
 import graphql from '~/lib/graphql';
@@ -6,7 +7,7 @@ import richTextToHTML from '~/lib/richTextToHTML';
 import query from './query.graphql';
 
 import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
-import type { Props } from '~/components/LinkSocial';
+import type { IconProps } from '~/components/Icon';
 
 type LoaderParams = {
   preview?: boolean;
@@ -17,7 +18,7 @@ type Profile = {
   avatar: string;
   books: string;
   name: string;
-  social: { name: Props['name']; url: string }[];
+  social: { name: IconProps['name']; url: string }[];
 };
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -33,7 +34,10 @@ const DEFAULT = {
 
 const cache = new Cache<'profile', Profile, LoaderParams>({
   async fetchMethod(key, stale, { context: { preview } }) {
-    const { profileCollection } = await graphql<ProfileQuery, ProfileQueryVariables>(query, { preview });
+    const { profileCollection } = await graphql<
+      ProfileQuery,
+      ProfileQueryVariables
+    >(query, { preview });
 
     if (!profileCollection) {
       return DEFAULT;
@@ -58,15 +62,23 @@ const cache = new Cache<'profile', Profile, LoaderParams>({
       avatar: profile.avatar?.url ?? '',
       books: profile.books?.url ?? '',
       name: profile?.name ?? 'Violeta Reed',
-      social: social.map((item) => ({ name: item?.name?.toLocaleLowerCase() ?? 'instagram', url: item?.url ?? '' })),
+      social: social.map((item) => ({
+        name: item?.name?.toLocaleLowerCase(),
+        url: item?.url ?? '',
+      })),
     };
   },
   max: 1,
   ttl: DAY,
 });
 
-async function loader({ preview = false }: LoaderParams = {}): Promise<Profile> {
-  return (await cache.fetch('profile', { context: { preview }, forceRefresh: preview }))!;
+async function loader({
+  preview = false,
+}: LoaderParams = {}): Promise<Profile> {
+  return (await cache.fetch('profile', {
+    context: { preview },
+    forceRefresh: preview,
+  }))!;
 }
 
 export type { Profile };

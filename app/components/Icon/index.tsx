@@ -1,4 +1,3 @@
-
 import amazon from './amazon';
 import arrowCircleDown from './arrow-circle-down';
 import arrowSmRight from './arrow-sm-right';
@@ -21,7 +20,8 @@ import type React from 'react';
 type OwnProps = {
   name: keyof typeof ICONS;
 };
-type Props = OwnProps & Omit<React.ComponentPropsWithRef<'svg'>, keyof OwnProps>;
+type Props = OwnProps &
+  Omit<React.ComponentPropsWithRef<'svg'>, keyof OwnProps>;
 
 const ICONS = {
   amazon,
@@ -48,4 +48,5 @@ const Icon = ({ name, ...props }: Props) => {
   return <Component {...props} />;
 };
 
+export type { Props as IconProps };
 export default Icon;

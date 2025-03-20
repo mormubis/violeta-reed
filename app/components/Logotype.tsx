@@ -1,6 +1,6 @@
-import type React from 'react';
+import type { ComponentProps } from 'react';
 
-type Props = React.ComponentPropsWithoutRef<'svg'>;
+type Props = ComponentProps<'svg'>;
 
 const Logotype = (props: Props) => (
   <svg {...props} viewBox="0 0 720 180" xmlns="http://www.w3.org/2000/svg">

@@ -12,7 +12,11 @@ const Image = ({ className, ...props }: ComponentPropsWithoutRef<'figure'>) => {
   return (
     <figure
       {...props}
-      className={cx(className, 'row-span-2 flex self-center justify-center', isEven && 'md:order-2')}
+      className={cx(
+        className,
+        'row-span-2 flex self-center justify-center',
+        isEven && 'md:order-2',
+      )}
     />
   );
 };

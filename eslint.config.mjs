@@ -42,7 +42,12 @@ export default typescript.config(
             caseInsensitive: true,
             order: 'asc',
           },
-          'groups': [['builtin', 'external'], 'internal', ['parent', 'sibling'], 'type'],
+          'groups': [
+            ['builtin', 'external'],
+            'internal',
+            ['parent', 'sibling'],
+            'type',
+          ],
           'newlines-between': 'always',
           'pathGroups': [
             {
@@ -103,7 +108,10 @@ export default typescript.config(
     plugins: { react, 'react-hooks': hooks },
     rules: {
       ...hooks.configs.recommended.rules,
-      'react/jsx-sort-props': ['error', { callbacksLast: true, reservedFirst: true, shorthandFirst: true }],
+      'react/jsx-sort-props': [
+        'error',
+        { callbacksLast: true, reservedFirst: true, shorthandFirst: true },
+      ],
       'react/self-closing-comp': 'error',
     },
   },
