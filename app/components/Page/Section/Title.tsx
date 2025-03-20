@@ -1,11 +1,11 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import { clsx as cx } from 'clsx';
 import { useContext } from 'react';
-
-import cx from 'classnames';
 
 import Heading from '~/components/Heading';
 
 import context from './context';
+
+import type { ComponentPropsWithoutRef } from 'react';
 
 const Title = ({ className, ...props }: ComponentPropsWithoutRef<typeof Heading>) => {
   const index = useContext(context);

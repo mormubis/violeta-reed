@@ -1,7 +1,7 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 
-import type { Document, Block, Inline } from '@contentful/rich-text-types';
+import type { Block, Document, Inline } from '@contentful/rich-text-types';
 
 function richTextToHTML(document: Document, links: any = {}) {
   const assets = links?.assets?.block.reduce((acc: any, item: any) => ({ ...acc, [item.sys.id]: item }), {}) ?? {};

@@ -5,7 +5,7 @@ import richTextToHTML from '~/lib/richTextToHTML';
 
 import query from './query.graphql';
 
-import type { BookFragment as RawBook, BooksQuery, BooksQueryVariables } from '~/.graphql/types';
+import type { BooksQuery, BooksQueryVariables, BookFragment as RawBook } from '~/.graphql/types';
 
 type Book = {
   checkout: Link[];

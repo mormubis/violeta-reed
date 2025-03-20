@@ -1,12 +1,12 @@
 import { LRUCache as Cache } from 'lru-cache';
 
-import type { Props } from '~/components/LinkSocial';
 import graphql from '~/lib/graphql';
 import richTextToHTML from '~/lib/richTextToHTML';
 
 import query from './query.graphql';
 
 import type { ProfileQuery, ProfileQueryVariables } from '~/.graphql/types';
+import type { Props } from '~/components/LinkSocial';
 
 type LoaderParams = {
   preview?: boolean;
@@ -58,9 +58,7 @@ const cache = new Cache<'profile', Profile, LoaderParams>({
       avatar: profile.avatar?.url ?? '',
       books: profile.books?.url ?? '',
       name: profile?.name ?? 'Violeta Reed',
-      social: social
-        .map((item: any) => item!)
-        .map((item: any) => ({ name: item.name.toLocaleLowerCase(), url: item.url! })),
+      social: social.map((item) => ({ name: item?.name?.toLocaleLowerCase() ?? 'instagram', url: item?.url ?? '' })),
     };
   },
   max: 1,

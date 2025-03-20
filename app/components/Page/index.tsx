@@ -1,10 +1,10 @@
-import React from 'react';
-
-import cx from 'classnames';
+import { clsx as cx } from 'clsx';
 
 import Heading from './Heading';
 import Section from './Section';
 import Sidebar from './Sidebar';
+
+import type React from 'react';
 
 type Props = React.ComponentPropsWithoutRef<'main'>;
 

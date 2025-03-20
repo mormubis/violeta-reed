@@ -1,9 +1,9 @@
-import React from 'react';
-
-import cx from 'classnames';
+import { clsx as cx } from 'clsx';
 import { useIntl } from 'react-intl';
 
 import Icon from './Icon';
+
+import type React from 'react';
 
 type OwnProps = {
   type: keyof typeof ICON;

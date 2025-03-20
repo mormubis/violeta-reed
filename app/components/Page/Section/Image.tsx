@@ -1,9 +1,9 @@
+import { clsx as cx } from 'clsx';
 import { useContext } from 'react';
-import type { ComponentPropsWithoutRef } from 'react';
-
-import cx from 'classnames';
 
 import context from './context';
+
+import type { ComponentPropsWithoutRef } from 'react';
 
 const Image = ({ className, ...props }: ComponentPropsWithoutRef<'figure'>) => {
   const index = useContext(context);

@@ -1,11 +1,11 @@
 # Node
 node_modules
 
-# Remix
+# React router
 /.cache
+/.react-router
 /build
 /public/build
-/server/build
 .env
 
 # GraphQL

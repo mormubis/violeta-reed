@@ -1,13 +1,14 @@
-import React from 'react';
-
-import cx from 'classnames';
+import { clsx as cx } from 'clsx';
 import { useIntl } from 'react-intl';
 
-import type { Post } from '~/api/posts';
 import ByLine from '~/components/ByLine';
 import Heading from '~/components/Heading';
 import HTML from '~/components/HTML';
 import Icon from '~/components/Icon';
+
+import type React from 'react';
+import type { Post } from '~/api/posts';
+
 import Link from '~/components/Link';
 
 type OwnProps = {

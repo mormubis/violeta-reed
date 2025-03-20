@@ -1,9 +1,9 @@
-import React from 'react';
+import { clsx as cx } from 'clsx';
 
-import cx from 'classnames';
-
-import type { Props as LinkSocialProps } from '~/components/LinkSocial';
 import LinkSocial from '~/components/LinkSocial';
+
+import type React from 'react';
+import type { Props as LinkSocialProps } from '~/components/LinkSocial';
 
 type OwnProps = { url: string };
 type Props = OwnProps &

@@ -1,6 +1,6 @@
-import React from 'react';
+import { clsx as cx } from 'clsx';
 
-import cx from 'classnames';
+import type React from 'react';
 
 type OwnProps<E extends React.ElementType = React.ElementType> = {
   as?: E;

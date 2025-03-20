@@ -1,8 +1,8 @@
-import React from 'react';
-
-import cx from 'classnames';
+import { clsx as cx } from 'clsx';
 
 import Icon from '~/components/Icon';
+
+import type React from 'react';
 
 type OwnProps = { name: keyof typeof COLORS; to: string };
 type Props = OwnProps & Omit<React.ComponentPropsWithoutRef<'a'>, keyof OwnProps | 'href'>;

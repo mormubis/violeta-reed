@@ -1,8 +1,6 @@
-import React from 'react';
+import { clsx as cx } from 'clsx';
 
-import cx from 'classnames';
-
-import Link from './Link';
+import type React from 'react';
 
 type Props = React.ComponentPropsWithRef<'nav'>;
 
@@ -16,6 +14,5 @@ const Navigation = ({ className, ...props }: Props) => (
   />
 );
 
-Navigation.Link = Link;
-
+export { default as Item } from './Item';
 export default Navigation;

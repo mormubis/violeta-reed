@@ -1,4 +1,3 @@
-import React from 'react';
 
 import amazon from './amazon';
 import arrowCircleDown from './arrow-circle-down';
@@ -16,6 +15,8 @@ import tiktok from './tiktok';
 import twitter from './twitter';
 import wattpad from './wattpad';
 import x from './x';
+
+import type React from 'react';
 
 type OwnProps = {
   name: keyof typeof ICONS;

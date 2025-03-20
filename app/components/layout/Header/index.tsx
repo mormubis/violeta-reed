@@ -1,11 +1,11 @@
-import React from 'react';
-
-import cx from 'classnames';
+import { clsx as cx } from 'clsx';
 
 // import useEventListener from '~/use/eventListener';
 import Left from './Left';
 import Right from './Right';
 import Social from './Social';
+
+import type React from 'react';
 
 type Props = React.ComponentPropsWithRef<'header'>;
 

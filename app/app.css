@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/typography';
+
+:root {
+  --color-amazon: #ff9900;
+  --color-facebook: #1877f2;
+  --color-goodreads: #372213;
+  --color-instagram: #e4405f;
+  --color-pinterest: #bd081c;
+  --color-spotify: #1db954;
+  --color-tiktok: #000000;
+  --color-twitter: #1da1f2;
+  --color-wattpad: #ff500a;
+}
+
+@theme {
+  --color-finn-50: #fef5fd;
+  --color-finn-100: #fde9fe;
+  --color-finn-200: #fad3fb;
+  --color-finn-300: #f7b0f5;
+  --color-finn-400: #f181eb;
+  --color-finn-500: #e451dc;
+  --color-finn-600: #c831bd;
+  --color-finn-700: #a52699;
+  --color-finn-800: #87217b;
+  --color-finn-900: #6c1f62;
+  --color-finn-950: #490940;
+
+  --color-deep-blush-50: #fdf3f5;
+  --color-deep-blush-100: #fce7ed;
+  --color-deep-blush-200: #f8d3dd;
+  --color-deep-blush-300: #f3aec3;
+  --color-deep-blush-400: #e86a92;
+  --color-deep-blush-500: #e05383;
+  --color-deep-blush-600: #cb336e;
+  --color-deep-blush-700: #ab255d;
+  --color-deep-blush-800: #8f2253;
+  --color-deep-blush-900: #7b204c;
+  --color-deep-blush-950: #440d25;
+
+  --color-alabaster-50: #f7f7f9;
+  --color-alabaster-100: #eaeaef;
+  --color-alabaster-200: #dadae3;
+  --color-alabaster-300: #c0c1d0;
+  --color-alabaster-400: #a2a2b8;
+  --color-alabaster-500: #8d8ba6;
+  --color-alabaster-600: #7d7a96;
+  --color-alabaster-700: #726d88;
+  --color-alabaster-800: #605c71;
+  --color-alabaster-900: #4f4c5c;
+  --color-alabaster-950: #33313a;
+
+  --font-sans: Rajdhani, ui-sans-serif, system-ui, sans-serif;
+  --font-serif: Italiana, ui-sans-serif, system-ui, sans-serif;
+
+  @keyframes header {
+    0% {
+      height: calc(var(--spacing) * 32);
+    }
+
+    50% {
+      height: calc(var(--spacing) * 24);
+    }
+  }
+}

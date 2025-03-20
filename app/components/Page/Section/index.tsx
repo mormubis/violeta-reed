@@ -1,8 +1,8 @@
-import React from 'react';
-
-import cx from 'classnames';
+import { clsx as cx } from 'clsx';
 
 import context from './context';
+
+import type React from 'react';
 
 type OwnProps<E extends React.ElementType = React.ElementType> = {
   as?: E;
@@ -34,7 +34,7 @@ const Section = <E extends React.ElementType = typeof defaultElement>({
           isEven &&
             'md:!grid-cols-[1fr_35%] md:!flex-row-reverse md:before:!left-3/4 md:before:!right-auto md:after:!left-auto md:after:!right-1/4 ',
         )}
-      ></Component>
+      />
     </Provider>
   );
 };

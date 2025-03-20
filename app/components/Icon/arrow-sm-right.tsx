@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 type Props = React.ComponentPropsWithRef<'svg'>;
 
@@ -12,7 +12,7 @@ const arrowCircleDown = (props: Props) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+    <path d="M13 7l5 5m0 0l-5 5m5-5H6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 

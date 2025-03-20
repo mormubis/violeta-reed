@@ -1,70 +1,53 @@
-import React, { useCallback, useReducer } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useLocation,
+} from 'react-router';
 
-import { Outlet, useLoaderData, useRouteError } from '@remix-run/react';
-import al from 'accept-language';
-import cx from 'classnames';
-import normalize from 'normalize.css';
-import { IntlProvider, FormattedMessage } from 'react-intl';
-
-import type { Meta } from '~/api/meta';
 import metaFetcher from '~/api/meta';
-import type { Profile } from '~/api/profile';
 import profileFetcher from '~/api/profile';
 import Icon from '~/components/Icon';
 import Footer from '~/components/layout/Footer';
 import Header from '~/components/layout/Header';
-import Navigation from '~/components/layout/Navigation';
+import Navigation, {
+  Item as NavigationItem,
+} from '~/components/layout/Navigation';
 import Link from '~/components/Link';
 import Logotype from '~/components/Logotype';
-import { Provider as PreviewProvider } from '~/components/Preview';
-import es from '~/translations/es.json';
 
-import Document from './document';
-import tailwind from './tailwind.css';
+import type { Route } from './+types/root';
+import type { ReactNode } from 'react';
+import './app.css';
 
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from '@remix-run/node';
-
-type Data = {
-  locale: string;
-  meta?: Meta;
-  preview?: boolean;
-  profile: Profile;
-};
-
-// Setting languages we support
-al.languages(['en', 'es']);
-
-const links: LinksFunction = () => [
-  // Pre connect Google Fonts
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  {
-    rel: 'preconnect',
-    href: 'https://fonts.gstatic.com',
-    crossOrigin: 'anonymous',
-  },
-  // Reset styles
-  { rel: 'stylesheet', href: normalize },
-  // Tailwind styles
-  { rel: 'stylesheet', href: tailwind },
+const links: Route.LinksFunction = () => [
+  // Connect Google Fonts
+  { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
   // Fonts
   {
+    href: 'https://fonts.googleapis.com/css2?family=Italiana&family=Rajdhani:wght@300;400;500;600;700&display=swap',
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap',
   },
 ];
 
-const loader = async ({ request }: LoaderFunctionArgs): Promise<Data> => {
-  const locale = al.get(request.headers.get('accept-language')) ?? 'es';
-
+const loader = async ({ request }: Route.LoaderArgs) => {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
 
-  const [meta, profile] = await Promise.all([metaFetcher({ path: url.pathname }), profileFetcher()]);
+  const [meta, profile] = await Promise.all([
+    metaFetcher({ path: url.pathname }),
+    profileFetcher(),
+  ]);
 
-  return { locale, meta, preview, profile };
+  return { meta, preview, profile };
 };
 
-const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+const meta: Route.MetaFunction = ({ data, location }: Route.MetaArgs) => {
   const metadata = data?.meta;
 
   const {
@@ -93,105 +76,128 @@ const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   ];
 };
 
+const Layout = ({ children }: { children: ReactNode }) => (
+  <html lang="en">
+    <head>
+      <meta charSet="utf-8" />
+      <meta content="width=device-width,initial-scale=1" name="viewport" />
+
+      {/* All meta exports on all routes will go here */}
+      <Meta />
+
+      {/* All link exports on all routes will go here */}
+      <Links />
+    </head>
+    <body className="text-alabaster-950 flex min-h-screen w-screen flex-col items-center bg-white font-semibold">
+      {children}
+
+      {/* Manages scroll position for client-side transitions */}
+      {/* If you use a nonce-based content security policy for scripts, you must provide the `nonce` prop. Otherwise, omit the nonce prop as shown here. */}
+      <ScrollRestoration />
+
+      {/* Script tags go here */}
+      {/* If you use a nonce-based content security policy for scripts, you must provide the `nonce` prop. Otherwise, omit the nonce prop as shown here. */}
+      <Scripts />
+    </body>
+  </html>
+);
+
 const App = () => {
-  const { preview, profile } = useLoaderData<Data>();
+  const navigationRef = useRef<HTMLElement>(null);
 
-  const [isNavOpen, toggle] = useReducer((state: boolean) => !state, false);
+  const location = useLocation();
+  const { profile } = useLoaderData<typeof loader>();
+  const { t } = useTranslation();
 
-  const close = useCallback(() => {
-    if (isNavOpen) {
-      toggle();
-    }
-  }, [isNavOpen, toggle]);
+  const year = new Date().getFullYear();
+
+  const closeNavigation = useCallback(() => {
+    navigationRef.current?.hidePopover();
+  }, []);
+
+  useEffect(() => {
+    closeNavigation();
+  }, [closeNavigation, location]);
 
   return (
-    <IntlProvider defaultLocale="es" locale="es" messages={es}>
-      <PreviewProvider value={preview ?? false}>
-        <Document>
-          <Header className="sticky top-0 z-50 w-full">
-            <Header.Left>
-              <button
-                aria-label="Abrir navigación"
-                aria-controls="navigation"
-                aria-expanded={isNavOpen}
-                className={
-                  'flex h-full w-16 items-center justify-center text-sm font-medium transition-[background-color] hover:text-purple-800 focus:outline-none focus-visible:text-purple-800 lg:hidden'
-                }
-                onClick={toggle}
-                type="button"
-              >
-                <Icon name="menu" />
-              </button>
-              <Navigation
-                className={cx(
-                  'absolute left-0 top-0 transition-[transform,visibility] duration-[350ms] ease-out lg:relative lg:translate-x-0 lg:transition-none',
-                  isNavOpen ? 'visible translate-x-0' : 'invisible -translate-x-full',
-                )}
-                id="navigation"
-              >
-                <button
-                  aria-label="Cerrar navigación"
-                  className={
-                    'flex h-16 w-16 items-center justify-center place-self-end text-sm font-medium text-white transition-[background-color] focus:outline-none lg:hidden'
-                  }
-                  onClick={close}
-                  type="button"
-                >
-                  <Icon name="x" />
-                </button>
-                <Navigation.Link onClick={close} to="/">
-                  <FormattedMessage defaultMessage="Inicio" id="HOME" />
-                </Navigation.Link>
-                <Navigation.Link onClick={close} to="/libros-violeta-reed">
-                  <FormattedMessage defaultMessage="Libros" id="BOOKS" />
-                </Navigation.Link>
-                <Navigation.Link onClick={close} to="/blog">
-                  <FormattedMessage defaultMessage="Blog" id="BLOG" />
-                </Navigation.Link>
-              </Navigation>
-            </Header.Left>
+    <>
+      <Header className="sticky top-0 z-50 w-full [animation:header] gap-x-16 py-1 [animation-range:0_250px] [animation-timeline:scroll()] max-sm:[animation:none]">
+        <button
+          className="absolute top-0 left-0 flex h-12 w-12 items-center justify-center md:hidden"
+          popoverTarget="navigation"
+          type="button"
+        >
+          <span className="sr-only">{t('Abrir navegación')}</span>
+          <Icon name="menu" />
+        </button>
+        <Navigation ref={navigationRef} id="navigation" popover="auto">
+          <button
+            className="absolute top-0 right-0 flex h-12 w-12 items-center justify-center text-sm font-medium text-white transition-[background-color] focus:outline-none md:hidden"
+            type="button"
+            onClick={closeNavigation}
+          >
+            <span className="sr-only">{t('Cerrar navegación')}</span>
+            <Icon name="x" />
+          </button>
+          <NavigationItem to="/">{t('Inicio')}</NavigationItem>
+          <NavigationItem to="/libros">{t('Mis libros')}</NavigationItem>
+        </Navigation>
 
+        <Link
+          aria-label="Violeta Reed"
+          className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80 xl:w-[300px]"
+          to="/"
+        >
+          <Logotype className="text-finn-900 h-full w-full" />
+        </Link>
+
+        <aside className="hidden items-center gap-3 md:flex">
+          {profile.social.map((link) => (
             <Link
-              aria-label="Violeta Reed"
-              className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80 xl:w-[300px]"
-              to="/"
+              key={link.name}
+              className={`opacity-50 saturate-0 !transition-[filter,opacity] hover:opacity-100 hover:saturate-100`}
+              style={{ color: `var(--color-${link.name})` }}
+              to={link.url}
             >
-              <Logotype className="h-full w-full text-purple-500" />
+              <Icon className="h-5" name={link.name} />
             </Link>
+          ))}
+        </aside>
+      </Header>
 
-            <Header.Right className="xl:px-12">
-              {profile.social.map((link) => (
-                <Header.Social key={link.name} name={link.name} url={link.url} />
-              ))}
-            </Header.Right>
-          </Header>
-          <Outlet />
-          <Footer>
-            {profile.social.map((link) => (
-              <Footer.Social className="md:hidden" key={link.name} name={link.name} url={link.url} />
-            ))}
-            <Footer.Copyright>
-              <FormattedMessage defaultMessage="Violeta Reed. All Rights Reserved" id="COPYRIGHT" />
-            </Footer.Copyright>
-          </Footer>
-        </Document>
-      </PreviewProvider>
-    </IntlProvider>
+      <Outlet />
+
+      <Footer className="gap-y-4">
+        <aside className="flex items-center gap-5 md:hidden">
+          {profile.social.map((link) => (
+            <Link
+              key={link.name}
+              className={`opacity-75 saturate-50`}
+              style={{ color: `var(--color-${link.name})` }}
+              to={link.url}
+            >
+              <Icon className="h-5" name={link.name} />
+            </Link>
+          ))}
+        </aside>
+        <p className="text-center text-xs font-semibold">
+          <span className="text-finn-900 text-sm font-bold">
+            &copy; {year} Violeta Reed.
+          </span>{' '}
+          {t('Todos los derechos reservados')}
+        </p>
+      </Footer>
+    </>
   );
 };
 
-const ErrorBoundary = () => {
-  const error = useRouteError();
-
-  console.error(error);
-
+function ErrorBoundary() {
   return (
-    <Document>
+    <Layout>
       <p>Parece que algo no anda muy bien</p>
-    </Document>
+    </Layout>
   );
-};
+}
 
-export { ErrorBoundary, links, loader, meta };
-
+export { ErrorBoundary, Layout, links, loader, meta };
 export default App;

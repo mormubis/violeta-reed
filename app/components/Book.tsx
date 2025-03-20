@@ -1,18 +1,18 @@
-import React from 'react';
-
-import cx from 'classnames';
+import { clsx as cx } from 'clsx';
 import { FormattedMessage } from 'react-intl';
 
-import type { Asset } from '~/api/assets';
-import type { Book as BookType } from '~/api/books';
 import Heading from '~/components/Heading';
 import Section, { Content, Image, Title } from '~/components/Page/Section';
 
 import Cover from './Cover';
 import HTML from './HTML';
 
+import type React from 'react';
+import type { Asset } from '~/api/assets';
+import type { Book as BookType } from '~/api/books';
+
 type OwnProps = {
-  assets: { [key: string]: Asset };
+  assets: Record<string, Asset>;
   index?: number;
   landing?: boolean;
 };
@@ -43,7 +43,7 @@ const Book = ({
 
   return (
     <Section {...props} as="article" index={index} style={style}>
-      <div id={slug} className="absolute -top-16 z-10 lg:-top-32" />
+      <div className="absolute -top-16 z-10 lg:-top-32" id={slug} />
       <Image>
         <Cover className="h-64 md:h-auto" title={cover.description ?? title} url={cover.url} />
       </Image>
@@ -90,10 +90,10 @@ const Book = ({
               return (
                 asset && (
                   <a
+                    key={link.url}
                     aria-label={link.name}
                     className={cx(landing && index === 0 && 'md:col-start-3')}
                     href={link.url}
-                    key={link.url}
                     rel="noreferrer"
                     target="_blank"
                   >

@@ -1,9 +1,9 @@
-import React from 'react';
+import { clsx as cx } from 'clsx';
 
-import cx from 'classnames';
-
-import type { Props as GlobalProps } from '~/components/Heading';
 import GlobalHeading from '~/components/Heading';
+
+import type React from 'react';
+import type { Props as GlobalProps } from '~/components/Heading';
 
 type Props<E extends React.ElementType> = Omit<GlobalProps<E>, 'level'>;
 
