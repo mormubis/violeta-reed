@@ -63,5 +63,6 @@
     "typecheck": "react-router typegen && tsc",
     "codegen": "graphql-codegen --config codegen.ts"
   },
-  "type": "module"
+  "type": "module",
+  "version": "1.0.0"
 }
