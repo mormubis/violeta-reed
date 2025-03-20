@@ -62,10 +62,12 @@ const cache = new Cache<'profile', Profile, LoaderParams>({
       avatar: profile.avatar?.url ?? '',
       books: profile.books?.url ?? '',
       name: profile?.name ?? 'Violeta Reed',
-      social: social.map((item) => ({
-        name: item?.name?.toLocaleLowerCase(),
-        url: item?.url ?? '',
-      })),
+      social: social
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((item: any) => ({
+          name: item.name.toLocaleLowerCase(),
+          url: item.url!,
+        })),
     };
   },
   max: 1,
