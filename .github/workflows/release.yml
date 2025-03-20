@@ -53,3 +53,10 @@ jobs:
 
       - name: 📥 Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: 📦 Build
+        run: pnpm run build
+
+        # Upload s3
+      - name: 📤 Upload release
+        run: aws s3 sync ./build s3://violeta-reed
