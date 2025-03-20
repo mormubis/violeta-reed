@@ -63,7 +63,7 @@ jobs:
 
         # Upload s3
       - name: 📤 Upload release
-        run: aws s3 sync ./build/ s3://violeta-reed
+        run: aws s3 sync ./build/client s3://violeta-reed
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
