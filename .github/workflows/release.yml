@@ -56,7 +56,15 @@ jobs:
 
       - name: 📦 Build
         run: pnpm run build
+        env:
+          VITE_CONTENTFUL_SPACE_ID: ${{ vars.VITE_CONTENTFUL_SPACE_ID }}
+          VITE_CONTENTFUL_DELIVERY_TOKEN:
+            ${{ secrets.VITE_CONTENTFUL_DELIVERY_TOKEN }}
 
         # Upload s3
       - name: 📤 Upload release
         run: aws s3 sync ./build s3://violeta-reed
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
