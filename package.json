@@ -64,5 +64,5 @@
     "translations": "formatjs extract \"app/**/*.ts*\" --format simple --ignore=\"**/*.d.ts\" --out-file=\"app/translations/es.json\""
   },
   "type": "module",
-  "version": "1.0.7"
+  "version": "1.0.8"
 }
