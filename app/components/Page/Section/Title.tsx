@@ -7,7 +7,6 @@ import context from './context';
 
 import type { ComponentPropsWithoutRef } from 'react';
 
-
 const Title = ({
   className,
   ...props
@@ -20,7 +19,7 @@ const Title = ({
       {...props}
       className={cx(
         className,
-        'uppercase text-[color:var(--color)]',
+        'text-[color:var(--color)] uppercase',
         isEven && 'md:order-1',
       )}
     />

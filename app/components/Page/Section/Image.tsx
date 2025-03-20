@@ -14,7 +14,7 @@ const Image = ({ className, ...props }: ComponentPropsWithoutRef<'figure'>) => {
       {...props}
       className={cx(
         className,
-        'row-span-2 flex self-center justify-center',
+        'row-span-2 flex justify-center self-center',
         isEven && 'md:order-2',
       )}
     />

@@ -8,7 +8,7 @@ const Content = ({
 }: ComponentPropsWithoutRef<'section'>) => (
   <section
     {...props}
-    className={cx(className, 'md:order-3 flex flex-col gap-y-3 md:gap-y-5')}
+    className={cx(className, 'flex flex-col gap-y-3 md:order-3 md:gap-y-5')}
   />
 );
 

@@ -1,37 +1,43 @@
 fragment Book on Book {
-    checkoutCollection {
-        items {
-            name
-            url
-        }
+  checkoutCollection {
+    items {
+      name
+      url
     }
-    color
-    cover {
-        description
-        url(transform: { format: WEBP, width: 600 })
-    }
-    publishedAt
-    series {
-        title
-    }
-    slug
-    synopsis {
-        json
-    }
-    tagline
+  }
+  color
+  cover {
+    description
+    url(transform: { format: WEBP, width: 600 })
+  }
+  publishedAt
+  series {
     title
+  }
+  slug
+  synopsis {
+    json
+  }
+  tagline
+  title
 }
 
-query Books($index: Int, $limit: Int, $preview: Boolean, $publishedAt: DateTime, $slug: String) {
-    bookCollection(
-        limit: $limit
-        preview: $preview
-        skip: $index
-        order: publishedAt_ASC
-        where: { publishedAt_lte: $publishedAt, slug: $slug }
-    ) {
-        items {
-            ...Book
-        }
+query Books(
+  $index: Int
+  $limit: Int
+  $preview: Boolean
+  $publishedAt: DateTime
+  $slug: String
+) {
+  bookCollection(
+    limit: $limit
+    preview: $preview
+    skip: $index
+    order: publishedAt_ASC
+    where: { publishedAt_lte: $publishedAt, slug: $slug }
+  ) {
+    items {
+      ...Book
     }
+  }
 }

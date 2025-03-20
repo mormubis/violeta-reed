@@ -1,11 +1,21 @@
 query Assets($preview: Boolean) {
-    assetCollection(
-        preview: $preview
-        where: { title_in: ["amazon", "apple", "casadellibro", "elcorteingles", "fnac", "google", "penguin"] }
-    ) {
-        items {
-            title
-            url(transform: { format: WEBP, width: 100 })
-        }
+  assetCollection(
+    preview: $preview
+    where: {
+      title_in: [
+        "amazon"
+        "apple"
+        "casadellibro"
+        "elcorteingles"
+        "fnac"
+        "google"
+        "penguin"
+      ]
     }
+  ) {
+    items {
+      title
+      url(transform: { format: WEBP, width: 100 })
+    }
+  }
 }

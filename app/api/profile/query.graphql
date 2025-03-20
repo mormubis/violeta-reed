@@ -1,49 +1,49 @@
 fragment AboutLinks on ProfileAboutLinks {
-    assets {
-        block {
-            contentType
-            description
-            height
-            sys {
-                id
-            }
-            title
-            url(transform: { format: WEBP })
-            width
-        }
+  assets {
+    block {
+      contentType
+      description
+      height
+      sys {
+        id
+      }
+      title
+      url(transform: { format: WEBP })
+      width
     }
-    entries {
-        block {
-            __typename
-            sys {
-                id
-            }
-        }
+  }
+  entries {
+    block {
+      __typename
+      sys {
+        id
+      }
     }
+  }
 }
 
 query Profile($preview: Boolean) {
-    profileCollection(limit: 1, preview: $preview) {
-        items {
-            about {
-                json
-                links {
-                    ...AboutLinks
-                }
-            }
-            avatar {
-                url(transform: { format: WEBP, width: 600 })
-            }
-            books {
-                url(transform: { format: WEBP, width: 600 })
-            }
-            name
-            socialCollection {
-                items {
-                    name
-                    url
-                }
-            }
+  profileCollection(limit: 1, preview: $preview) {
+    items {
+      about {
+        json
+        links {
+          ...AboutLinks
         }
+      }
+      avatar {
+        url(transform: { format: WEBP, width: 600 })
+      }
+      books {
+        url(transform: { format: WEBP, width: 600 })
+      }
+      name
+      socialCollection {
+        items {
+          name
+          url
+        }
+      }
     }
+  }
 }
