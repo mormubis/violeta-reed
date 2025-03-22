@@ -1,5 +1,6 @@
+import * as i18n from 'i18next';
 import { useCallback, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+import { initReactI18next, useTranslation } from 'react-i18next';
 import {
   Links,
   Meta,
@@ -12,6 +13,8 @@ import {
 
 import metaFetcher from '~/api/meta';
 import profileFetcher from '~/api/profile';
+import QUOTES from '~/api/quotes';
+import Heading from '~/components/Heading';
 import Icon from '~/components/Icon';
 import Footer from '~/components/layout/Footer';
 import Header from '~/components/layout/Header';
@@ -20,10 +23,21 @@ import Navigation, {
 } from '~/components/layout/Navigation';
 import Link from '~/components/Link';
 import Logotype from '~/components/Logotype';
+import Quote from '~/components/Quote';
 
 import type { Route } from './+types/root';
 import type { ReactNode } from 'react';
+
 import './app.css';
+
+i18n.use(initReactI18next).init({
+  fallbackLng: 'es',
+  interpolation: {
+    escapeValue: false,
+  },
+  lng: 'es',
+  resources: {},
+});
 
 const links: Route.LinksFunction = () => [
   // Connect Google Fonts
@@ -77,7 +91,7 @@ const meta: Route.MetaFunction = ({ data, location }: Route.MetaArgs) => {
 };
 
 const Layout = ({ children }: { children: ReactNode }) => (
-  <html lang="en">
+  <html lang="es">
     <head>
       <meta charSet="utf-8" />
       <meta content="width=device-width,initial-scale=1" name="viewport" />
@@ -192,10 +206,41 @@ const App = () => {
 };
 
 function ErrorBoundary() {
+  const { t } = useTranslation();
+
+  const year = new Date().getFullYear();
+
   return (
-    <Layout>
-      <p>Parece que algo no anda muy bien</p>
-    </Layout>
+    <>
+      <main className="flex grow flex-col gap-y-4 px-4 md:px-4">
+        <Link
+          aria-label="Violeta Reed"
+          className="flex w-[250px] transition-[opacity,stroke] hover:stroke-black hover:opacity-80 focus-visible:stroke-black focus-visible:opacity-80 xl:w-[300px]"
+          to="/"
+        >
+          <Logotype className="text-finn-900 h-full w-full" />
+        </Link>
+
+        <Heading>{t('La página que buscar no existe.')}</Heading>
+        <Heading level={2}>
+          {t('Espero que esta cita te ayude en tu camino.')}
+        </Heading>
+
+        <Quote
+          {...QUOTES[Math.floor(Math.random() * QUOTES.length)]}
+          className="max-w-64"
+        />
+      </main>
+
+      <Footer className="gap-y-4">
+        <p className="text-center text-xs font-semibold">
+          <span className="text-finn-900 text-sm font-bold">
+            &copy; {year} Violeta Reed.
+          </span>{' '}
+          {t('Todos los derechos reservados')}
+        </p>
+      </Footer>
+    </>
   );
 }
 
