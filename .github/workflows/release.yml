@@ -4,22 +4,9 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  check:
-    name: ✅ Check version
-    outputs:
-      changed: ${{ steps.check.outputs.changed }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
-
-      - id: check
-        uses: EndBug/version-check@v2
-        with:
-          diff-search: true
-
   format:
     name: 👔 Format
     uses: ./.github/workflows/format.yml
@@ -34,7 +21,7 @@ jobs:
       id-token: write
       contents: read
     runs-on: ubuntu-latest
-    needs: [check, format, lint]
+    needs: [format, lint]
     if: needs.check.outputs.changed == 'true'
     steps:
       - name: ⬇️ Checkout code
