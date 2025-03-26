@@ -55,8 +55,8 @@ importers:
         specifier: ^9.23.0
         version: 9.23.0
       '@formatjs/cli':
-        specifier: ^6.6.1
-        version: 6.6.1
+        specifier: ^6.6.3
+        version: 6.6.3
       '@graphql-codegen/cli':
         specifier: ^5.0.5
         version: 5.0.5(@types/node@22.13.13)(graphql@16.8.1)(typescript@5.8.2)
@@ -560,10 +560,6 @@ packages:
     resolution: {integrity: sha512-gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/js@9.22.0':
-    resolution: {integrity: sha512-vLFajx9o8d1/oL2ZkpMYbkLv8nDB6yaIwFNt7nI4+I80U/z03SxmfOMsLbvWr3p7C+Wnoh//aOu2pQW8cS0HCQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
   '@eslint/js@9.23.0':
     resolution: {integrity: sha512-35MJ8vCPU0ZMxo7zfev2pypqTwWTofFZO6m4KAtdoFhRpLJUpHTZZ+KB3C7Hb1d7bULYwO4lJXGCi5Se+8OMbw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -591,19 +587,19 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
-  '@formatjs/cli@6.6.1':
-    resolution: {integrity: sha512-zzAIcIyM7urVm9hgH0h1E6/SvbkkHJ3+99VNWKiik3DE8xqnM7/bJODSvk+8w9GfrEYkX1EyvUzcu+v4hgdKdg==}
+  '@formatjs/cli@6.6.3':
+    resolution: {integrity: sha512-vW9EQdHmxQg/+s9K39ZwKcIyyhmEMHOtsv1KyQFtjv+pbE3XmiB5ohoo4wAx3HDsrufrTsplGnQdQ+KB2wY/bA==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
       '@glimmer/env': ^0.1.7
-      '@glimmer/reference': ^0.91.1 || ^0.92.0 || ^0.93.0
-      '@glimmer/syntax': ^0.92.0 || ^0.93.0
-      '@glimmer/validator': ^0.92.0 || ^0.93.0
-      '@vue/compiler-core': ^3.4.0
-      content-tag: ^2.0.1 || ^3.0.0
-      ember-template-recast: ^6.1.4
-      vue: ^3.4.0
+      '@glimmer/reference': ^0.94.0
+      '@glimmer/syntax': ^0.94.9
+      '@glimmer/validator': ^0.94.0
+      '@vue/compiler-core': ^3.5.12
+      content-tag: ^3.0.0
+      ember-template-recast: ^6.1.5
+      vue: ^3.5.12
     peerDependenciesMeta:
       '@glimmer/env':
         optional: true
@@ -5004,8 +5000,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@9.22.0': {}
-
   '@eslint/js@9.23.0': {}
 
   '@eslint/object-schema@2.1.6': {}
@@ -5032,7 +5026,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@formatjs/cli@6.6.1': {}
+  '@formatjs/cli@6.6.3': {}
 
   '@formatjs/ecma402-abstract@2.3.3':
     dependencies:
