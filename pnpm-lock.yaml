@@ -52,8 +52,8 @@ importers:
         version: 7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.22.0
+        specifier: ^9.23.0
+        version: 9.23.0
       '@formatjs/cli':
         specifier: ^6.6.1
         version: 6.6.1
