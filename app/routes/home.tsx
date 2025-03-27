@@ -5,6 +5,7 @@ import assetFetcher from '~/api/assets';
 import booksFetcher from '~/api/books';
 import profileFetcher from '~/api/profile';
 import Book from '~/components/Book';
+import Cover from '~/components/Cover';
 import HTML from '~/components/HTML';
 import Link from '~/components/Link';
 import Page from '~/components/Page';
@@ -81,7 +82,7 @@ const Index = () => {
   const cover = presale ?? last;
 
   return (
-    <Page className="!gap-y-0 !pt-0">
+    <Page className="!pt-0">
       {cover && <Book {...cover} landing assets={assets} index={0} />}
       <Section className="[--color:#f2c073]" index={1}>
         <Title
@@ -92,15 +93,30 @@ const Index = () => {
         </Title>
         <Content className="max-sm:order-3">
           {t('¿Quieres conocer mis otras novelas?')}
-          <Link to="/libros">{t('Pincha aquí')}</Link>
+          <Link to="/libros">
+            <ul className="flex gap-2">
+              <li>
+                <Cover
+                  title="Yo también no es te quiero"
+                  url="https://images.ctfassets.net/v1kazl7nd6vv/5d0YlmBPgaPWLfTmxU7Vks/273e807c2ace4a3ec1b5f96e9f5b3cbb/DEF_GR65737-Frontal-Yo_tambien_no_es_te_quiero__1_.jpg?w=600&fm=webp"
+                />
+              </li>
+              <li>
+                <Cover
+                  title="Quizá si quiero"
+                  url="https://images.ctfassets.net/v1kazl7nd6vv/4dvqRHOAWtW4Zh6eKTFCb2/75af8fe5f5bed29a613ba96ad1aa4fc8/GR67625-Frontal-Quizas_si_quiero-OK2__2_.jpg?w=600&fm=webp"
+                />
+              </li>
+              <li>
+                <Cover
+                  title="Cien razones para odiarte"
+                  url="https://images.ctfassets.net/v1kazl7nd6vv/6NY8Zx9VfptgGMfWO6uRCb/d2454cf61a1fc44d6be62cf20730a104/BS73037-FRONTAL-Cien_razones_para_odiarte-OK__2_.jpg?w=600&fm=webp"
+                />
+              </li>
+            </ul>
+          </Link>
         </Content>
-        <Image className="max-sm:order-1">
-          <img
-            alt={profile.name}
-            className="object-cover p-4"
-            src={profile.books}
-          />
-        </Image>
+        <Image className="max-sm:order-1" />
       </Section>
       <Section className="[--color:var(--color-finn-900)]" index={2}>
         <Image>

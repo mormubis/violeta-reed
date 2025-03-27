@@ -46,7 +46,7 @@ const Book = ({
       <div className="absolute -top-16 z-10 lg:-top-32" id={slug} />
       <Image>
         <Cover
-          className="h-64 border border-[hsl(from_var(--color)_h_calc(s_/_1.25)_l)] md:h-auto md:border-2"
+          className="h-64 border border-[hsl(from_var(--color)_h_calc(s_/_1.25)_l)] transition-all duration-700 md:h-auto md:border-2 starting:translate-y-1/2 starting:opacity-0"
           title={cover.description ?? title}
           url={cover.url}
         />

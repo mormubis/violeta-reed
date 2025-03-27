@@ -144,7 +144,12 @@ const App = () => {
           <span className="sr-only">{t('Abrir navegación')}</span>
           <Icon name="menu" />
         </button>
-        <Navigation ref={navigationRef} id="navigation" popover="auto">
+        <Navigation
+          ref={navigationRef}
+          className="max-md:transition-transform max-md:starting:-translate-x-full"
+          id="navigation"
+          popover="auto"
+        >
           <button
             className="absolute top-0 right-0 flex h-12 w-12 items-center justify-center text-sm font-medium text-white transition-[background-color] focus:outline-none md:hidden"
             type="button"
@@ -165,7 +170,7 @@ const App = () => {
           <Logotype className="text-finn-900 h-full w-full" />
         </Link>
 
-        <aside className="hidden items-center gap-3 md:flex">
+        <aside className="hidden items-center gap-4 md:flex">
           {profile.social.map((link) => (
             <Link
               key={link.name}

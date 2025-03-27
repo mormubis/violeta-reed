@@ -8,7 +8,8 @@ const Page = ({ className, ...props }: Props) => (
   <main
     {...props}
     className={clsx(
-      'grid w-full max-w-screen-xl grow grid-cols-1 gap-y-5 overflow-x-hidden py-5 pb-10 md:gap-y-10 md:px-6 md:py-10',
+      'flex w-full grow flex-col items-center overflow-x-hidden py-4 pb-8',
+      'md:px-6 md:py-12',
       className,
     )}
   />

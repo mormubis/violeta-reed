@@ -32,8 +32,10 @@ const Books = () => {
   const { t } = useTranslation();
 
   return (
-    <Page className="!gap-y-0">
-      <Heading className="mb-5 px-4">{t('Mis libros')}</Heading>
+    <Page>
+      <Heading className="mb-4 w-full max-w-screen-xl px-4">
+        {t('Mis libros')}
+      </Heading>
       {books.map((book, index) => (
         <Book {...book} key={book.slug} assets={assets} index={index} />
       ))}
