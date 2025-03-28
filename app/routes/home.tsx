@@ -76,6 +76,16 @@ async function loader({ request }: Route.LoaderArgs) {
       }),
   ];
 
+  return { assets: logos, books, last, presale, profile };
+}
+
+const Index = () => {
+  const { assets, books, last, presale, profile } =
+    useLoaderData<typeof loader>();
+  const { t } = useTranslation();
+
+  const cover = presale ?? last;
+
   const previews = shuffle(books)
     .filter(
       (book) =>
@@ -87,16 +97,6 @@ async function loader({ request }: Route.LoaderArgs) {
       slug: book.slug,
       title: book.title,
     }));
-
-  return { assets: logos, last, presale, previews, profile };
-}
-
-const Index = () => {
-  const { assets, last, presale, previews, profile } =
-    useLoaderData<typeof loader>();
-  const { t } = useTranslation();
-
-  const cover = presale ?? last;
 
   return (
     <Page className="!pt-0">
