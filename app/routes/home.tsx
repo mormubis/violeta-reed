@@ -14,6 +14,10 @@ import Section, { Content, Image, Title } from '~/components/Page/Section';
 import type { Route } from './+types/home';
 import type { Asset } from '~/api/assets';
 
+function shuffle<T>(array: T[]) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
+
 async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const preview = Boolean(url.searchParams.get('preview'));
@@ -72,7 +76,13 @@ async function loader({ request }: Route.LoaderArgs) {
       }),
   ];
 
-  return { assets: logos, last, presale, profile };
+  const previews = shuffle(books).map((book) => ({
+    cover: book.cover.url,
+    slug: book.slug,
+    title: book.title,
+  }));
+
+  return { assets: logos, last, presale, previews, profile };
 }
 
 const Index = () => {
