@@ -77,6 +77,10 @@ async function loader({ request }: Route.LoaderArgs) {
   ];
 
   const previews = shuffle(books)
+    .filter(
+      (book) =>
+        book.publishedAt && new Date(book.publishedAt).getTime() < Date.now(),
+    )
     .slice(0, 3)
     .map((book) => ({
       cover: book.cover.url,
