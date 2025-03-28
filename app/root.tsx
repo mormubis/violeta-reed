@@ -226,7 +226,7 @@ function ErrorBoundary() {
           <Logotype className="text-finn-900 h-full w-full" />
         </Link>
 
-        <Heading>{t('La página que buscar no existe.')}</Heading>
+        <Heading>{t('La página que buscas no existe.')}</Heading>
         <Heading level={2}>
           {t('Espero que esta cita te ayude en tu camino.')}
         </Heading>
