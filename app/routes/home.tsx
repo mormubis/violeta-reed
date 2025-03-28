@@ -76,17 +76,20 @@ async function loader({ request }: Route.LoaderArgs) {
       }),
   ];
 
-  const previews = shuffle(books).map((book) => ({
-    cover: book.cover.url,
-    slug: book.slug,
-    title: book.title,
-  }));
+  const previews = shuffle(books)
+    .slice(0, 3)
+    .map((book) => ({
+      cover: book.cover.url,
+      slug: book.slug,
+      title: book.title,
+    }));
 
   return { assets: logos, last, presale, previews, profile };
 }
 
 const Index = () => {
-  const { assets, last, presale, profile } = useLoaderData<typeof loader>();
+  const { assets, last, presale, previews, profile } =
+    useLoaderData<typeof loader>();
   const { t } = useTranslation();
 
   const cover = presale ?? last;
@@ -103,28 +106,15 @@ const Index = () => {
         </Title>
         <Content className="max-sm:order-3">
           {t('¿Quieres conocer mis otras novelas?')}
-          <Link to="/libros">
-            <ul className="flex gap-2">
+          <ul className="flex gap-2">
+            {previews.map((book) => (
               <li>
-                <Cover
-                  title="Yo también no es te quiero"
-                  url="https://images.ctfassets.net/v1kazl7nd6vv/5d0YlmBPgaPWLfTmxU7Vks/273e807c2ace4a3ec1b5f96e9f5b3cbb/DEF_GR65737-Frontal-Yo_tambien_no_es_te_quiero__1_.jpg?w=600&fm=webp"
-                />
+                <Link key={book.slug} to={`/libros/#${book.slug}`}>
+                  <Cover title={book.title} url={book.cover} />
+                </Link>
               </li>
-              <li>
-                <Cover
-                  title="Quizá si quiero"
-                  url="https://images.ctfassets.net/v1kazl7nd6vv/4dvqRHOAWtW4Zh6eKTFCb2/75af8fe5f5bed29a613ba96ad1aa4fc8/GR67625-Frontal-Quizas_si_quiero-OK2__2_.jpg?w=600&fm=webp"
-                />
-              </li>
-              <li>
-                <Cover
-                  title="Cien razones para odiarte"
-                  url="https://images.ctfassets.net/v1kazl7nd6vv/6NY8Zx9VfptgGMfWO6uRCb/d2454cf61a1fc44d6be62cf20730a104/BS73037-FRONTAL-Cien_razones_para_odiarte-OK__2_.jpg?w=600&fm=webp"
-                />
-              </li>
-            </ul>
-          </Link>
+            ))}
+          </ul>
         </Content>
         <Image className="max-sm:order-1" />
       </Section>
