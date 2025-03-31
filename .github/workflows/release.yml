@@ -48,9 +48,18 @@ jobs:
           VITE_CONTENTFUL_DELIVERY_TOKEN:
             ${{ secrets.VITE_CONTENTFUL_DELIVERY_TOKEN }}
 
-        # Upload s3
       - name: 📤 Upload release
-        run: aws s3 sync ./build/client s3://violeta-reed --delete
+        run: |
+          aws s3 sync ./build/client s3://${{ vars.S3_BUCKET_NAME }} --delete --cache-control max-age=31536000,public
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
+          S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME }}
+
+      - name: 🔥Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
