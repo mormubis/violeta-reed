@@ -23,7 +23,7 @@
     "@rollup/plugin-graphql": "^2.0.5",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.1",
-    "@types/node": "^22.13.16",
+    "@types/node": "^22.13.17",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.1",
     "@typescript-eslint/parser": "^8.29.0",
