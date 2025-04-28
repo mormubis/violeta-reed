@@ -19,7 +19,7 @@
     "@formatjs/cli": "^6.6.4",
     "@graphql-codegen/cli": "^5.0.5",
     "@graphql-codegen/client-preset": "^4.8.0",
-    "@react-router/dev": "^7.4.1",
+    "@react-router/dev": "^7.5.2",
     "@rollup/plugin-graphql": "^2.0.5",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.4",
