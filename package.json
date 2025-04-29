@@ -2,7 +2,7 @@
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^17.0.0",
     "@contentful/rich-text-types": "^17.0.0",
-    "@react-router/node": "^7.5.2",
+    "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.2",
     "clsx": "^2.1.1",
     "graphql-request": "^7.1.2",
