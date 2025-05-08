@@ -66,7 +66,7 @@ const meta: Route.MetaFunction = ({ data, location }: Route.MetaArgs) => {
 
   const {
     description = 'Violeta Reed',
-    image = '/images/logotype.svg',
+    image = '/images/logotype.png',
     keywords = 'violeta reed, novelas, libros, novelas de amor, novela romantica',
     title = 'Violeta Reed',
   } = metadata ?? {};
