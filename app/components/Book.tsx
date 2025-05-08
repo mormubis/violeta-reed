@@ -67,7 +67,7 @@ const Book = ({
         <HTML className="max-w-none" content={synopsis} />
         {publishedDate && publishedDate > TODAY && (
           <p className="border-b-solid place-self-center border-b-2 border-[color:var(--color)] text-center text-xl">
-            {t('A la venta el {{ date }}', { date: publishedDate })}
+            {t('A la venta el { date, date, long }', { date: publishedDate })}
           </p>
         )}
         {checkout.length > 0 && (

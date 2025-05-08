@@ -1,4 +1,5 @@
 import * as i18n from 'i18next';
+import icu from 'i18next-icu';
 import { useCallback, useEffect, useRef } from 'react';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import {
@@ -30,14 +31,17 @@ import type { ReactNode } from 'react';
 
 import './app.css';
 
-i18n.use(initReactI18next).init({
-  fallbackLng: 'es',
-  interpolation: {
-    escapeValue: false,
-  },
-  lng: 'es',
-  resources: {},
-});
+i18n
+  .use(icu)
+  .use(initReactI18next)
+  .init({
+    fallbackLng: 'es',
+    interpolation: {
+      escapeValue: false,
+    },
+    lng: 'es',
+    resources: {},
+  });
 
 const links: Route.LinksFunction = () => [
   // Connect Google Fonts
