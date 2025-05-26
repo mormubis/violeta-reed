@@ -15,8 +15,8 @@ importers:
         specifier: ^17.0.0
         version: 17.0.0
       '@react-router/node':
-        specifier: ^7.6.0
-        version: 7.6.0(react-router@7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)
+        specifier: ^7.6.1
+        version: 7.6.1(react-router@7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)
       '@react-router/serve':
         specifier: ^7.5.2
         version: 7.5.2(react-router@7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)
@@ -1353,11 +1353,11 @@ packages:
       typescript:
         optional: true
 
-  '@react-router/node@7.6.0':
-    resolution: {integrity: sha512-agjDPUzisLdGJ7Q2lx/Z3OfdS2t1k6qv/nTvA45iahGsQJCMDvMqVoIi7iIULKQJwrn4HWjM9jqEp75+WsMOXg==}
+  '@react-router/node@7.6.1':
+    resolution: {integrity: sha512-RZ9IatEarjF1GSHV+OUHNaRKtfp27UXP2J8dVdax6K/UXHc45k3t9Zp6splqT88wob4CUt4loDQw/7srNvsQhQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      react-router: 7.6.0
+      react-router: 7.6.1
       typescript: ^5.1.0
     peerDependenciesMeta:
       typescript:
@@ -4415,8 +4415,8 @@ packages:
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
-  undici@6.21.2:
-    resolution: {integrity: sha512-uROZWze0R0itiAKVPsYhFov9LxrPMHLMEQFszeI2gCN6bnIIZ8twzBCJcN2LJrBBLfrP0t1FW0g+JmKVl8Vk1g==}
+  undici@6.21.3:
+    resolution: {integrity: sha512-gBLkYIlEnSp8pFbT64yFgGE6UIB9tAkhukC23PmMDCe5Nd+cRqKxSjw5y54MK2AZMgZfJWMaNE4nYUHgi1XEOw==}
     engines: {node: '>=18.17'}
 
   universalify@2.0.1:
@@ -6159,7 +6159,7 @@ snapshots:
       react-router: 7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       source-map-support: 0.5.21
       stream-slice: 0.1.2
-      undici: 6.21.2
+      undici: 6.21.3
     optionalDependencies:
       typescript: 5.8.3
 
@@ -6169,17 +6169,17 @@ snapshots:
       react-router: 7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       source-map-support: 0.5.21
       stream-slice: 0.1.2
-      undici: 6.21.2
+      undici: 6.21.3
     optionalDependencies:
       typescript: 5.8.3
 
-  '@react-router/node@7.6.0(react-router@7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)':
+  '@react-router/node@7.6.1(react-router@7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
       react-router: 7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       source-map-support: 0.5.21
       stream-slice: 0.1.2
-      undici: 6.21.2
+      undici: 6.21.3
     optionalDependencies:
       typescript: 5.8.3
 
@@ -9375,7 +9375,7 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-  undici@6.21.2: {}
+  undici@6.21.3: {}
 
   universalify@2.0.1: {}
 
