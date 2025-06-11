@@ -27,7 +27,7 @@
     "@types/node": "^24.0.0",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
-    "@typescript-eslint/parser": "^8.33.1",
+    "@typescript-eslint/parser": "^8.34.0",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-import-resolver-typescript": "^4.4.3",
