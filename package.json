@@ -16,7 +16,7 @@
     "react-router": "^7.5.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.27.0",
+    "@eslint/js": "^9.29.0",
     "@formatjs/cli": "^6.7.1",
     "@graphql-codegen/cli": "^5.0.7",
     "@graphql-codegen/client-preset": "^4.8.2",
