@@ -12,8 +12,8 @@ importers:
         specifier: ^17.0.0
         version: 17.0.0
       '@contentful/rich-text-types':
-        specifier: ^17.0.0
-        version: 17.0.0
+        specifier: ^17.0.1
+        version: 17.0.1
       '@react-router/node':
         specifier: ^7.6.1
         version: 7.6.1(react-router@7.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)
@@ -346,8 +346,8 @@ packages:
     resolution: {integrity: sha512-mJXZALvCbc9T4vVUN288xdWraio1n4dPZEkFbRjef3yXbVZBDALL/Ld3WY3saaNmn9AR9XOhnt4sOU8UxXy1AQ==}
     engines: {node: '>=6.0.0'}
 
-  '@contentful/rich-text-types@17.0.0':
-    resolution: {integrity: sha512-x50t6sILzFHBdFpAo0foJRnH8fHWyidheWhAv3uwt9aOnNqTh893gxyoc3Q0RVEZxXfHpTi+O9gmakHcdlRdTA==}
+  '@contentful/rich-text-types@17.0.1':
+    resolution: {integrity: sha512-T+btHJY9mdLeZ1Sn2GcWLiG93gwBvovBxR73/tjUeIYsosBM3dkOdMRKXzBV9ghcuE1q+QP0TbyxA77hYIF9Jw==}
     engines: {node: '>=6.0.0'}
 
   '@emnapi/core@1.4.3':
@@ -5070,10 +5070,10 @@ snapshots:
 
   '@contentful/rich-text-html-renderer@17.0.0':
     dependencies:
-      '@contentful/rich-text-types': 17.0.0
+      '@contentful/rich-text-types': 17.0.1
       escape-html: 1.0.3
 
-  '@contentful/rich-text-types@17.0.0':
+  '@contentful/rich-text-types@17.0.1':
     dependencies:
       is-plain-obj: 3.0.0
 
