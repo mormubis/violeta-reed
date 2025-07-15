@@ -12,8 +12,8 @@ importers:
         specifier: ^17.1.0
         version: 17.1.0
       '@contentful/rich-text-types':
-        specifier: ^17.0.1
-        version: 17.0.1
+        specifier: ^17.1.0
+        version: 17.1.0
       '@react-router/node':
         specifier: ^7.6.1
         version: 7.6.1(react-router@7.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)
@@ -340,10 +340,6 @@ packages:
 
   '@contentful/rich-text-html-renderer@17.1.0':
     resolution: {integrity: sha512-ALyLVFnZZNr5o7at/JuZk5Ve/AjLJfzPllTade66vYiev5J5wVVxHzESTQ3/0Xpg4dCeaB3JvM5YN/iEZoceyA==}
-    engines: {node: '>=6.0.0'}
-
-  '@contentful/rich-text-types@17.0.1':
-    resolution: {integrity: sha512-T+btHJY9mdLeZ1Sn2GcWLiG93gwBvovBxR73/tjUeIYsosBM3dkOdMRKXzBV9ghcuE1q+QP0TbyxA77hYIF9Jw==}
     engines: {node: '>=6.0.0'}
 
   '@contentful/rich-text-types@17.1.0':
@@ -4992,10 +4988,6 @@ snapshots:
     dependencies:
       '@contentful/rich-text-types': 17.1.0
       escape-html: 1.0.3
-
-  '@contentful/rich-text-types@17.0.1':
-    dependencies:
-      is-plain-obj: 3.0.0
 
   '@contentful/rich-text-types@17.1.0':
     dependencies:
