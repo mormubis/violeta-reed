@@ -30,8 +30,8 @@ importers:
         specifier: ^25.3.6
         version: 25.3.6(typescript@5.9.2)
       i18next-icu:
-        specifier: ^2.3.0
-        version: 2.3.0(intl-messageformat@10.7.16)
+        specifier: ^2.4.0
+        version: 2.4.0(intl-messageformat@10.7.16)
       isbot:
         specifier: ^5.1.30
         version: 5.1.30
@@ -2924,8 +2924,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  i18next-icu@2.3.0:
-    resolution: {integrity: sha512-x+j7kd5nDJCfbU53uwsMfXD7ALPu5uv0bqjAMQ5nVvXRoj1L7gkmswKtM3XDWYo4YUHf1jznlhSdPyy0xEwU+Q==}
+  i18next-icu@2.4.0:
+    resolution: {integrity: sha512-LnoZOVS/lp2l4jOMVq2vN/LPf1oGi7sMovdcnKiVjcs7Ysek61rkXMOVEbPZ/3N990uToZpKe6kNE1t2wxcsfA==}
     peerDependencies:
       intl-messageformat: ^10.3.3
 
@@ -7905,7 +7905,7 @@ snapshots:
 
   husky@9.1.7: {}
 
-  i18next-icu@2.3.0(intl-messageformat@10.7.16):
+  i18next-icu@2.4.0(intl-messageformat@10.7.16):
     dependencies:
       intl-messageformat: 10.7.16
 
