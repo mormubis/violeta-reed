@@ -12,8 +12,8 @@ importers:
         specifier: ^17.1.1
         version: 17.1.1(babel-plugin-macros@3.1.0)
       '@contentful/rich-text-types':
-        specifier: ^17.1.0
-        version: 17.1.0
+        specifier: ^17.2.0
+        version: 17.2.0(babel-plugin-macros@3.1.0)
       '@react-router/node':
         specifier: ^7.6.1
         version: 7.6.1(react-router@7.6.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)
@@ -344,10 +344,6 @@ packages:
 
   '@contentful/rich-text-html-renderer@17.1.1':
     resolution: {integrity: sha512-3+KId6PiG+PjSlK7TwLNwaYQx4C2mTRt/RpTl2OBgUzEbdVTHWxktBX5Gkd+d9ul6Lg8gp+XDSR1u6iJrXJTpA==}
-    engines: {node: '>=6.0.0'}
-
-  '@contentful/rich-text-types@17.1.0':
-    resolution: {integrity: sha512-L0rok1VoMUbtQPJefR0Oxr5z1ow9/ZDIvuNWu16VT4IVVOKkeL4sVsjNj08cCT3ON+HUUzbPWVzyTuyvee2TSg==}
     engines: {node: '>=6.0.0'}
 
   '@contentful/rich-text-types@17.2.0':
@@ -5065,10 +5061,6 @@ snapshots:
     transitivePeerDependencies:
       - '@lingui/babel-plugin-lingui-macro'
       - babel-plugin-macros
-
-  '@contentful/rich-text-types@17.1.0':
-    dependencies:
-      is-plain-obj: 3.0.0
 
   '@contentful/rich-text-types@17.2.0(babel-plugin-macros@3.1.0)':
     dependencies:
