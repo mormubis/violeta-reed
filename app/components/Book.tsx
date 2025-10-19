@@ -78,7 +78,7 @@ const Book = ({
             {checkout
               .filter((link) =>
                 landing
-                  ? ['Amazon', 'Casa del Libro', 'Penguin'].some((store) =>
+                  ? ['Amazon', 'Casa del Libro', 'FNAC'].some((store) =>
                       link.name.includes(store),
                     )
                   : true,
