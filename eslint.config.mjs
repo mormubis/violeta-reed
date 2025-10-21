@@ -4,7 +4,7 @@ import { globalIgnores } from 'eslint/config';
 import prettier from 'eslint-config-prettier';
 import importing from 'eslint-plugin-import-x';
 import react from 'eslint-plugin-react';
-import * as hooks from 'eslint-plugin-react-hooks';
+import hooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import * as typescript from 'typescript-eslint';
 
@@ -32,7 +32,7 @@ export default typescript.config(
     plugins: { import: importing },
     rules: {
       // We use prettier everywhere else
-      // eslint-disable-next-line import-x/no-named-as-default-member
+
       ...prettier.rules,
       'arrow-body-style': ['error', 'as-needed'],
       'import/order': [

@@ -1,6 +1,6 @@
 import * as i18n from 'i18next';
 import icu from 'i18next-icu';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import {
   Links,
@@ -219,6 +219,10 @@ function ErrorBoundary() {
 
   const year = new Date().getFullYear();
 
+  const [quote] = useState(
+    () => QUOTES[Math.floor(Math.random() * QUOTES.length)],
+  );
+
   return (
     <>
       <main className="flex grow flex-col gap-y-4 px-4 md:px-4">
@@ -235,10 +239,7 @@ function ErrorBoundary() {
           {t('Espero que esta cita te ayude en tu camino.')}
         </Heading>
 
-        <Quote
-          {...QUOTES[Math.floor(Math.random() * QUOTES.length)]}
-          className="max-w-64"
-        />
+        <Quote {...quote} className="max-w-64" />
       </main>
 
       <Footer className="gap-y-4">

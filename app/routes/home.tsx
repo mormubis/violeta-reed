@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router';
 
@@ -84,12 +85,14 @@ const Index = () => {
     useLoaderData<typeof loader>();
   const { t } = useTranslation();
 
+  const [today] = useState(() => Date.now());
+
   const cover = presale ?? last;
 
   const previews = shuffle(books)
     .filter(
       (book) =>
-        book.publishedAt && new Date(book.publishedAt).getTime() < Date.now(),
+        book.publishedAt && new Date(book.publishedAt).getTime() < today,
     )
     .slice(0, 3)
     .map((book) => ({
