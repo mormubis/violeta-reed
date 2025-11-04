@@ -12,8 +12,8 @@ importers:
         specifier: ^17.1.1
         version: 17.1.5(babel-plugin-macros@3.1.0)
       '@contentful/rich-text-types':
-        specifier: ^17.2.0
-        version: 17.2.4(babel-plugin-macros@3.1.0)
+        specifier: ^17.2.5
+        version: 17.2.5(babel-plugin-macros@3.1.0)
       '@react-router/node':
         specifier: ^7.6.1
         version: 7.9.4(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(typescript@5.9.3)
@@ -330,8 +330,8 @@ packages:
     resolution: {integrity: sha512-G3p3u1NnlK4irqQkTLJxqeWfu7yV1NkyZYo+CoVdigPF4EvLaVPUdhoNl6qJyDeipQc8SVyCX9TPWn4eVygYDw==}
     engines: {node: '>=6.0.0'}
 
-  '@contentful/rich-text-types@17.2.4':
-    resolution: {integrity: sha512-3y456l+x5aPzqcvjpG6L66sIkfH66rBl1QtGKexgJ3Nvd6k4ORvpAJ6gMDBz3WMAYvXGrVZMyhlFE0e6UdHngA==}
+  '@contentful/rich-text-types@17.2.5':
+    resolution: {integrity: sha512-EA5vTfROZePoPmSlqLVd+luL/ev8CjnI20y6vWFVPlLRxQbv4XytXRzatydPE63CqfsPylF7NCn2z8rTLhnWfg==}
     engines: {node: '>=6.0.0'}
 
   '@emnapi/core@1.5.0':
@@ -1077,11 +1077,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@lingui/core@5.5.1':
-    resolution: {integrity: sha512-jxmeLTnKKbnVaLUllHpnM3XolFipHqgr0hQkuAj5+SGTGimaHx6RyGm/YL5FxWeYMt7wRRoH86SIJ3sn44pxAw==}
+  '@lingui/core@5.5.2':
+    resolution: {integrity: sha512-YhKdfXOSEr64mEsPL7DbgGhoXJhI+DSysZHA43K9ZuG322JEql+luvRZpH/NobLBMiM1SjoLVWazEsqIkGuPDQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      '@lingui/babel-plugin-lingui-macro': 5.5.1
+      '@lingui/babel-plugin-lingui-macro': 5.5.2
       babel-plugin-macros: 2 || 3
     peerDependenciesMeta:
       '@lingui/babel-plugin-lingui-macro':
@@ -1089,8 +1089,8 @@ packages:
       babel-plugin-macros:
         optional: true
 
-  '@lingui/message-utils@5.5.1':
-    resolution: {integrity: sha512-RV3WjkSDTYIhNQwAj5MUHjpfOgPJFBXDuBW3aFZZmPqAkFrSJJbrKxVmBoja59b3CEX5QuCGOHnijrCehBpU+w==}
+  '@lingui/message-utils@5.5.2':
+    resolution: {integrity: sha512-0/xu0nAzYm4ZLUHAdowkTLcP2iM+UOuFEpIsJ40iOIYgHeub1idtn8EFnliCiN83rfrcMaPK63MgGKmyTI4Umg==}
     engines: {node: '>=20.0.0'}
 
   '@messageformat/parser@5.1.1':
@@ -4910,15 +4910,15 @@ snapshots:
 
   '@contentful/rich-text-html-renderer@17.1.5(babel-plugin-macros@3.1.0)':
     dependencies:
-      '@contentful/rich-text-types': 17.2.4(babel-plugin-macros@3.1.0)
+      '@contentful/rich-text-types': 17.2.5(babel-plugin-macros@3.1.0)
       escape-html: 1.0.3
     transitivePeerDependencies:
       - '@lingui/babel-plugin-lingui-macro'
       - babel-plugin-macros
 
-  '@contentful/rich-text-types@17.2.4(babel-plugin-macros@3.1.0)':
+  '@contentful/rich-text-types@17.2.5(babel-plugin-macros@3.1.0)':
     dependencies:
-      '@lingui/core': 5.5.1(babel-plugin-macros@3.1.0)
+      '@lingui/core': 5.5.2(babel-plugin-macros@3.1.0)
       is-plain-obj: 3.0.0
     transitivePeerDependencies:
       - '@lingui/babel-plugin-lingui-macro'
@@ -5796,14 +5796,14 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@lingui/core@5.5.1(babel-plugin-macros@3.1.0)':
+  '@lingui/core@5.5.2(babel-plugin-macros@3.1.0)':
     dependencies:
       '@babel/runtime': 7.28.4
-      '@lingui/message-utils': 5.5.1
+      '@lingui/message-utils': 5.5.2
     optionalDependencies:
       babel-plugin-macros: 3.1.0
 
-  '@lingui/message-utils@5.5.1':
+  '@lingui/message-utils@5.5.2':
     dependencies:
       '@messageformat/parser': 5.1.1
       js-sha256: 0.10.1
