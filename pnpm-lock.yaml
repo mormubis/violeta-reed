@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@contentful/rich-text-html-renderer':
-        specifier: ^17.1.1
-        version: 17.1.5(babel-plugin-macros@3.1.0)
+        specifier: ^17.1.6
+        version: 17.1.6(babel-plugin-macros@3.1.0)
       '@contentful/rich-text-types':
         specifier: ^17.2.5
         version: 17.2.5(babel-plugin-macros@3.1.0)
@@ -326,8 +326,8 @@ packages:
       react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@contentful/rich-text-html-renderer@17.1.5':
-    resolution: {integrity: sha512-G3p3u1NnlK4irqQkTLJxqeWfu7yV1NkyZYo+CoVdigPF4EvLaVPUdhoNl6qJyDeipQc8SVyCX9TPWn4eVygYDw==}
+  '@contentful/rich-text-html-renderer@17.1.6':
+    resolution: {integrity: sha512-q1tdl9sdP3VYF/8GmQIkSLq5kcFSJGKzWpXO39Nyw4AXrT70gT/pC4wIFUjb75jf67uga3OGz7JBzdKy4NtkNA==}
     engines: {node: '>=6.0.0'}
 
   '@contentful/rich-text-types@17.2.5':
@@ -4945,7 +4945,7 @@ snapshots:
       react-lifecycles-compat: 3.0.4
       warning: 3.0.0
 
-  '@contentful/rich-text-html-renderer@17.1.5(babel-plugin-macros@3.1.0)':
+  '@contentful/rich-text-html-renderer@17.1.6(babel-plugin-macros@3.1.0)':
     dependencies:
       '@contentful/rich-text-types': 17.2.5(babel-plugin-macros@3.1.0)
       escape-html: 1.0.3
