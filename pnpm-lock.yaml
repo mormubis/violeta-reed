@@ -24,8 +24,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       graphql-request:
-        specifier: ^7.2.0
-        version: 7.3.1(graphql@16.11.0)
+        specifier: ^7.3.3
+        version: 7.3.3(graphql@16.11.0)
       i18next:
         specifier: ^25.6.2
         version: 25.6.2(typescript@5.9.3)
@@ -2907,8 +2907,8 @@ packages:
       cosmiconfig-toml-loader:
         optional: true
 
-  graphql-request@7.3.1:
-    resolution: {integrity: sha512-GdinBsBVYrWzwEvOlzadrV5j8mdOc9ZT8In9QyRIZaxbhkTL08j35yNbPp96jAacYzjeD/hKKy2E2RGI7c7Yug==}
+  graphql-request@7.3.3:
+    resolution: {integrity: sha512-I0ZSz53XTpDiQZ0/KGElwfnzIqsdNek/D6tcZgheL8QOVeSbkgE3qG7r1G/MKtnNenWtEjHbsDf2iPlXSWxFtw==}
     peerDependencies:
       graphql: 14 - 16
 
@@ -7833,7 +7833,7 @@ snapshots:
       - uWebSockets.js
       - utf-8-validate
 
-  graphql-request@7.3.1(graphql@16.11.0):
+  graphql-request@7.3.3(graphql@16.11.0):
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.11.0)
       graphql: 16.11.0
