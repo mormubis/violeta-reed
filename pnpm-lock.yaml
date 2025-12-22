@@ -55,8 +55,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@formatjs/cli':
-        specifier: ^6.8.2
-        version: 6.8.2
+        specifier: ^6.8.4
+        version: 6.8.4
       '@graphql-codegen/cli':
         specifier: ^6.1.0
         version: 6.1.0(@types/node@25.0.3)(graphql@16.11.0)(typescript@5.9.3)
@@ -540,8 +540,8 @@ packages:
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
 
-  '@formatjs/cli@6.8.2':
-    resolution: {integrity: sha512-gpfefG0gyt8rBA9aam6AZps0oUWg+I4rS9lWMLI7wVIMD2CEFqfMKTdTXIRYG5FLddKPqNVbfJseoJ4nMh907w==}
+  '@formatjs/cli@6.8.4':
+    resolution: {integrity: sha512-4dPSFa1cyNGKIItber00qDfrRTKLD3ZOozHyZ/YucudcpP5XwZofr6tN15Czr3zs+eYdPIaRnEAvBypBrMy38A==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
@@ -3193,12 +3193,6 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  lightningcss-linux-x64-musl@1.30.2:
-    resolution: {integrity: sha512-XJaLUUFXb6/QG2lGIW6aIk6jKdtjtcffUT0NKvIqhSBY3hh9Ch+1LCeH80dR9q9LBjG3ewbDjnumefsLsP6aiA==}
-    engines: {node: '>= 12.0.0'}
-    cpu: [x64]
-    os: [linux]
-
   lightningcss-win32-arm64-msvc@1.30.2:
     resolution: {integrity: sha512-FZn+vaj7zLv//D/192WFFVA0RgHawIcHqLX9xuWiQt7P0PtdFEVaxgF9rjM/IRYHQXNnk61/H/gb2Ei+kUQ4xQ==}
     engines: {node: '>= 12.0.0'}
@@ -4849,7 +4843,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@formatjs/cli@6.8.2': {}
+  '@formatjs/cli@6.8.4': {}
 
   '@formatjs/ecma402-abstract@2.3.6':
     dependencies:
@@ -7878,9 +7872,6 @@ snapshots:
   lightningcss-linux-x64-gnu@1.30.2:
     optional: true
 
-  lightningcss-linux-x64-musl@1.30.2:
-    optional: true
-
   lightningcss-win32-arm64-msvc@1.30.2:
     optional: true
 
@@ -7899,7 +7890,6 @@ snapshots:
       lightningcss-linux-arm64-gnu: 1.30.2
       lightningcss-linux-arm64-musl: 1.30.2
       lightningcss-linux-x64-gnu: 1.30.2
-      lightningcss-linux-x64-musl: 1.30.2
       lightningcss-win32-arm64-msvc: 1.30.2
       lightningcss-win32-x64-msvc: 1.30.2
 
