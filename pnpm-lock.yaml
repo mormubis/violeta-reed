@@ -55,8 +55,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@formatjs/cli':
-        specifier: ^6.12.1
-        version: 6.12.1
+        specifier: ^6.12.2
+        version: 6.12.2
       '@graphql-codegen/cli':
         specifier: ^6.1.1
         version: 6.1.1(@types/node@25.2.0)(graphql@16.11.0)(typescript@5.9.3)
@@ -597,8 +597,8 @@ packages:
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
 
-  '@formatjs/cli@6.12.1':
-    resolution: {integrity: sha512-fHCOP6N34gq6JIQ0iOMn8T+fV0uVSu0x4qHGf07xHIhJOpq61iuj+CMhAK2ikZBsjmDW6s/3eoQzJ2v9Vgp8Gw==}
+  '@formatjs/cli@6.12.2':
+    resolution: {integrity: sha512-y215aarLZXei3u1WDRAiet/VajgvUXzvz4ifPENDSPXfIog0aBJKtFvIU7EWbcFWy7rstbn5GcwwQW4F1G3TJg==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
@@ -4902,7 +4902,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@formatjs/cli@6.12.1': {}
+  '@formatjs/cli@6.12.2': {}
 
   '@formatjs/ecma402-abstract@2.3.6':
     dependencies:
